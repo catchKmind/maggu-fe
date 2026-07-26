@@ -1,14 +1,14 @@
 import { createBrowserRouter, createHashRouter } from 'react-router-dom'
-import { isNativeApp } from '../lib/platform'
+import { isNativeApp } from '../shared/lib/platform'
 import Layout from './Layout'
-import Home from '../pages/Home'
+import MapPage from '../pages/MapPage'
 
 const routes = [
   {
     path: '/',
     element: <Layout />,
     children: [
-      { index: true, element: <Home /> },
+      { index: true, element: <MapPage /> },
       // 라우트는 여기에 추가
     ],
   },
