@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import './styles/colors/colors.css';
+@import './styles/fonts/fonts.css';
 
 :root {
   /* 세이프에어리어 (노치/홈바 대응, 앱 래핑 대비) */

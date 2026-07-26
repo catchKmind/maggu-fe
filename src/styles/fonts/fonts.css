@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('./IBM_Plex_Sans/IBMPlexSans-VariableFont_wdth,wght.ttf') format('truetype-variations');
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('./IBM_Plex_Sans/IBMPlexSans-Italic-VariableFont_wdth,wght.ttf') format('truetype-variations');
+  font-weight: 100 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: 'IBM Plex Sans', sans-serif;
+
+  /* Primitive / Font Weight */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Primitive / Font Size */
+  --text-11: 11px;
+  --text-12: 12px;
+  --text-13: 13px;
+  --text-14: 14px;
+  --text-16: 16px;
+  --text-18: 18px;
+  --text-20: 20px;
+  --text-22: 22px;
+  --text-24: 24px;
+  --text-26: 26px;
+  --text-32: 32px;
+  --text-40: 40px;
+}
