@@ -1,0 +1,10 @@
+{
+  "placeholder": "지도",
+  "tags": {
+    "hotplace": "지금 인기",
+    "cafe": "카페",
+    "restaurant": "맛집",
+    "spot": "명소",
+    "accommodation": "숙소"
+  }
+}

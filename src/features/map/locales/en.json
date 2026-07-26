@@ -1,0 +1,10 @@
+{
+  "placeholder": "Map area",
+  "tags": {
+    "hotplace": "Hot Place",
+    "cafe": "Cafe",
+    "restaurant": "Good Restaurant",
+    "spot": "Tourist Spot",
+    "accommodation": "Accommodation"
+  }
+}
