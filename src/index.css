@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+
+:root {
+  /* 세이프에어리어 (노치/홈바 대응, 앱 래핑 대비) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  /* 웹뷰에서 스크롤 바운스/텍스트 선택 등 네이티브스러운 동작 */
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
