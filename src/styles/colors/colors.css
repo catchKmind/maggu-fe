@@ -1,0 +1,50 @@
+@theme {
+  /* Color - Primitive / Yellow */
+  --color-yellow-50: #fff7e8;
+  --color-yellow-100: #ffebc7;
+  --color-yellow-200: #ffd991;
+  --color-yellow-300: #ffc766;
+  --color-yellow-400: #ffb84d;
+  --color-yellow-500: #f59e2e;
+  --color-yellow-600: #d67e16;
+  --color-yellow-700: #a95f0f;
+  --color-yellow-800: #7a420b;
+  --color-yellow-900: #4f2906;
+
+  /* Color - Primitive / Teal */
+  --color-teal-50: #eaf9f7;
+  --color-teal-100: #d4f3ef;
+  --color-teal-200: #a9e7df;
+  --color-teal-300: #7ddbcf;
+  --color-teal-400: #58cbbe;
+  --color-teal-500: #3bb7a7;
+  --color-teal-600: #2f9488;
+  --color-teal-700: #247168;
+  --color-teal-800: #194f49;
+  --color-teal-900: #0f302c;
+
+  /* Color - Primitive / Gray */
+  --color-gray-50: #f7f8fa;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #a3a3a3;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #171717;
+  --color-gray-1000: #000000;
+
+  /* Color - Primitive / Purple */
+  --color-purple-50: #eef0ff;
+  --color-purple-100: #dde2ff;
+  --color-purple-200: #c3caff;
+  --color-purple-300: #9faaff;
+  --color-purple-400: #7c8aff;
+  --color-purple-500: #5b6cff;
+  --color-purple-600: #4654e6;
+  --color-purple-700: #3742b8;
+  --color-purple-800: #293189;
+  --color-purple-900: #1b205c;
+}
