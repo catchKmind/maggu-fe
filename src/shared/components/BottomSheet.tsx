@@ -20,6 +20,7 @@ interface BottomSheetProps {
 export function BottomSheet({ isOpen, onClose, onAdd, children }: BottomSheetProps) {
   const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState<StickerTab>('mySticker')
+  const activeTabIndex = TABS.findIndex((tab) => tab.key === activeTab)
   const [shouldRender, setShouldRender] = useState(isOpen)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -65,21 +66,26 @@ export function BottomSheet({ isOpen, onClose, onAdd, children }: BottomSheetPro
           <div className="h-1 w-9 rounded-full bg-gray-200" />
         </div>
 
-        <div className="flex gap-6 border-b border-gray-100 px-5">
+        <div className="relative flex border-b border-gray-100">
           {TABS.map((tab) => (
             <button
               key={tab.key}
               type="button"
               onClick={() => setActiveTab(tab.key)}
-              className={`border-b-2 pt-2 pb-3 text-18 transition-colors ${
-                activeTab === tab.key
-                  ? 'border-gray-900 font-semibold text-gray-900'
-                  : 'border-transparent font-medium text-gray-400'
+              className={`flex-1 pt-2 pb-3 text-center text-18 transition-colors ${
+                activeTab === tab.key ? 'font-semibold text-black' : 'font-medium text-gray-400'
               }`}
             >
               {t(tab.labelKey)}
             </button>
           ))}
+          <span
+            className="absolute bottom-0 h-0.5 bg-black transition-all duration-300 ease-out"
+            style={{
+              left: `calc(${activeTabIndex} * ${100 / TABS.length}% + 1rem)`,
+              width: `calc(${100 / TABS.length}% - 2rem)`,
+            }}
+          />
         </div>
 
         <div className="relative flex-1">
