@@ -2,6 +2,8 @@ import { createBrowserRouter, createHashRouter } from 'react-router-dom'
 import { isNativeApp } from '../shared/lib/platform'
 import Layout from './Layout'
 import MapPage from '../pages/MapPage'
+import CommunityPage from '../pages/CommunityPage'
+import MyPage from '../pages/MyPage'
 
 const routes = [
   {
@@ -9,6 +11,8 @@ const routes = [
     element: <Layout />,
     children: [
       { index: true, element: <MapPage /> },
+      { path: 'community', element: <CommunityPage /> },
+      { path: 'my-page', element: <MyPage /> },
       // 라우트는 여기에 추가
     ],
   },
