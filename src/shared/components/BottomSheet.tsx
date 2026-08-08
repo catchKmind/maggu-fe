@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Camera, type MediaResult } from '@capacitor/camera'
 
 type StickerTab = 'mySticker' | 'giphy'
 
@@ -13,7 +14,7 @@ const TRANSITION_MS = 300
 interface BottomSheetProps {
   isOpen: boolean
   onClose: () => void
-  onAdd?: () => void
+  onAdd?: (media: MediaResult) => void
   children?: ReactNode
 }
 
@@ -23,6 +24,18 @@ export function BottomSheet({ isOpen, onClose, onAdd, children }: BottomSheetPro
   const activeTabIndex = TABS.findIndex((tab) => tab.key === activeTab)
   const [shouldRender, setShouldRender] = useState(isOpen)
   const [isVisible, setIsVisible] = useState(false)
+
+  // chooseFromGallery는 모바일 브라우저/웹뷰에서 파일 입력을 여는데,
+  // 이때 OS가 자체적으로 "카메라로 촬영 / 사진 보관함" 액션시트를 띄워주므로
+  // 커스텀 선택 UI를 따로 만들 필요가 없음 (만들면 선택창이 두 번 뜨게 됨).
+  const handlePickPhoto = async () => {
+    try {
+      const { results } = await Camera.chooseFromGallery({ quality: 90 })
+      if (results[0]) onAdd?.(results[0])
+    } catch {
+      // 사용자가 선택을 취소한 경우 - 별도 처리 없음
+    }
+  }
 
   useEffect(() => {
     if (isOpen) {
@@ -72,15 +85,15 @@ export function BottomSheet({ isOpen, onClose, onAdd, children }: BottomSheetPro
               key={tab.key}
               type="button"
               onClick={() => setActiveTab(tab.key)}
-              className={`flex-1 pt-2 pb-3 text-center text-18 transition-colors ${
-                activeTab === tab.key ? 'font-semibold text-black' : 'font-medium text-gray-400'
+              className={`flex-1 pt-3 pb-3 text-center text-14 transition-colors ${
+                activeTab === tab.key ? 'font-semibold text-gray-800' : 'font-medium text-gray-500'
               }`}
             >
               {t(tab.labelKey)}
             </button>
           ))}
           <span
-            className="absolute bottom-0 h-0.5 bg-black transition-all duration-300 ease-out"
+            className="absolute bottom-0 h-0.5 bg-gray-800 transition-all duration-300 ease-out"
             style={{
               left: `calc(${activeTabIndex} * ${100 / TABS.length}% + 1rem)`,
               width: `calc(${100 / TABS.length}% - 2rem)`,
@@ -92,9 +105,9 @@ export function BottomSheet({ isOpen, onClose, onAdd, children }: BottomSheetPro
           {children}
           <button
             type="button"
-            onClick={onAdd}
+            onClick={handlePickPhoto}
             aria-label={t('bottomSheet.addSticker')}
-            className="absolute bottom-24 left-1/2 flex h-16 w-16 -translate-x-1/2 items-center justify-center rounded-full border border-gray-200 bg-white"
+            className="absolute bottom-12 left-1/2 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border border-gray-200 bg-white"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path d="M10 3v14M3 10h14" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" />
