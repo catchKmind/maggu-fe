@@ -1,6 +1,7 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Camera, type MediaResult } from '@capacitor/camera'
+import { useSlideSheet } from '../hooks/useSlideSheet'
 
 type StickerTab = 'mySticker' | 'giphy'
 
@@ -8,8 +9,6 @@ const TABS: { key: StickerTab; labelKey: string }[] = [
   { key: 'mySticker', labelKey: 'bottomSheet.mySticker' },
   { key: 'giphy', labelKey: 'bottomSheet.giphy' },
 ]
-
-const TRANSITION_MS = 300
 
 interface BottomSheetProps {
   isOpen: boolean
@@ -22,8 +21,7 @@ export function BottomSheet({ isOpen, onClose, onAdd, children }: BottomSheetPro
   const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState<StickerTab>('mySticker')
   const activeTabIndex = TABS.findIndex((tab) => tab.key === activeTab)
-  const [shouldRender, setShouldRender] = useState(isOpen)
-  const [isVisible, setIsVisible] = useState(false)
+  const { shouldRender, isVisible } = useSlideSheet(isOpen)
 
   // chooseFromGallery는 모바일 브라우저/웹뷰에서 파일 입력을 여는데,
   // 이때 OS가 자체적으로 "카메라로 촬영 / 사진 보관함" 액션시트를 띄워주므로
@@ -36,26 +34,6 @@ export function BottomSheet({ isOpen, onClose, onAdd, children }: BottomSheetPro
       // 사용자가 선택을 취소한 경우 - 별도 처리 없음
     }
   }
-
-  useEffect(() => {
-    if (isOpen) {
-      setShouldRender(true)
-      return
-    }
-
-    setIsVisible(false)
-    const timeout = setTimeout(() => setShouldRender(false), TRANSITION_MS)
-    return () => clearTimeout(timeout)
-  }, [isOpen])
-
-  // shouldRender=true는 위 effect에서 커밋되고 브라우저가 닫힌 상태를 페인트한 "뒤"에
-  // 이 effect가 실행되는 것이 보장되므로, 여기서 isVisible을 true로 바꿔야
-  // translate-y-full -> translate-y-0 트랜지션이 매번 제대로 재생됨.
-  useEffect(() => {
-    if (shouldRender && isOpen) {
-      setIsVisible(true)
-    }
-  }, [shouldRender, isOpen])
 
   if (!shouldRender) return null
 
