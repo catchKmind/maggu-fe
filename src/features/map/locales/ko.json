@@ -6,5 +6,10 @@
     "restaurant": "맛집",
     "spot": "명소",
     "accommodation": "숙소"
+  },
+  "placeDetail": {
+    "popular": "인기",
+    "recent": "최근 게시물",
+    "close": "닫기"
   }
 }

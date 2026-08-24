@@ -3,5 +3,11 @@
     "community": "Community",
     "map": "Map",
     "myPage": "My page"
+  },
+  "bottomSheet": {
+    "mySticker": "My Sticker",
+    "giphy": "Giphy",
+    "addSticker": "Add sticker",
+    "close": "Close"
   }
 }

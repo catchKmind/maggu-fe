@@ -3,5 +3,11 @@
     "community": "커뮤니티",
     "map": "지도",
     "myPage": "마이 페이지"
+  },
+  "bottomSheet": {
+    "mySticker": "내 스티커",
+    "giphy": "Giphy",
+    "addSticker": "스티커 추가",
+    "close": "닫기"
   }
 }
