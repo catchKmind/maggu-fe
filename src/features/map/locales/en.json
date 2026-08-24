@@ -6,5 +6,10 @@
     "restaurant": "Good Restaurant",
     "spot": "Tourist Spot",
     "accommodation": "Accommodation"
+  },
+  "placeDetail": {
+    "popular": "Popular",
+    "recent": "Recent Posts",
+    "close": "Close"
   }
 }
