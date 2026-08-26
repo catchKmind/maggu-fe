@@ -1,0 +1,16 @@
+{
+  "composePrompt": "새로운 소식 남기기",
+  "write": "글쓰기",
+  "tabs": {
+    "recommended": "나를 위한 추천",
+    "question": "질문방"
+  },
+  "sort": {
+    "label": "정렬",
+    "latest": "최신순",
+    "scrap": "스크랩순"
+  },
+  "search": "검색",
+  "postMenu": "더보기",
+  "readMore": "더보기"
+}
