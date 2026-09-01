@@ -3,6 +3,7 @@ import { isNativeApp } from '../shared/lib/platform'
 import Layout from './Layout'
 import MapPage from '../pages/MapPage'
 import CommunityPage from '../pages/CommunityPage'
+import CommunitySearchPage from '../pages/CommunitySearchPage'
 import MyPage from '../pages/MyPage'
 
 const routes = [
@@ -12,6 +13,7 @@ const routes = [
     children: [
       { index: true, element: <MapPage /> },
       { path: 'community', element: <CommunityPage /> },
+      { path: 'community/search', element: <CommunitySearchPage /> },
       { path: 'my-page', element: <MyPage /> },
       // 라우트는 여기에 추가
     ],

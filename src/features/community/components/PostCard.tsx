@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Avatar } from '../../../shared/components/Avatar'
 import type { CommunityPost } from '../types'
 import { PostPhotoGrid } from './PostPhotoGrid'
 
@@ -77,7 +78,7 @@ export function PostCard({ post }: PostCardProps) {
     <article className="flex flex-col gap-3 border-b border-gray-100 px-5 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <img src={post.author.avatarUrl} alt="" className="h-8 w-8 rounded-full object-cover" />
+          <Avatar name={post.author.name} avatarUrl={post.author.avatarUrl} size={32} />
           <span className="text-14 font-semibold text-gray-900">{post.author.name}</span>
           <span className="text-13 text-gray-400">{post.createdAgo}</span>
         </div>
@@ -101,7 +102,7 @@ export function PostCard({ post }: PostCardProps) {
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Stat icon={<img src={post.author.avatarUrl} alt="" className="h-4 w-4 rounded-full object-cover" />} count={post.participantCount} />
+          <Stat icon={<Avatar name={post.author.name} avatarUrl={post.author.avatarUrl} size={16} />} count={post.participantCount} />
           <StickerIcon />
         </div>
         <div className="flex items-center gap-3">

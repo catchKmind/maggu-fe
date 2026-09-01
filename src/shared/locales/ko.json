@@ -8,6 +8,17 @@
     "mySticker": "내 스티커",
     "giphy": "Giphy",
     "addSticker": "스티커 추가",
-    "close": "닫기"
+    "close": "닫기",
+    "giphySearchPlaceholder": "GIF 검색"
+  },
+  "stickerCreate": {
+    "title": "스티커 만들기",
+    "back": "뒤로가기",
+    "use": "스티커 사용하기",
+    "hint": "이미지를 길게 눌러 배경을 지워보세요"
+  },
+  "myPage": {
+    "loading": "불러오는 중...",
+    "error": "계정 정보를 불러오지 못했어요"
   }
 }

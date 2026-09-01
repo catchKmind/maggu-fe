@@ -12,5 +12,15 @@
   },
   "search": "검색",
   "postMenu": "더보기",
-  "readMore": "더보기"
+  "readMore": "더보기",
+  "searchPage": {
+    "placeholder": "검색어를 입력해주세요",
+    "back": "뒤로가기",
+    "clear": "지우기"
+  },
+  "feed": {
+    "loading": "불러오는 중...",
+    "error": "피드를 불러오지 못했어요",
+    "empty": "아직 게시글이 없어요"
+  }
 }

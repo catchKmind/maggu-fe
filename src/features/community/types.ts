@@ -1,7 +1,7 @@
 export interface CommunityAuthor {
   id: string
   name: string
-  avatarUrl: string
+  avatarUrl?: string
 }
 
 export type CommunityFeedTab = 'recommended' | 'question'
