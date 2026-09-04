@@ -154,13 +154,15 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
 
         <div className="flex-1 overflow-y-auto">
           <div className="px-5 pt-4">
-            <p className="text-16 text-gray-500">{spot.category}</p>
+            {spot.category && <p className="text-16 text-gray-500">{spot.category}</p>}
 
-            <div className="mt-3 flex flex-col gap-2">
-              <InfoRow icon={<PinIcon />} text={spot.address} />
-              <InfoRow icon={<ClockIcon />} text={spot.hours} />
-              <InfoRow icon={<PhoneIcon />} text={spot.phone} />
-            </div>
+            {(spot.address || spot.hours || spot.phone) && (
+              <div className="mt-3 flex flex-col gap-2">
+                {spot.address && <InfoRow icon={<PinIcon />} text={spot.address} />}
+                {spot.hours && <InfoRow icon={<ClockIcon />} text={spot.hours} />}
+                {spot.phone && <InfoRow icon={<PhoneIcon />} text={spot.phone} />}
+              </div>
+            )}
 
             <PhotoGrid photos={spot.photos} className="mt-4 h-[180px]" />
           </div>

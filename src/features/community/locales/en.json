@@ -1,0 +1,26 @@
+{
+  "composePrompt": "Share something new",
+  "write": "Write",
+  "tabs": {
+    "recommended": "Recommended for me",
+    "question": "Q&A"
+  },
+  "sort": {
+    "label": "Sort",
+    "latest": "Latest",
+    "scrap": "Most scrapped"
+  },
+  "search": "Search",
+  "postMenu": "More",
+  "readMore": "Read more",
+  "searchPage": {
+    "placeholder": "Enter a search term",
+    "back": "Back",
+    "clear": "Clear"
+  },
+  "feed": {
+    "loading": "Loading...",
+    "error": "Couldn't load the feed",
+    "empty": "No posts yet"
+  }
+}
