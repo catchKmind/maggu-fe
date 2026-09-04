@@ -1,9 +1,20 @@
+import { getAuthToken } from './authToken'
+
 /**
  * API 클라이언트.
  * 웹뷰(앱)에서는 상대경로가 동작하지 않으므로 baseURL을 반드시 환경변수로 관리한다.
  * .env: VITE_API_BASE_URL=https://api.example.com
  */
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? ''
+
+export interface ApiResponse<T> {
+  success: boolean
+  status: number
+  code: string
+  message: string
+  data: T
+  timestamp: string
+}
 
 export class ApiError extends Error {
   status: number
@@ -16,8 +27,13 @@ export class ApiError extends Error {
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  const token = getAuthToken()
   const res = await fetch(`${BASE_URL}${path}`, {
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...options?.headers,
+    },
     ...options,
   })
   if (!res.ok) throw new ApiError(res.status, await res.text())

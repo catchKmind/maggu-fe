@@ -8,6 +8,17 @@
     "mySticker": "My Sticker",
     "giphy": "Giphy",
     "addSticker": "Add sticker",
-    "close": "Close"
+    "close": "Close",
+    "giphySearchPlaceholder": "Search GIFs"
+  },
+  "stickerCreate": {
+    "title": "Create sticker",
+    "back": "Back",
+    "use": "Use sticker",
+    "hint": "Press and hold the image to remove the background"
+  },
+  "myPage": {
+    "loading": "Loading...",
+    "error": "Couldn't load your account"
   }
 }
