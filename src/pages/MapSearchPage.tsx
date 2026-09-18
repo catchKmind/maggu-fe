@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { SearchSuggestionItem } from '../shared/components/SearchSuggestionItem'
-import { useSearchAutocomplete } from '../features/community/hooks/useSearchAutocomplete'
+import { useMapSearchAutocomplete } from '../features/map/hooks/useMapSearchAutocomplete'
 
 function BackIcon() {
   return (
@@ -20,11 +20,11 @@ function ClearIcon() {
   )
 }
 
-export default function CommunitySearchPage() {
-  const { t } = useTranslation('community')
+export default function MapSearchPage() {
+  const { t } = useTranslation('map')
   const navigate = useNavigate()
   const [keyword, setKeyword] = useState('')
-  const { data: suggestions } = useSearchAutocomplete(keyword)
+  const { data: candidates } = useMapSearchAutocomplete(keyword)
 
   return (
     <div className="flex flex-1 flex-col">
@@ -58,14 +58,14 @@ export default function CommunitySearchPage() {
         </div>
       </div>
 
-      {suggestions && suggestions.length > 0 && (
+      {candidates && candidates.length > 0 && (
         <div className="flex flex-col">
-          {suggestions.map((suggestion) => (
+          {candidates.map((candidate) => (
             <SearchSuggestionItem
-              key={suggestion}
-              keyword={suggestion}
+              key={candidate.contentId}
+              keyword={candidate.title}
               query={keyword}
-              onClick={() => setKeyword(suggestion)}
+              onClick={() => setKeyword(candidate.title)}
             />
           ))}
         </div>

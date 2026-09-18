@@ -2,9 +2,11 @@ import { createBrowserRouter, createHashRouter } from 'react-router-dom'
 import { isNativeApp } from '../shared/lib/platform'
 import Layout from './Layout'
 import MapPage from '../pages/MapPage'
+import MapSearchPage from '../pages/MapSearchPage'
 import CommunityPage from '../pages/CommunityPage'
 import CommunitySearchPage from '../pages/CommunitySearchPage'
 import MyPage from '../pages/MyPage'
+import LoginPage from '../pages/LoginPage'
 
 const routes = [
   {
@@ -12,6 +14,8 @@ const routes = [
     element: <Layout />,
     children: [
       { index: true, element: <MapPage /> },
+      { path: 'search', element: <MapSearchPage /> },
+      { path: 'login', element: <LoginPage /> },
       { path: 'community', element: <CommunityPage /> },
       { path: 'community/search', element: <CommunitySearchPage /> },
       { path: 'my-page', element: <MyPage /> },
