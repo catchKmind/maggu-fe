@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { MapView } from '../features/map/components/MapView'
 import { Tag } from '../features/map/components/Tag'
@@ -11,6 +12,7 @@ import { BottomSheet } from '../shared/components/BottomSheet'
 
 export default function MapPage() {
   const { t } = useTranslation('map')
+  const navigate = useNavigate()
   const [isStickerSheetOpen, setIsStickerSheetOpen] = useState(false)
   const [selectedSpot, setSelectedSpot] = useState<PhotoSpot | null>(null)
 
@@ -21,7 +23,7 @@ export default function MapPage() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-gray-200/80 to-transparent" />
       <div className="absolute inset-x-0 top-7 flex flex-col gap-3">
         <div className="flex gap-2 overflow-x-auto px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <SearchButton />
+          <SearchButton onClick={() => navigate('/search')} />
           <Tag>{t('tags.hotplace')}</Tag>
           <Tag>{t('tags.cafe')}</Tag>
           <Tag>{t('tags.restaurant')}</Tag>
