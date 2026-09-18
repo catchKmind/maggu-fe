@@ -6,6 +6,8 @@ import mapEn from '../../features/map/locales/en.json'
 import mapKo from '../../features/map/locales/ko.json'
 import communityEn from '../../features/community/locales/en.json'
 import communityKo from '../../features/community/locales/ko.json'
+import authEn from '../../features/auth/locales/en.json'
+import authKo from '../../features/auth/locales/ko.json'
 
 export type Locale = 'en' | 'ko'
 
@@ -15,10 +17,10 @@ const storedLocale = localStorage.getItem(STORAGE_KEY) as Locale | null
 
 i18n.use(initReactI18next).init({
   resources: {
-    en: { common: commonEn, map: mapEn, community: communityEn },
-    ko: { common: commonKo, map: mapKo, community: communityKo },
+    en: { common: commonEn, map: mapEn, community: communityEn, auth: authEn },
+    ko: { common: commonKo, map: mapKo, community: communityKo, auth: authKo },
   },
-  ns: ['common', 'map', 'community'],
+  ns: ['common', 'map', 'community', 'auth'],
   defaultNS: 'common',
   lng: storedLocale ?? 'en',
   fallbackLng: 'en',

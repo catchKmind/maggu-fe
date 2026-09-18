@@ -2,12 +2,15 @@ import { api, type ApiResponse } from '../../../shared/lib/api'
 import { toQueryString } from '../../../shared/lib/queryString'
 import type {
   CurationResponse,
+  CursorPageResponse,
+  GetFeedByContentIdParams,
   GetFeedParams,
   PageResponse,
   PostCreateRequest,
   PostCreateResponse,
   PostDeleteResponse,
   PostDetailResponse,
+  PostFeedItemResponse,
   PostShareResponse,
   PostSummaryResponse,
   SearchAutocompleteResponse,
@@ -52,4 +55,10 @@ export function getSearchAutocomplete(keyword: string) {
 
 export function getCuration() {
   return api.get<ApiResponse<CurationResponse[]>>(`${POSTS_PATH}/curation`).then((res) => res.data)
+}
+
+export function getFeedByContentId(params: GetFeedByContentIdParams) {
+  return api
+    .get<ApiResponse<CursorPageResponse<PostFeedItemResponse>>>(`${POSTS_PATH}/feed${toQueryString(params)}`)
+    .then((res) => res.data)
 }
