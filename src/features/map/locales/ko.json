@@ -11,5 +11,10 @@
     "popular": "인기",
     "recent": "최근 게시물",
     "close": "닫기"
+  },
+  "searchPage": {
+    "placeholder": "장소나 관광지를 검색해보세요",
+    "back": "뒤로가기",
+    "clear": "지우기"
   }
 }

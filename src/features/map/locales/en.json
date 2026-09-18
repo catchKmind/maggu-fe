@@ -11,5 +11,10 @@
     "popular": "Popular",
     "recent": "Recent Posts",
     "close": "Close"
+  },
+  "searchPage": {
+    "placeholder": "Search for a place or spot",
+    "back": "Back",
+    "clear": "Clear"
   }
 }

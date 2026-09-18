@@ -1,0 +1,8 @@
+{
+  "title": "Mapggu",
+  "appleLogin": "Sign in with Apple",
+  "googleLogin": "Sign in with Google",
+  "guestLogin": "Guest login",
+  "signingIn": "Signing in...",
+  "appleLoginError": "Couldn't sign in with Apple"
+}

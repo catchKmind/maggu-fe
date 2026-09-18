@@ -94,3 +94,23 @@ export interface SearchPostsParams {
   page?: number
   size?: number
 }
+
+export type FeedSort = 'POPULAR' | 'LATEST'
+
+export interface CursorPageResponse<T> {
+  content: T[]
+  nextCursor: string | null
+  hasNext: boolean
+}
+
+export interface PostFeedItemResponse {
+  postId: number
+  imageUrl: string
+}
+
+export interface GetFeedByContentIdParams {
+  contentId: string
+  feedSort: FeedSort
+  cursor?: string
+  size?: number
+}

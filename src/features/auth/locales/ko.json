@@ -1,0 +1,8 @@
+{
+  "title": "Mapggu",
+  "appleLogin": "Apple로 로그인",
+  "googleLogin": "Google로 로그인",
+  "guestLogin": "게스트로 시작하기",
+  "signingIn": "로그인 중...",
+  "appleLoginError": "Apple 로그인에 실패했어요"
+}

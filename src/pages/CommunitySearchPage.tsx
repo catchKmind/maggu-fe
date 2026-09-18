@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { SearchSuggestionItem } from '../features/community/components/SearchSuggestionItem'
+import { SearchSuggestionItem } from '../shared/components/SearchSuggestionItem'
 import { useSearchAutocomplete } from '../features/community/hooks/useSearchAutocomplete'
 
 function BackIcon() {
