@@ -22,7 +22,7 @@ export default function CommunityPage() {
 
   return (
     <div className="relative flex flex-1 flex-col">
-      <CommunityHeader author={MOCK_CURRENT_USER} />
+      <CommunityHeader author={MOCK_CURRENT_USER} onCompose={() => navigate('/community/write')} />
 
       <div className="flex items-center justify-between px-5 pb-3">
         <FeedTabs activeTab={activeTab} onChange={setActiveTab} />

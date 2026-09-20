@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { SearchSuggestionItem } from '../shared/components/SearchSuggestionItem'
+import { useImeAwareInput } from '../shared/hooks/useImeAwareInput'
 import { useMapSearchAutocomplete } from '../features/map/hooks/useMapSearchAutocomplete'
+import { useSearchMapPosts } from '../features/map/hooks/useSearchMapPosts'
 
 function BackIcon() {
   return (
@@ -23,12 +25,28 @@ function ClearIcon() {
 export default function MapSearchPage() {
   const { t } = useTranslation('map')
   const navigate = useNavigate()
-  const [keyword, setKeyword] = useState('')
-  const { data: candidates } = useMapSearchAutocomplete(keyword)
+  const { value: keyword, committedValue, setValue, onChange, onCompositionStart, onCompositionEnd } =
+    useImeAwareInput()
+  const { data: candidates } = useMapSearchAutocomplete(committedValue)
+  const [submittedKeyword, setSubmittedKeyword] = useState<string | null>(null)
+  const { data: results, isLoading, isError } = useSearchMapPosts(submittedKeyword)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const trimmed = committedValue.trim()
+    if (trimmed) setSubmittedKeyword(trimmed)
+  }
+
+  const handleChangeInput: typeof onChange = (e) => {
+    setSubmittedKeyword(null)
+    onChange(e)
+  }
+
+  const items = results?.content ?? []
 
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex items-center gap-2 px-4 py-3">
+      <form onSubmit={handleSubmit} className="flex items-center gap-2 px-4 py-3">
         <button
           type="button"
           onClick={() => navigate(-1)}
@@ -40,7 +58,9 @@ export default function MapSearchPage() {
         <div className="relative flex-1">
           <input
             value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
+            onChange={handleChangeInput}
+            onCompositionStart={onCompositionStart}
+            onCompositionEnd={onCompositionEnd}
             placeholder={t('searchPage.placeholder')}
             autoFocus
             className="h-11 w-full rounded-full bg-gray-50 px-4 text-14 text-gray-900 outline-none placeholder:text-gray-400"
@@ -48,7 +68,10 @@ export default function MapSearchPage() {
           {keyword && (
             <button
               type="button"
-              onClick={() => setKeyword('')}
+              onClick={() => {
+                setValue('')
+                setSubmittedKeyword(null)
+              }}
               aria-label={t('searchPage.clear')}
               className="absolute top-1/2 right-3 flex h-5 w-5 -translate-y-1/2 items-center justify-center"
             >
@@ -56,18 +79,38 @@ export default function MapSearchPage() {
             </button>
           )}
         </div>
-      </div>
+      </form>
 
-      {candidates && candidates.length > 0 && (
+      {submittedKeyword === null && candidates && candidates.length > 0 && (
         <div className="flex flex-col">
           {candidates.map((candidate) => (
             <SearchSuggestionItem
               key={candidate.contentId}
               keyword={candidate.title}
-              query={keyword}
-              onClick={() => setKeyword(candidate.title)}
+              query={committedValue}
+              onClick={() => setSubmittedKeyword(candidate.title)}
             />
           ))}
+        </div>
+      )}
+
+      {submittedKeyword !== null && (
+        <div className="flex-1 overflow-y-auto px-5 py-4">
+          {isLoading && <p className="py-8 text-center text-14 text-gray-400">{t('searchPage.loading')}</p>}
+          {isError && <p className="py-8 text-center text-14 text-gray-400">{t('searchPage.error')}</p>}
+          {!isLoading && !isError && items.length === 0 && (
+            <p className="py-8 text-center text-14 text-gray-400">{t('searchPage.empty')}</p>
+          )}
+          <div className="grid grid-cols-3 gap-2">
+            {items.map((item) => (
+              <img
+                key={item.postId}
+                src={item.imageUrl}
+                alt=""
+                className="aspect-square w-full rounded-lg object-cover"
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

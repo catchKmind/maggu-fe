@@ -12,7 +12,8 @@ export interface MapMarkerProperties {
   slug: string
   representativeImageUrl: string
   scrapCount: number
-  tourismContentId: string
+  /** 관광공사 콘텐츠 ID. 연결 안 된 글이면 null */
+  tourismContentId: string | null
   placeName: string
   /** 같은 관광지(tourismContentId)에 연결된 게시글 전체 개수. tourismContentId가 없으면 null */
   placePostCount: number | null

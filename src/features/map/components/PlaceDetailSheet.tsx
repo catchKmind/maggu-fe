@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSlideSheet } from '../../../shared/hooks/useSlideSheet'
 import { PhotoGrid } from '../../../shared/components/PhotoGrid'
+import { useContentFeed } from '../hooks/useContentFeed'
+import { PlaceScrapSheet } from '../../myplaces/components/PlaceScrapSheet'
+import type { FeedSort } from '../../community/api/posts.types'
 import type { PhotoSpot } from '../types'
 
 const PEEK_TOP = 148
@@ -59,6 +62,29 @@ function XIcon() {
   )
 }
 
+function ListAddIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <path d="M3 5h8M3 9h6M3 13h4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="14" cy="13" r="3.2" fill="white" stroke="#374151" strokeWidth="1.2" />
+      <path d="M14 11.6v2.8M12.6 13h2.8" stroke="#374151" strokeWidth="1.1" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function StickerAddIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <rect x="1.5" y="1.5" width="10" height="10" rx="3" stroke="#374151" strokeWidth="1.4" />
+      <circle cx="5.3" cy="6" r="0.9" fill="#374151" />
+      <circle cx="8.2" cy="6" r="0.9" fill="#374151" />
+      <path d="M5 8.4c.5.6 1.2.9 1.9.9s1.4-.3 1.9-.9" stroke="#374151" strokeWidth="1.1" strokeLinecap="round" />
+      <circle cx="14" cy="13" r="3.2" fill="white" stroke="#374151" strokeWidth="1.2" />
+      <path d="M14 11.6v2.8M12.6 13h2.8" stroke="#374151" strokeWidth="1.1" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 function InfoRow({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
     <div className="flex items-center gap-2">
@@ -78,8 +104,12 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
   const { shouldRender, isVisible } = useSlideSheet(spot !== null)
   const [activeTab, setActiveTab] = useState<FeedTab>('popular')
   const activeTabIndex = FEED_TABS.findIndex((tab) => tab.key === activeTab)
+  const feedSort: FeedSort = activeTab === 'popular' ? 'POPULAR' : 'LATEST'
+  const { data: contentFeed } = useContentFeed(spot?.tourismContentId ?? null, feedSort)
+  const feedItems = contentFeed?.content ?? []
 
   const [sheetTop, setSheetTop] = useState(PEEK_TOP)
+  const [isScrapSheetOpen, setIsScrapSheetOpen] = useState(false)
   const swipeStartYRef = useRef<number | null>(null)
 
   // 스팟이 바뀔 때마다(새로 열릴 때) 끌어올렸던 위치를 기본값으로 되돌림.
@@ -141,14 +171,36 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
 
           <div className="flex items-center justify-between px-5 pb-4">
             <h2 className="text-24 font-bold text-gray-900">{spot.name}</h2>
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label={t('placeDetail.close')}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gray-100"
-            >
-              <XIcon />
-            </button>
+            <div className="flex items-center gap-2">
+              {spot.tourismContentId && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setIsScrapSheetOpen(true)}
+                    aria-label={t('placeScrap.listButton')}
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gray-100"
+                  >
+                    <ListAddIcon />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsScrapSheetOpen(true)}
+                    aria-label={t('placeScrap.button')}
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gray-100"
+                  >
+                    <StickerAddIcon />
+                  </button>
+                </>
+              )}
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label={t('placeDetail.close')}
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gray-100"
+              >
+                <XIcon />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -167,35 +219,54 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
             <PhotoGrid photos={spot.photos} className="mt-4 h-[180px]" />
           </div>
 
-          <div className="sticky top-0 z-10 flex border-b border-gray-100 bg-white">
-            {FEED_TABS.map((tab) => (
-              <button
-                key={tab.key}
-                type="button"
-                onClick={() => setActiveTab(tab.key)}
-                className={`flex-1 pt-3 pb-3 text-center text-14 transition-colors ${
-                  activeTab === tab.key ? 'font-semibold text-gray-800' : 'font-medium text-gray-500'
-                }`}
-              >
-                {t(tab.labelKey)}
-              </button>
-            ))}
-            <span
-              className="absolute bottom-0 h-0.5 bg-gray-800 transition-all duration-300 ease-out"
-              style={{
-                left: `calc(${activeTabIndex} * ${100 / FEED_TABS.length}% + 1rem)`,
-                width: `calc(${100 / FEED_TABS.length}% - 2rem)`,
-              }}
-            />
-          </div>
+          {spot.tourismContentId && (
+            <>
+              <div className="sticky top-0 z-10 flex border-b border-gray-100 bg-white">
+                {FEED_TABS.map((tab) => (
+                  <button
+                    key={tab.key}
+                    type="button"
+                    onClick={() => setActiveTab(tab.key)}
+                    className={`flex-1 pt-3 pb-3 text-center text-14 transition-colors ${
+                      activeTab === tab.key ? 'font-semibold text-gray-800' : 'font-medium text-gray-500'
+                    }`}
+                  >
+                    {t(tab.labelKey)}
+                  </button>
+                ))}
+                <span
+                  className="absolute bottom-0 h-0.5 bg-gray-800 transition-all duration-300 ease-out"
+                  style={{
+                    left: `calc(${activeTabIndex} * ${100 / FEED_TABS.length}% + 1rem)`,
+                    width: `calc(${100 / FEED_TABS.length}% - 2rem)`,
+                  }}
+                />
+              </div>
 
-          <div className="grid grid-cols-2 gap-2 px-5 pt-4 pb-8">
-            {spot.feedPhotos.map((photo) => (
-              <img key={photo} src={photo} alt="" className="aspect-square w-full rounded-lg object-cover" />
-            ))}
-          </div>
+              <div className="grid grid-cols-2 gap-2 px-5 pt-4 pb-8">
+                {feedItems.map((item) => (
+                  <img
+                    key={item.postId}
+                    src={item.imageUrl}
+                    alt=""
+                    className="aspect-square w-full rounded-lg object-cover"
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
+
+      {isScrapSheetOpen && spot.tourismContentId && (
+        <PlaceScrapSheet
+          tourismContentId={spot.tourismContentId}
+          placeName={spot.name}
+          placeCategory={spot.category}
+          placeImageUrl={spot.photos[0]}
+          onClose={() => setIsScrapSheetOpen(false)}
+        />
+      )}
     </div>
   )
 }
