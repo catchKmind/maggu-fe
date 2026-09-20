@@ -1,6 +1,8 @@
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { useAppleLogin } from '../features/auth/hooks/useAppleLogin'
+import { loadAppleSdk } from '../shared/lib/appleSignIn'
 import bgImage from '../assets/main/img_bgd.png'
 
 function AppleIcon() {
@@ -44,6 +46,14 @@ export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }:
   const { t } = useTranslation('auth')
   const navigate = useNavigate()
   const appleLogin = useAppleLogin()
+
+  // 이 페이지가 Apple 로그인 팝업의 리다이렉트 대상으로 열렸을 수도 있어서,
+  // 버튼을 누르기 전에도 SDK가 미리 로드되어 있어야 팝업 쪽에서 핸드셰이크가 끝남.
+  useEffect(() => {
+    loadAppleSdk().catch(() => {
+      // 팝업이 아닌 일반 방문인데 스크립트 로드가 실패해도 페이지 자체는 정상 동작해야 하므로 무시
+    })
+  }, [])
 
   const handleAppleLogin = () => {
     appleLogin.mutate(undefined, {

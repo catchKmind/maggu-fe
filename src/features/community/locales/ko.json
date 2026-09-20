@@ -13,6 +13,8 @@
   "search": "검색",
   "postMenu": "더보기",
   "readMore": "더보기",
+  "scrap": "스크랩",
+  "unscrap": "스크랩 취소",
   "searchPage": {
     "placeholder": "검색어를 입력해주세요",
     "back": "뒤로가기",
@@ -22,5 +24,35 @@
     "loading": "불러오는 중...",
     "error": "피드를 불러오지 못했어요",
     "empty": "아직 게시글이 없어요"
+  },
+  "report": {
+    "hate": "혐오 발언",
+    "harassment": "괴롭힘/욕설",
+    "inappropriate": "부적절한 콘텐츠"
+  },
+  "reaction": {
+    "label": "스티커 반응 남기기",
+    "empty": "만든 스티커가 없어요"
+  },
+  "compose": {
+    "recommend": "추천",
+    "info": "정보",
+    "curation": "큐레이션",
+    "cancel": "취소",
+    "submit": "게시",
+    "placeholder": "무슨 이야기를 공유하고 싶으신가요?",
+    "error": "게시글을 올리지 못했어요"
+  },
+  "postDetail": {
+    "author": "작성자",
+    "reply": "답글달기",
+    "commentCount": "댓글 {{count}}개",
+    "noComments": "아직 댓글이 없어요",
+    "commentPlaceholder": "댓글을 입력해주세요",
+    "replyingTo": "{{name}}님에게 답글 남기는 중",
+    "cancelReply": "취소",
+    "send": "게시",
+    "share": "공유",
+    "linkCopied": "링크가 복사되었어요"
   }
 }

@@ -13,6 +13,8 @@
   "search": "Search",
   "postMenu": "More",
   "readMore": "Read more",
+  "scrap": "Scrap",
+  "unscrap": "Remove scrap",
   "searchPage": {
     "placeholder": "Enter a search term",
     "back": "Back",
@@ -22,5 +24,35 @@
     "loading": "Loading...",
     "error": "Couldn't load the feed",
     "empty": "No posts yet"
+  },
+  "report": {
+    "hate": "Hate speech",
+    "harassment": "Harassment",
+    "inappropriate": "Inappropriate content"
+  },
+  "reaction": {
+    "label": "React with a sticker",
+    "empty": "You don't have any stickers yet"
+  },
+  "compose": {
+    "recommend": "Recommend",
+    "info": "Info",
+    "curation": "Curation",
+    "cancel": "Cancel",
+    "submit": "Post",
+    "placeholder": "What would you like to share?",
+    "error": "Couldn't post"
+  },
+  "postDetail": {
+    "author": "Author",
+    "reply": "Reply",
+    "commentCount": "{{count}} comments",
+    "noComments": "No comments yet",
+    "commentPlaceholder": "Write a comment",
+    "replyingTo": "Replying to {{name}}",
+    "cancelReply": "Cancel",
+    "send": "Post",
+    "share": "Share",
+    "linkCopied": "Link copied"
   }
 }

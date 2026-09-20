@@ -54,7 +54,13 @@ const SDK_URL = 'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/
 
 let sdkLoadPromise: Promise<void> | null = null
 
-function loadAppleSdk(): Promise<void> {
+/**
+ * 로그인 버튼을 누를 때뿐 아니라, redirectURI로 등록된 페이지가
+ * 팝업 자식 창으로 열렸을 때도 이 스크립트가 로드되어 있어야
+ * Apple JS SDK가 알아서 로그인 결과를 opener로 postMessage하고 팝업을 닫는다.
+ * 그래서 LoginPage 마운트 시 무조건 한 번 호출해둔다.
+ */
+export function loadAppleSdk(): Promise<void> {
   if (window.AppleID) return Promise.resolve()
   if (sdkLoadPromise) return sdkLoadPromise
 

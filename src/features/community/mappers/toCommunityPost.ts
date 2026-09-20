@@ -15,5 +15,6 @@ export function toCommunityPost(summary: PostSummaryResponse): CommunityPost {
     participantCount: summary.reactionCount,
     commentCount: summary.commentCount,
     scrapCount: summary.scrapCount,
+    scrappedByMe: summary.scrappedByMe,
   }
 }
