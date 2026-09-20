@@ -3,7 +3,7 @@ import type { PhotoSpot } from '../types'
 
 export function toPhotoSpot(feature: MapMarkerFeature): PhotoSpot {
   const [lng, lat] = feature.geometry.coordinates
-  const { postId, placeName, representativeImageUrl } = feature.properties
+  const { postId, placeName, representativeImageUrl, tourismContentId } = feature.properties
 
   return {
     id: String(postId),
@@ -11,6 +11,6 @@ export function toPhotoSpot(feature: MapMarkerFeature): PhotoSpot {
     lat,
     name: placeName,
     photos: [representativeImageUrl],
-    feedPhotos: [],
+    tourismContentId,
   }
 }

@@ -9,7 +9,8 @@
     "giphy": "Giphy",
     "addSticker": "Add sticker",
     "close": "Close",
-    "giphySearchPlaceholder": "Search GIFs"
+    "giphySearchPlaceholder": "Search GIFs",
+    "deleteSticker": "Delete sticker"
   },
   "stickerCreate": {
     "title": "Create sticker",

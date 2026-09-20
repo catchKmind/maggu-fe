@@ -15,6 +15,25 @@
   "searchPage": {
     "placeholder": "장소나 관광지를 검색해보세요",
     "back": "뒤로가기",
-    "clear": "지우기"
+    "clear": "지우기",
+    "loading": "불러오는 중...",
+    "error": "검색 결과를 불러오지 못했어요",
+    "empty": "검색 결과가 없어요"
+  },
+  "placeScrap": {
+    "button": "스티커로 스크랩",
+    "listButton": "리스트에 저장",
+    "title": "장소 스크랩하기",
+    "next": "다음",
+    "newFolder": "새로운 리스트 만들기",
+    "newFolderTitle": "새 리스트",
+    "iconPickerTitle": "아이콘 선택",
+    "folderNameLabel": "리스트 이름",
+    "folderNamePlaceholder": "리스트 이름을 입력해주세요",
+    "stickerPrompt": "이 장소에 스티커를 붙여주세요",
+    "confirmPrompt": "이 스티커로 저장할까요?",
+    "save": "저장",
+    "noStickers": "만든 스티커가 없어요",
+    "error": "스크랩하지 못했어요"
   }
 }

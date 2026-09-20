@@ -22,6 +22,8 @@ i18n.use(initReactI18next).init({
   },
   ns: ['common', 'map', 'community', 'auth'],
   defaultNS: 'common',
+  // 다른 네임스페이스에서 t()를 불러도 common의 공용 문구(bottomSheet 등)는 찾아지도록
+  fallbackNS: 'common',
   lng: storedLocale ?? 'en',
   fallbackLng: 'en',
   interpolation: { escapeValue: false },

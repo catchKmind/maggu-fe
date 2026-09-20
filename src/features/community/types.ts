@@ -16,4 +16,5 @@ export interface CommunityPost {
   participantCount: number
   commentCount: number
   scrapCount: number
+  scrappedByMe: boolean
 }

@@ -9,5 +9,5 @@ export interface PhotoSpot {
   address?: string
   hours?: string
   phone?: string
-  feedPhotos: string[]
+  tourismContentId: string | null
 }

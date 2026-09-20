@@ -1,9 +1,10 @@
-import { useState, type ReactNode } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Camera } from '@capacitor/camera'
 import { useSlideSheet } from '../hooks/useSlideSheet'
 import { GiphyPicker, type Gif } from '../gif/GiphyPicker'
 import { StickerCreateScreen } from '../sticker/StickerCreateScreen'
+import type { StickerResponse } from '../../features/sticker/api/stickers.types'
 
 type StickerTab = 'mySticker' | 'giphy'
 
@@ -12,15 +13,32 @@ const TABS: { key: StickerTab; labelKey: string }[] = [
   { key: 'giphy', labelKey: 'bottomSheet.giphy' },
 ]
 
+function PlusIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M10 3v14M3 10h14" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function DeleteBadgeIcon() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+      <path d="M2 2l6 6M8 2l-6 6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 interface BottomSheetProps {
   isOpen: boolean
   onClose: () => void
+  myStickers?: StickerResponse[]
   onAdd?: (sticker: Blob) => void
   onSelectGif?: (gif: Gif) => void
-  children?: ReactNode
+  onDeleteSticker?: (stickerId: number) => void
 }
 
-export function BottomSheet({ isOpen, onClose, onAdd, onSelectGif, children }: BottomSheetProps) {
+export function BottomSheet({ isOpen, onClose, myStickers, onAdd, onSelectGif, onDeleteSticker }: BottomSheetProps) {
   const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState<StickerTab>('mySticker')
   const activeTabIndex = TABS.findIndex((tab) => tab.key === activeTab)
@@ -97,21 +115,35 @@ export function BottomSheet({ isOpen, onClose, onAdd, onSelectGif, children }: B
             />
           </div>
 
-          <div className="relative flex-1">
-            {activeTab === 'mySticker' && children}
-            {activeTab === 'giphy' && <GiphyPicker onSelect={handleSelectGif} />}
+          <div className="flex-1 overflow-y-auto">
             {activeTab === 'mySticker' && (
-              <button
-                type="button"
-                onClick={handlePickPhoto}
-                aria-label={t('bottomSheet.addSticker')}
-                className="absolute bottom-12 left-1/2 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border border-gray-200 bg-white"
-              >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                  <path d="M10 3v14M3 10h14" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              </button>
+              <div className="grid grid-cols-3 gap-3 p-4">
+                {myStickers?.map((sticker) => (
+                  <div key={sticker.stickerId} className="relative aspect-square overflow-hidden rounded-2xl bg-gray-50">
+                    <img src={sticker.imageUrl} alt="" className="h-full w-full object-contain" />
+                    {onDeleteSticker && (
+                      <button
+                        type="button"
+                        onClick={() => onDeleteSticker(sticker.stickerId)}
+                        aria-label={t('bottomSheet.deleteSticker')}
+                        className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/50"
+                      >
+                        <DeleteBadgeIcon />
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={handlePickPhoto}
+                  aria-label={t('bottomSheet.addSticker')}
+                  className="flex aspect-square items-center justify-center rounded-2xl bg-gray-50"
+                >
+                  <PlusIcon />
+                </button>
+              </div>
             )}
+            {activeTab === 'giphy' && <GiphyPicker onSelect={handleSelectGif} />}
           </div>
         </div>
       </div>

@@ -5,6 +5,8 @@ import MapPage from '../pages/MapPage'
 import MapSearchPage from '../pages/MapSearchPage'
 import CommunityPage from '../pages/CommunityPage'
 import CommunitySearchPage from '../pages/CommunitySearchPage'
+import CommunityComposePage from '../pages/CommunityComposePage'
+import CommunityPostDetailPage from '../pages/CommunityPostDetailPage'
 import MyPage from '../pages/MyPage'
 import LoginPage from '../pages/LoginPage'
 
@@ -18,6 +20,8 @@ const routes = [
       { path: 'login', element: <LoginPage /> },
       { path: 'community', element: <CommunityPage /> },
       { path: 'community/search', element: <CommunitySearchPage /> },
+      { path: 'community/write', element: <CommunityComposePage /> },
+      { path: 'community/posts/:postId', element: <CommunityPostDetailPage /> },
       { path: 'my-page', element: <MyPage /> },
       // 라우트는 여기에 추가
     ],
