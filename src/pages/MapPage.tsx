@@ -9,12 +9,16 @@ import { PlaceDetailSheet } from '../features/map/components/PlaceDetailSheet'
 import type { PhotoSpot } from '../features/map/types'
 import { BottomNavigation } from '../shared/components/BottomNavigation'
 import { BottomSheet } from '../shared/components/BottomSheet'
+import { useMyStickers } from '../features/sticker/hooks/useMyStickers'
+import { useDeleteSticker } from '../features/sticker/hooks/useDeleteSticker'
 
 export default function MapPage() {
   const { t } = useTranslation('map')
   const navigate = useNavigate()
   const [isStickerSheetOpen, setIsStickerSheetOpen] = useState(false)
   const [selectedSpot, setSelectedSpot] = useState<PhotoSpot | null>(null)
+  const { data: myStickers } = useMyStickers()
+  const deleteSticker = useDeleteSticker()
 
   return (
     <div className="relative flex flex-1 flex-col">
@@ -37,7 +41,12 @@ export default function MapPage() {
       <div className="absolute inset-x-0 bottom-[35px] flex justify-center">
         <BottomNavigation />
       </div>
-      <BottomSheet isOpen={isStickerSheetOpen} onClose={() => setIsStickerSheetOpen(false)} />
+      <BottomSheet
+        isOpen={isStickerSheetOpen}
+        onClose={() => setIsStickerSheetOpen(false)}
+        myStickers={myStickers}
+        onDeleteSticker={(stickerId) => deleteSticker.mutate(stickerId)}
+      />
       <PlaceDetailSheet spot={selectedSpot} onClose={() => setSelectedSpot(null)} />
     </div>
   )

@@ -1,16 +1,15 @@
 interface CreateStickerBorderOptions {
-  /** 테두리 두께(px) */
+  /** 테두리 두께(px). 생략하면 이미지 긴 변 기준 비율로 자동 계산됨 */
   borderWidth?: number
   borderColor?: string
   /** 테두리를 그릴 때 원 둘레를 몇 등분해서 오프셋 드로잉할지 (많을수록 매끈하지만 느려짐) */
   steps?: number
 }
 
-const DEFAULTS: Required<CreateStickerBorderOptions> = {
-  borderWidth: 12,
-  borderColor: '#ffffff',
-  steps: 24,
-}
+const DEFAULT_BORDER_RATIO = 0.035
+const MIN_BORDER_WIDTH = 8
+const DEFAULT_BORDER_COLOR = '#ffffff'
+const DEFAULT_STEPS = 24
 
 function get2dContext(canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext('2d')
@@ -29,8 +28,12 @@ export async function createStickerBorder(
   cutout: Blob,
   options: CreateStickerBorderOptions = {},
 ): Promise<Blob> {
-  const { borderWidth, borderColor, steps } = { ...DEFAULTS, ...options }
   const bitmap = await createImageBitmap(cutout)
+
+  const borderWidth =
+    options.borderWidth ?? Math.max(MIN_BORDER_WIDTH, Math.round(Math.max(bitmap.width, bitmap.height) * DEFAULT_BORDER_RATIO))
+  const borderColor = options.borderColor ?? DEFAULT_BORDER_COLOR
+  const steps = options.steps ?? DEFAULT_STEPS
 
   const width = bitmap.width + borderWidth * 2
   const height = bitmap.height + borderWidth * 2

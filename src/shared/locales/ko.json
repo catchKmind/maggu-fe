@@ -9,7 +9,8 @@
     "giphy": "Giphy",
     "addSticker": "스티커 추가",
     "close": "닫기",
-    "giphySearchPlaceholder": "GIF 검색"
+    "giphySearchPlaceholder": "GIF 검색",
+    "deleteSticker": "스티커 삭제"
   },
   "stickerCreate": {
     "title": "스티커 만들기",
