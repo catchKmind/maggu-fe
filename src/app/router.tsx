@@ -1,6 +1,7 @@
 import { createBrowserRouter, createHashRouter } from 'react-router-dom'
 import { isNativeApp } from '../shared/lib/platform'
 import Layout from './Layout'
+import { RequireAuth, RedirectIfAuthed } from './routeGuards'
 import MapPage from '../pages/MapPage'
 import MapSearchPage from '../pages/MapSearchPage'
 import CommunityPage from '../pages/CommunityPage'
@@ -15,15 +16,27 @@ const routes = [
     path: '/',
     element: <Layout />,
     children: [
-      { index: true, element: <MapPage /> },
-      { path: 'search', element: <MapSearchPage /> },
-      { path: 'login', element: <LoginPage /> },
-      { path: 'community', element: <CommunityPage /> },
-      { path: 'community/search', element: <CommunitySearchPage /> },
-      { path: 'community/write', element: <CommunityComposePage /> },
-      { path: 'community/posts/:postId', element: <CommunityPostDetailPage /> },
-      { path: 'my-page', element: <MyPage /> },
-      // 라우트는 여기에 추가
+      {
+        path: 'login',
+        element: (
+          <RedirectIfAuthed>
+            <LoginPage />
+          </RedirectIfAuthed>
+        ),
+      },
+      {
+        element: <RequireAuth />,
+        children: [
+          { index: true, element: <MapPage /> },
+          { path: 'search', element: <MapSearchPage /> },
+          { path: 'community', element: <CommunityPage /> },
+          { path: 'community/search', element: <CommunitySearchPage /> },
+          { path: 'community/write', element: <CommunityComposePage /> },
+          { path: 'community/posts/:postId', element: <CommunityPostDetailPage /> },
+          { path: 'my-page', element: <MyPage /> },
+          // 라우트는 여기에 추가
+        ],
+      },
     ],
   },
 ]

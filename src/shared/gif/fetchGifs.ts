@@ -1,32 +1,19 @@
 import type { ComponentProps } from 'react'
+import { GiphyFetch } from '@giphy/js-fetch-api'
 import { Grid } from '@giphy/react-components'
-import { getAuthToken } from '../lib/authToken'
-import { getPlatform } from '../lib/platform'
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? ''
-const GIF_PATH = '/api/v1/gif'
+const API_KEY = import.meta.env.VITE_GIPHY_API_KEY
 const PAGE_SIZE = 24
 
 type FetchGifs = ComponentProps<typeof Grid>['fetchGifs']
 
+const gf = new GiphyFetch(API_KEY)
+
 /**
- * 백엔드 /api/v1/gif가 Giphy 응답({ data, pagination, meta })을 가공 없이
- * 그대로 흘려보내는 프록시라는 전제. Giphy API 키는 서버에만 있고 여기선 안 씀.
- * 검색어가 없으면 백엔드가 trending으로 처리.
+ * Giphy API를 프론트에서 직접 호출한다 (검색어 없으면 트렌딩).
+ * VITE_GIPHY_API_KEY는 Giphy가 클라이언트 배포용으로 발급하는 공개 키라 번들에 노출돼도 무방하다.
  */
 export function makeFetchGifs(term: string): FetchGifs {
-  return async (offset: number) => {
-    const params = new URLSearchParams({ offset: String(offset), limit: String(PAGE_SIZE) })
-    if (term) params.set('q', term)
-
-    const token = getAuthToken()
-    const res = await fetch(`${BASE_URL}${GIF_PATH}?${params}`, {
-      headers: {
-        'x-client-platform': getPlatform(),
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-    })
-    if (!res.ok) throw new Error('gif fetch failed')
-    return res.json()
-  }
+  return (offset: number) =>
+    term ? gf.search(term, { offset, limit: PAGE_SIZE }) : gf.trending({ offset, limit: PAGE_SIZE })
 }
