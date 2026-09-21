@@ -3,7 +3,9 @@ import mapboxgl from 'mapbox-gl'
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 
-const DEFAULT_CENTER: [number, number] = [128.6613, 35.8855] // 동촌유원지 (대구 동구 효목동)
+// 경산 정평동 일대. 동촌유원지는 등록된 장소 데이터가 하나도 없어 지도가 비어 보여서,
+// 대구권에서 스팟이 가장 많이 모여있는 곳으로 잡아둠.
+const DEFAULT_CENTER: [number, number] = [128.73487, 35.82631]
 const DEFAULT_ZOOM = 15
 
 interface UseMapboxMapOptions {

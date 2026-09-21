@@ -18,19 +18,20 @@ export type MapSpotFeature = GeoJSON.Feature<GeoJSON.Point, TourSpotProperties>
 
 export type MapSpotsResponse = GeoJSON.FeatureCollection<GeoJSON.Point, TourSpotProperties>
 
+/** 상세 응답은 정보가 없는 필드를 null로 내려준다 (관광공사 원본 데이터에 비는 값이 많음) */
 export interface MapSpotDetail {
   contentId: string
   contentType: TourContentType
-  tel: string
+  tel: string | null
   title: string
-  addr: string
+  addr: string | null
   images: string[]
-  businessHours: string
-  closedDays: string
-  /** 축제 기간. 축제(contentType 15)가 아니면 빈 값 */
-  eventPeriod: string
+  businessHours: string | null
+  closedDays: string | null
+  /** 축제 기간. 축제(contentType 15)가 아니면 null */
+  eventPeriod: string | null
   lng: number
   lat: number
   /** 이 장소에 연결된 게시글들의 스크랩수 합계 */
-  placeScrapCount: number
+  placeScrapCount: number | null
 }

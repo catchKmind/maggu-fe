@@ -9,23 +9,27 @@ function toBounds(map: mapboxgl.Map): MapMarkersBounds {
 }
 
 /**
- * 지도 뷰포트(bbox)를 추적. map이 준비되면 초기값을 한 번 잡고,
+ * 지도 뷰포트(bbox + 줌)를 추적. map이 준비되면 초기값을 한 번 잡고,
  * 이후 이동/줌이 끝날 때(moveend)마다 갱신.
  */
-export function useMapBounds(map: mapboxgl.Map | null) {
+export function useMapViewport(map: mapboxgl.Map | null) {
   const [bounds, setBounds] = useState<MapMarkersBounds | null>(null)
+  const [zoom, setZoom] = useState<number | null>(null)
 
   useEffect(() => {
     if (!map) return
 
-    setBounds(toBounds(map))
+    const sync = () => {
+      setBounds(toBounds(map))
+      setZoom(map.getZoom())
+    }
+    sync()
 
-    const handleMoveEnd = () => setBounds(toBounds(map))
-    map.on('moveend', handleMoveEnd)
+    map.on('moveend', sync)
     return () => {
-      map.off('moveend', handleMoveEnd)
+      map.off('moveend', sync)
     }
   }, [map])
 
-  return bounds
+  return { bounds, zoom }
 }
