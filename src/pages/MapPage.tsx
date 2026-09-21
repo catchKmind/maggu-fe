@@ -19,7 +19,7 @@ export default function MapPage() {
   const searchKeyword = searchParams.get('spot')
   const [isStickerSheetOpen, setIsStickerSheetOpen] = useState(false)
   const [selectedSpot, setSelectedSpot] = useState<PhotoSpot | null>(null)
-  const { data: myStickers } = useMyStickers()
+  const { data: myStickers } = useMyStickers(isStickerSheetOpen)
   const deleteSticker = useDeleteSticker()
 
   return (
