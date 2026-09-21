@@ -4,10 +4,11 @@ export interface PhotoSpot {
   lat: number
   photos: string[]
   name: string
-  // 지도 마커 API(MapPostProperties)엔 없는 정보라 실데이터에선 채워지지 않음
   category?: string
+  // bbox 목록 API엔 없고, 상세 조회(useMapSpot) 이후에 채워짐
   address?: string
   hours?: string
   phone?: string
   tourismContentId: string | null
+  isOngoingEvent?: boolean
 }

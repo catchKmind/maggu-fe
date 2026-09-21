@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useSlideSheet } from '../../../shared/hooks/useSlideSheet'
 import { PhotoGrid } from '../../../shared/components/PhotoGrid'
 import { useContentFeed } from '../hooks/useContentFeed'
+import { useMapSpot } from '../hooks/useMapSpot'
 import { PlaceScrapSheet } from '../../myplaces/components/PlaceScrapSheet'
 import type { FeedSort } from '../../community/api/posts.types'
 import type { PhotoSpot } from '../types'
@@ -107,6 +108,7 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
   const feedSort: FeedSort = activeTab === 'popular' ? 'POPULAR' : 'LATEST'
   const { data: contentFeed } = useContentFeed(spot?.tourismContentId ?? null, feedSort)
   const feedItems = contentFeed?.content ?? []
+  const { data: spotDetail } = useMapSpot(spot?.tourismContentId ?? null)
 
   const [sheetTop, setSheetTop] = useState(PEEK_TOP)
   const [isScrapSheetOpen, setIsScrapSheetOpen] = useState(false)
@@ -141,6 +143,11 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
   }
 
   if (!shouldRender || !spot) return null
+
+  const address = spotDetail?.addr ?? spot.address
+  const hours = spotDetail?.businessHours ?? spot.hours
+  const phone = spotDetail?.tel ?? spot.phone
+  const photos = spotDetail?.images.length ? spotDetail.images : spot.photos
 
   return (
     <div className="fixed inset-0 z-50">
@@ -208,15 +215,15 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
           <div className="px-5 pt-4">
             {spot.category && <p className="text-16 text-gray-500">{spot.category}</p>}
 
-            {(spot.address || spot.hours || spot.phone) && (
+            {(address || hours || phone) && (
               <div className="mt-3 flex flex-col gap-2">
-                {spot.address && <InfoRow icon={<PinIcon />} text={spot.address} />}
-                {spot.hours && <InfoRow icon={<ClockIcon />} text={spot.hours} />}
-                {spot.phone && <InfoRow icon={<PhoneIcon />} text={spot.phone} />}
+                {address && <InfoRow icon={<PinIcon />} text={address} />}
+                {hours && <InfoRow icon={<ClockIcon />} text={hours} />}
+                {phone && <InfoRow icon={<PhoneIcon />} text={phone} />}
               </div>
             )}
 
-            <PhotoGrid photos={spot.photos} className="mt-4 h-[180px]" />
+            {photos.length > 0 && <PhotoGrid photos={photos} className="mt-4 h-[180px]" />}
           </div>
 
           {spot.tourismContentId && (
@@ -263,7 +270,7 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
           tourismContentId={spot.tourismContentId}
           placeName={spot.name}
           placeCategory={spot.category}
-          placeImageUrl={spot.photos[0]}
+          placeImageUrl={photos[0]}
           onClose={() => setIsScrapSheetOpen(false)}
         />
       )}
