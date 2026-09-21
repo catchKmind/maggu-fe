@@ -6,8 +6,8 @@ import { FeedTabs } from '../features/community/components/FeedTabs'
 import { SortMenu } from '../features/community/components/SortMenu'
 import { SearchIconButton } from '../features/community/components/SearchIconButton'
 import { PostCard } from '../features/community/components/PostCard'
-import { MOCK_CURRENT_USER } from '../features/community/mocks/posts'
 import { useCommunityFeed } from '../features/community/hooks/useCommunityFeed'
+import { useMyAccount } from '../features/mypage/hooks/useMyAccount'
 import { toCommunityPost } from '../features/community/mappers/toCommunityPost'
 import type { CommunityFeedTab, CommunitySortOrder } from '../features/community/types'
 import { BottomNavigation } from '../shared/components/BottomNavigation'
@@ -18,11 +18,12 @@ export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState<CommunityFeedTab>('recommended')
   const [sortOrder, setSortOrder] = useState<CommunitySortOrder>('latest')
   const { data, isLoading, isError } = useCommunityFeed({ sort: sortOrder })
+  const { data: account } = useMyAccount()
   const posts = data?.content.map(toCommunityPost) ?? []
 
   return (
     <div className="relative flex flex-1 flex-col">
-      <CommunityHeader author={MOCK_CURRENT_USER} onCompose={() => navigate('/community/write')} />
+      <CommunityHeader nickname={account?.nickname} onCompose={() => navigate('/community/write')} />
 
       <div className="flex items-center justify-between px-5 pb-3">
         <FeedTabs activeTab={activeTab} onChange={setActiveTab} />
