@@ -1,5 +1,6 @@
-import { getAuthToken } from './authToken'
+import { getAuthToken, clearAuthToken } from './authToken'
 import { isNativeApp } from './platform'
+import { useAppStore } from '../../stores/useAppStore'
 
 /**
  * API 클라이언트.
@@ -39,6 +40,12 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     },
     ...options,
   })
+  // 액세스 토큰은 1시간 뒤 만료되는데 재발급 엔드포인트가 아직 없어서, 만료되면 로그아웃시킨다.
+  // (토큰만 남아있으면 로그인된 것으로 취급돼 모든 요청이 조용히 401로 실패하기 때문)
+  if (res.status === 401) {
+    clearAuthToken()
+    useAppStore.getState().setLoggedIn(false)
+  }
   if (!res.ok) throw new ApiError(res.status, await res.text())
   if (res.status === 204) return undefined as T
   return res.json() as Promise<T>
