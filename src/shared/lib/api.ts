@@ -1,11 +1,14 @@
 import { getAuthToken } from './authToken'
+import { isNativeApp } from './platform'
 
 /**
  * API 클라이언트.
- * 웹뷰(앱)에서는 상대경로가 동작하지 않으므로 baseURL을 반드시 환경변수로 관리한다.
- * .env: VITE_API_BASE_URL=https://api.example.com
+ * 웹: same-origin 상대경로(/api/...)로 호출 — vercel.json(배포)/vite.config.ts(로컬)가
+ * 백엔드로 프록시해준다. 백엔드가 아직 HTTP만 지원해서 HTTPS 페이지에서 절대 URL로
+ * 직접 부르면 Mixed Content로 브라우저가 요청을 막기 때문.
+ * 네이티브 웹뷰: 프록시가 없으므로 VITE_API_BASE_URL로 백엔드에 직접 접속한다.
  */
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? ''
+const BASE_URL = isNativeApp() ? (import.meta.env.VITE_API_BASE_URL ?? '') : ''
 
 export interface ApiResponse<T> {
   success: boolean
