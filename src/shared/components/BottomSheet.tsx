@@ -115,35 +115,43 @@ export function BottomSheet({ isOpen, onClose, myStickers, onAdd, onSelectGif, o
             />
           </div>
 
-          <div className="flex-1 overflow-y-auto">
+          <div className="relative flex-1 overflow-hidden">
+            <div className="h-full overflow-y-auto">
+              {activeTab === 'mySticker' && (
+                <div className="grid grid-cols-3 gap-3 p-4 pb-28">
+                  {myStickers?.map((sticker) => (
+                    <div
+                      key={sticker.stickerId}
+                      className="relative aspect-square overflow-hidden rounded-2xl bg-gray-50"
+                    >
+                      <img src={sticker.imageUrl} alt="" className="h-full w-full object-contain" />
+                      {onDeleteSticker && (
+                        <button
+                          type="button"
+                          onClick={() => onDeleteSticker(sticker.stickerId)}
+                          aria-label={t('bottomSheet.deleteSticker')}
+                          className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/50"
+                        >
+                          <DeleteBadgeIcon />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {activeTab === 'giphy' && <GiphyPicker onSelect={handleSelectGif} />}
+            </div>
+
             {activeTab === 'mySticker' && (
-              <div className="grid grid-cols-3 gap-3 p-4">
-                {myStickers?.map((sticker) => (
-                  <div key={sticker.stickerId} className="relative aspect-square overflow-hidden rounded-2xl bg-gray-50">
-                    <img src={sticker.imageUrl} alt="" className="h-full w-full object-contain" />
-                    {onDeleteSticker && (
-                      <button
-                        type="button"
-                        onClick={() => onDeleteSticker(sticker.stickerId)}
-                        aria-label={t('bottomSheet.deleteSticker')}
-                        className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/50"
-                      >
-                        <DeleteBadgeIcon />
-                      </button>
-                    )}
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={handlePickPhoto}
-                  aria-label={t('bottomSheet.addSticker')}
-                  className="flex aspect-square items-center justify-center rounded-2xl bg-gray-50"
-                >
-                  <PlusIcon />
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={handlePickPhoto}
+                aria-label={t('bottomSheet.addSticker')}
+                className="absolute bottom-12 left-1/2 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border border-gray-200 bg-white"
+              >
+                <PlusIcon />
+              </button>
             )}
-            {activeTab === 'giphy' && <GiphyPicker onSelect={handleSelectGif} />}
           </div>
         </div>
       </div>
