@@ -1,18 +1,18 @@
-import type { MapSpotFeature } from '../api/mapSpots.types'
+import type { MapSpotDetail } from '../api/mapSpots.types'
 import type { PhotoSpot } from '../types'
 
-export function toSpotPin(feature: MapSpotFeature, categoryLabel: string): PhotoSpot {
-  const [lng, lat] = feature.geometry.coordinates
-  const { contentId, title, isOngoingEvent } = feature.properties
-
+export function toSpotPin(spot: MapSpotDetail, categoryLabel: string): PhotoSpot {
   return {
-    id: contentId,
-    lng,
-    lat,
-    name: title,
-    photos: [],
+    id: spot.contentId,
+    lng: spot.lng,
+    lat: spot.lat,
+    name: spot.title,
+    photos: spot.images,
     category: categoryLabel,
-    tourismContentId: contentId,
-    isOngoingEvent,
+    address: spot.addr ?? undefined,
+    hours: spot.businessHours ?? undefined,
+    phone: spot.tel ?? undefined,
+    tourismContentId: spot.contentId,
+    isOngoingEvent: Boolean(spot.eventPeriod),
   }
 }
