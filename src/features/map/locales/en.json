@@ -10,7 +10,17 @@
   "placeDetail": {
     "popular": "Popular",
     "recent": "Recent Posts",
-    "close": "Close"
+    "close": "Close",
+    "contentType": {
+      "12": "Tourist Spot",
+      "14": "Cultural Facility",
+      "15": "Festival/Event",
+      "25": "Travel Course",
+      "28": "Leisure Sports",
+      "32": "Accommodation",
+      "38": "Shopping",
+      "39": "Restaurant"
+    }
   },
   "searchPage": {
     "placeholder": "Search for a place or spot",
