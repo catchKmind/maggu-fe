@@ -12,6 +12,7 @@
   "dependencies": {
     "@capacitor/camera": "^8.2.2",
     "@capacitor/core": "^8.4.2",
+    "@giphy/js-fetch-api": "^5.8.0",
     "@giphy/react-components": "^10.1.2",
     "@imgly/background-removal": "^1.7.0",
     "@ionic/pwa-elements": "^3.4.0",
