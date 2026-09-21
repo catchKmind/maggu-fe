@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { SearchSuggestionItem } from '../shared/components/SearchSuggestionItem'
 import { useImeAwareInput } from '../shared/hooks/useImeAwareInput'
@@ -35,7 +34,6 @@ function ClearIcon() {
 
 export default function MapSearchPage() {
   const { t } = useTranslation('map')
-  const navigate = useNavigate()
   const { value: keyword, committedValue, setValue, onChange, onCompositionStart, onCompositionEnd } =
     useImeAwareInput()
   const [submittedKeyword, setSubmittedKeyword] = useState<string | null>(null)
@@ -148,15 +146,10 @@ export default function MapSearchPage() {
                   <p className="px-5 py-8 text-center text-14 text-gray-400">{t('searchPage.empty')}</p>
                 )}
                 {places?.map((place) => (
-                  <button
-                    key={place.contentId}
-                    type="button"
-                    onClick={() => navigate(`/?spot=${encodeURIComponent(place.title)}`)}
-                    className="flex flex-col items-start gap-1 px-5 py-3 text-left"
-                  >
+                  <div key={place.contentId} className="flex flex-col gap-1 px-5 py-3">
                     <span className="text-15 font-medium text-gray-900">{place.title}</span>
                     {place.addr && <span className="text-13 text-gray-400">{place.addr}</span>}
-                  </button>
+                  </div>
                 ))}
               </div>
             )}
