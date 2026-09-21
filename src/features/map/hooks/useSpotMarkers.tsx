@@ -23,7 +23,8 @@ export function useSpotMarkers(map: mapboxgl.Map | null, spots: PhotoSpot[], onS
     return () => {
       markers.forEach(({ marker, root }) => {
         marker.remove()
-        root.unmount()
+        // 렌더 도중 동기 unmount하면 React가 경고를 띄우므로 현재 렌더가 끝난 뒤로 미룬다
+        queueMicrotask(() => root.unmount())
       })
     }
   }, [map, spots, onSpotClick])
