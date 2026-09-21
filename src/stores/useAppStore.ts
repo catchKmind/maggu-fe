@@ -1,14 +1,12 @@
 import { create } from 'zustand'
+import { getAuthToken } from '../shared/lib/authToken'
 
-/**
- * 전역 상태 예시 (Zustand). 필요에 맞게 수정해서 사용.
- */
 interface AppState {
   isLoggedIn: boolean
   setLoggedIn: (v: boolean) => void
 }
 
 export const useAppStore = create<AppState>((set) => ({
-  isLoggedIn: false,
+  isLoggedIn: !!getAuthToken(),
   setLoggedIn: (v) => set({ isLoggedIn: v }),
 }))
