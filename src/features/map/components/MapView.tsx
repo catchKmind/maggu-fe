@@ -1,9 +1,10 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
+import { useTranslation } from 'react-i18next'
 import { useMapboxMap } from '../hooks/useMapboxMap'
 import { useMapBounds } from '../hooks/useMapBounds'
-import { useMapMarkers } from '../hooks/useMapMarkers'
-import { usePhotoMarkers } from '../hooks/usePhotoMarkers'
-import { toPhotoSpot } from '../mappers/toPhotoSpot'
+import { useMapSpots } from '../hooks/useMapSpots'
+import { useSpotMarkers } from '../hooks/useSpotMarkers'
+import { toSpotPin } from '../mappers/toSpotPin'
 import type { PhotoSpot } from '../types'
 
 interface MapViewProps {
@@ -11,14 +12,17 @@ interface MapViewProps {
 }
 
 export function MapView({ onSpotClick }: MapViewProps) {
+  const { t } = useTranslation('map')
   const { containerRef, map } = useMapboxMap()
   const bounds = useMapBounds(map)
-  const { data } = useMapMarkers(bounds)
+  const { data } = useMapSpots(bounds)
 
-  const photoSpots =
-    data?.features.filter((feature) => feature.properties.representativeImageUrl).map(toPhotoSpot) ?? []
+  const spots =
+    data?.features.map((feature) =>
+      toSpotPin(feature, t(`placeDetail.contentType.${feature.properties.contentType}`)),
+    ) ?? []
 
-  usePhotoMarkers(map, photoSpots, onSpotClick)
+  useSpotMarkers(map, spots, onSpotClick)
 
   return <div ref={containerRef} className="flex-1" />
 }
