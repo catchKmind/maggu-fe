@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { MapView } from '../features/map/components/MapView'
 import { Tag } from '../features/map/components/Tag'
@@ -25,8 +25,6 @@ const CATEGORY_TAGS: { labelKey: string; category?: MapPostCategory }[] = [
 export default function MapPage() {
   const { t } = useTranslation('map')
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
-  const searchKeyword = searchParams.get('spot')
   const [isStickerSheetOpen, setIsStickerSheetOpen] = useState(false)
   const [selectedSpot, setSelectedSpot] = useState<PhotoSpot | null>(null)
   const [category, setCategory] = useState<MapPostCategory | undefined>()
@@ -35,7 +33,7 @@ export default function MapPage() {
 
   return (
     <div className="relative flex flex-1 flex-col">
-      <MapView onSpotClick={setSelectedSpot} searchKeyword={searchKeyword} category={category} />
+      <MapView onSpotClick={setSelectedSpot} category={category} />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#D6D6D6] to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-gray-200/80 to-transparent" />
       <div className="absolute inset-x-0 top-7 flex flex-col gap-3">
