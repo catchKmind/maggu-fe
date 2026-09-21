@@ -32,6 +32,10 @@
       "popular": "Popular",
       "recent": "Recent"
     },
+    "open": "Open",
+    "closed": "Closed",
+    "closesAt": "Closes at {{time}}",
+    "opensAt": "Opens at {{time}}",
     "loading": "Loading...",
     "error": "Couldn't load search results",
     "empty": "No results found"
