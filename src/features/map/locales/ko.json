@@ -26,6 +26,11 @@
     "placeholder": "장소나 관광지를 검색해보세요",
     "back": "뒤로가기",
     "clear": "지우기",
+    "tabs": {
+      "place": "장소",
+      "popular": "인기",
+      "recent": "최근 게시물"
+    },
     "loading": "불러오는 중...",
     "error": "검색 결과를 불러오지 못했어요",
     "empty": "검색 결과가 없어요"

@@ -26,6 +26,11 @@
     "placeholder": "Search for a place or spot",
     "back": "Back",
     "clear": "Clear",
+    "tabs": {
+      "place": "Places",
+      "popular": "Popular",
+      "recent": "Recent"
+    },
     "loading": "Loading...",
     "error": "Couldn't load search results",
     "empty": "No results found"
