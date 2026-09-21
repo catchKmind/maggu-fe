@@ -10,6 +10,8 @@ import { usePostMarkers } from '../hooks/usePostMarkers'
 import { useSpotMarkers } from '../hooks/useSpotMarkers'
 import { toPostSpot } from '../mappers/toPostSpot'
 import { toSpotPin } from '../mappers/toSpotPin'
+import { isOutOfServiceArea } from '../serviceArea'
+import { OutOfServiceNotice } from './OutOfServiceNotice'
 import type { MapPostCategory } from '../api/mapPosts.types'
 import type { PhotoSpot } from '../types'
 
@@ -74,5 +76,14 @@ export function MapView({ onSpotClick, category, searchKeyword = null }: MapView
     map.fitBounds(bounds, { padding: FIT_PADDING, maxZoom: FIT_MAX_ZOOM })
   }, [map, spots])
 
-  return <div ref={containerRef} className="flex-1" />
+  return (
+    <div className="relative flex flex-1 flex-col">
+      <div ref={containerRef} className="flex-1" />
+      {isOutOfServiceArea(bounds) && (
+        <div className="pointer-events-none absolute inset-x-4 top-28 z-10">
+          <OutOfServiceNotice />
+        </div>
+      )}
+    </div>
+  )
 }

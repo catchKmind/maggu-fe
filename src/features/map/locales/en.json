@@ -1,5 +1,6 @@
 {
   "placeholder": "Map area",
+  "outOfService": "We currently only serve the Gyeongsang region.",
   "tags": {
     "hotplace": "Hot Place",
     "cafe": "Cafe",
