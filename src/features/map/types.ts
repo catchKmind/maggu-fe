@@ -11,4 +11,6 @@ export interface PhotoSpot {
   phone?: string
   tourismContentId: string | null
   isOngoingEvent?: boolean
+  /** 같은 장소에 연결된 게시글 수. 사진 마커 크기를 정하는 데 사용 */
+  postCount?: number
 }

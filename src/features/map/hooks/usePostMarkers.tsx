@@ -1,21 +1,21 @@
 import { useEffect } from 'react'
 import mapboxgl from 'mapbox-gl'
 import { createRoot } from 'react-dom/client'
-import { SpotMarker } from '../components/SpotMarker'
+import { PostMarker } from '../components/PostMarker'
 import type { PhotoSpot } from '../types'
 
-export function useSpotMarkers(map: mapboxgl.Map | null, spots: PhotoSpot[], onSpotClick?: (spot: PhotoSpot) => void) {
+export function usePostMarkers(map: mapboxgl.Map | null, posts: PhotoSpot[], onSpotClick?: (spot: PhotoSpot) => void) {
   useEffect(() => {
     if (!map) return
 
-    const markers = spots.map((spot) => {
+    const markers = posts.map((post) => {
       const el = document.createElement('div')
       const root = createRoot(el)
-      root.render(<SpotMarker isOngoingEvent={spot.isOngoingEvent} onClick={() => onSpotClick?.(spot)} />)
+      root.render(
+        <PostMarker imageUrl={post.photos[0]} postCount={post.postCount} onClick={() => onSpotClick?.(post)} />,
+      )
 
-      const marker = new mapboxgl.Marker({ element: el, anchor: 'bottom' })
-        .setLngLat([spot.lng, spot.lat])
-        .addTo(map)
+      const marker = new mapboxgl.Marker({ element: el, anchor: 'center' }).setLngLat([post.lng, post.lat]).addTo(map)
 
       return { marker, root }
     })
@@ -27,5 +27,5 @@ export function useSpotMarkers(map: mapboxgl.Map | null, spots: PhotoSpot[], onS
         queueMicrotask(() => root.unmount())
       })
     }
-  }, [map, spots, onSpotClick])
+  }, [map, posts, onSpotClick])
 }
