@@ -1,5 +1,6 @@
 {
   "placeholder": "지도",
+  "outOfService": "현재 경상도 지역만 서비스하고 있어요.",
   "tags": {
     "hotplace": "지금 인기",
     "cafe": "카페",
