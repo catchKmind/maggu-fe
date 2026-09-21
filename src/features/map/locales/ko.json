@@ -32,6 +32,10 @@
       "popular": "인기",
       "recent": "최근 게시물"
     },
+    "open": "운영 중",
+    "closed": "운영 종료",
+    "closesAt": "{{time}} 운영 종료",
+    "opensAt": "{{time}} 운영 시작",
     "loading": "불러오는 중...",
     "error": "검색 결과를 불러오지 못했어요",
     "empty": "검색 결과가 없어요"
