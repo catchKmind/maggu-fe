@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { useAppleLogin } from '../features/auth/hooks/useAppleLogin'
+import { useGuestLogin } from '../features/auth/hooks/useGuestLogin'
 import { loadAppleSdk } from '../shared/lib/appleSignIn'
 import bgImage from '../assets/main/img_bgd.png'
 
@@ -46,6 +47,7 @@ export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }:
   const { t } = useTranslation('auth')
   const navigate = useNavigate()
   const appleLogin = useAppleLogin()
+  const guestLogin = useGuestLogin()
 
   // 이 페이지가 Apple 로그인 팝업의 리다이렉트 대상으로 열렸을 수도 있어서,
   // 버튼을 누르기 전에도 SDK가 미리 로드되어 있어야 팝업 쪽에서 핸드셰이크가 끝남.
@@ -64,6 +66,15 @@ export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }:
     })
   }
 
+  const handleGuestLogin = () => {
+    guestLogin.mutate(undefined, {
+      onSuccess: () => {
+        onGuestLogin?.()
+        navigate('/')
+      },
+    })
+  }
+
   return (
     <div
       className="relative flex flex-1 flex-col items-center bg-cover bg-center"
@@ -75,6 +86,7 @@ export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }:
 
       <div className="flex w-full flex-col gap-3 px-6 pb-[calc(var(--safe-bottom)+32px)]">
         {appleLogin.isError && <p className="text-center text-13 text-red-500">{t('appleLoginError')}</p>}
+        {guestLogin.isError && <p className="text-center text-13 text-red-500">{t('guestLoginError')}</p>}
         <button
           type="button"
           onClick={handleAppleLogin}
@@ -94,10 +106,11 @@ export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }:
         </button>
         <button
           type="button"
-          onClick={onGuestLogin}
-          className="flex h-14 items-center justify-center rounded-full bg-white text-16 font-bold text-gray-900"
+          onClick={handleGuestLogin}
+          disabled={guestLogin.isPending}
+          className="flex h-14 items-center justify-center rounded-full bg-white text-16 font-bold text-gray-900 disabled:opacity-60"
         >
-          {t('guestLogin')}
+          {guestLogin.isPending ? t('signingIn') : t('guestLogin')}
         </button>
       </div>
     </div>
