@@ -7,7 +7,8 @@ import { useSearchAutocomplete } from '../features/community/hooks/useSearchAuto
 import { useSearchPosts } from '../features/community/hooks/useSearchPosts'
 import { toCommunityPost } from '../features/community/mappers/toCommunityPost'
 import { PostCard } from '../features/community/components/PostCard'
-import { SortMenu } from '../features/community/components/SortMenu'
+import { SortButton } from '../features/community/components/SortButton'
+import { SortSheet } from '../features/community/components/SortSheet'
 import type { CommunitySortOrder } from '../features/community/types'
 
 function BackIcon() {
@@ -34,6 +35,7 @@ export default function CommunitySearchPage() {
   const { data: suggestions } = useSearchAutocomplete(committedValue)
   const [submittedKeyword, setSubmittedKeyword] = useState<string | null>(null)
   const [sortOrder, setSortOrder] = useState<CommunitySortOrder>('latest')
+  const [isSortSheetOpen, setIsSortSheetOpen] = useState(false)
   const { data: results, isLoading, isError } = useSearchPosts(submittedKeyword, sortOrder)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -102,7 +104,7 @@ export default function CommunitySearchPage() {
       {submittedKeyword !== null && (
         <>
           <div className="px-4 pb-2">
-            <SortMenu value={sortOrder} onChange={setSortOrder} />
+            <SortButton onClick={() => setIsSortSheetOpen(true)} />
           </div>
           <div className="flex-1 overflow-y-auto pb-8">
             {isLoading && <p className="px-5 py-8 text-center text-14 text-gray-400">{t('feed.loading')}</p>}
@@ -116,6 +118,13 @@ export default function CommunitySearchPage() {
           </div>
         </>
       )}
+
+      <SortSheet
+        isOpen={isSortSheetOpen}
+        value={sortOrder}
+        onChange={setSortOrder}
+        onClose={() => setIsSortSheetOpen(false)}
+      />
     </div>
   )
 }
