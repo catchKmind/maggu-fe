@@ -5,6 +5,7 @@ import { usePlaceFolders } from '../hooks/usePlaceFolders'
 import { useCreatePlaceFolder } from '../hooks/useCreatePlaceFolder'
 import { useCreatePlaceScrap } from '../hooks/useCreatePlaceScrap'
 import { useMyStickers } from '../../sticker/hooks/useMyStickers'
+import { useCreateSticker } from '../../sticker/hooks/useCreateSticker'
 import { StickerCreateScreen } from '../../../shared/sticker/StickerCreateScreen'
 
 type ScrapStep = 'folder' | 'newFolder' | 'sticker' | 'confirm'
@@ -66,6 +67,7 @@ export function PlaceScrapSheet({
   const { data: stickers } = useMyStickers()
   const createFolder = useCreatePlaceFolder()
   const createScrap = useCreatePlaceScrap()
+  const createSticker = useCreateSticker()
 
   const [step, setStep] = useState<ScrapStep>('folder')
   const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null)
@@ -349,9 +351,13 @@ export function PlaceScrapSheet({
           <StickerCreateScreen
             source={pendingStickerSource}
             onCancel={() => setPendingStickerSource(null)}
-            onConfirm={() => {
-              // 업로드 API가 아직 없어서 방금 만든 스티커를 서버 목록에 반영할 수 없음 —
-              // UI 플로우만 우선 구현. 업로드 API 생기면 여기서 createMySticker까지 이어서 호출.
+            onConfirm={(sticker) => {
+              createSticker.mutate(sticker, {
+                onSuccess: (created) => {
+                  setSelectedStickerId(created.stickerId)
+                  setStep('confirm')
+                },
+              })
               setPendingStickerSource(null)
             }}
           />

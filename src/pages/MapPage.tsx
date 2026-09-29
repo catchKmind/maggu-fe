@@ -11,6 +11,7 @@ import { BottomNavigation } from '../shared/components/BottomNavigation'
 import { BottomSheet } from '../shared/components/BottomSheet'
 import { useMyStickers } from '../features/sticker/hooks/useMyStickers'
 import { useDeleteSticker } from '../features/sticker/hooks/useDeleteSticker'
+import { useCreateSticker } from '../features/sticker/hooks/useCreateSticker'
 import type { MapPostCategory } from '../features/map/api/mapPosts.types'
 
 /** 필터 칩과 API category 값 대응. "카페"는 API에 대응하는 값이 없어 아직 필터로 못 씀 */
@@ -30,6 +31,7 @@ export default function MapPage() {
   const [category, setCategory] = useState<MapPostCategory | undefined>()
   const { data: myStickers } = useMyStickers(isStickerSheetOpen)
   const deleteSticker = useDeleteSticker()
+  const createSticker = useCreateSticker()
 
   return (
     <div className="relative flex flex-1 flex-col">
@@ -63,6 +65,7 @@ export default function MapPage() {
         isOpen={isStickerSheetOpen}
         onClose={() => setIsStickerSheetOpen(false)}
         myStickers={myStickers}
+        onAdd={(sticker) => createSticker.mutate(sticker)}
         onDeleteSticker={(stickerId) => deleteSticker.mutate(stickerId)}
       />
       <PlaceDetailSheet spot={selectedSpot} onClose={() => setSelectedSpot(null)} />
