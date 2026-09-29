@@ -39,9 +39,19 @@
     "info": "정보",
     "curation": "큐레이션",
     "cancel": "취소",
-    "submit": "게시",
-    "placeholder": "무슨 이야기를 공유하고 싶으신가요?",
-    "error": "게시글을 올리지 못했어요"
+    "submit": "완료",
+    "placeholder": "내용을 입력하세요",
+    "error": "게시글을 올리지 못했어요",
+    "location": "사진 위치",
+    "locationBack": "뒤로가기",
+    "locationSearchPlaceholder": "장소를 검색해보세요",
+    "locationEmpty": "검색 결과가 없어요",
+    "removePhoto": "사진 삭제",
+    "gallery": "갤러리",
+    "camera": "카메라",
+    "gif": "GIF",
+    "sticker": "스티커",
+    "photoError": "사진을 추가하지 못했어요"
   },
   "postDetail": {
     "author": "작성자",
