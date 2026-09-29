@@ -4,5 +4,6 @@
   "googleLogin": "Sign in with Google",
   "guestLogin": "Guest login",
   "signingIn": "Signing in...",
-  "appleLoginError": "Couldn't sign in with Apple"
+  "appleLoginError": "Couldn't sign in with Apple",
+  "guestLoginError": "Couldn't sign in as guest"
 }
