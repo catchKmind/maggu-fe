@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { CommunityHeader } from '../features/community/components/CommunityHeader'
 import { FeedTabs } from '../features/community/components/FeedTabs'
-import { SortMenu } from '../features/community/components/SortMenu'
+import { SortButton } from '../features/community/components/SortButton'
+import { SortSheet } from '../features/community/components/SortSheet'
 import { SearchIconButton } from '../features/community/components/SearchIconButton'
 import { PostCard } from '../features/community/components/PostCard'
 import { useCommunityFeed } from '../features/community/hooks/useCommunityFeed'
@@ -17,6 +18,7 @@ export default function CommunityPage() {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<CommunityFeedTab>('recommended')
   const [sortOrder, setSortOrder] = useState<CommunitySortOrder>('latest')
+  const [isSortSheetOpen, setIsSortSheetOpen] = useState(false)
   const { data, isLoading, isError } = useCommunityFeed({ sort: sortOrder })
   const { data: account } = useMyAccount()
   const posts = data?.content.map(toCommunityPost) ?? []
@@ -28,7 +30,7 @@ export default function CommunityPage() {
       <div className="flex items-center justify-between px-5 pb-3">
         <FeedTabs activeTab={activeTab} onChange={setActiveTab} />
         <div className="flex items-center gap-2">
-          <SortMenu value={sortOrder} onChange={setSortOrder} />
+          <SortButton onClick={() => setIsSortSheetOpen(true)} />
           <SearchIconButton onClick={() => navigate('/community/search')} />
         </div>
       </div>
@@ -47,6 +49,13 @@ export default function CommunityPage() {
       <div className="fixed inset-x-0 bottom-[35px] z-20 mx-auto flex w-full max-w-[430px] justify-center">
         <BottomNavigation />
       </div>
+
+      <SortSheet
+        isOpen={isSortSheetOpen}
+        value={sortOrder}
+        onChange={setSortOrder}
+        onClose={() => setIsSortSheetOpen(false)}
+      />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+// 네비게이션 바
 const NAV_ITEMS = [
   { to: '/community', labelKey: 'nav.community', end: false },
   { to: '/', labelKey: 'nav.map', end: true },
@@ -19,7 +20,7 @@ export function BottomNavigation() {
           end={item.end}
           className={({ isActive }) =>
             [
-              'flex h-full items-center justify-center rounded-full px-5 text-16 text-purple-500 transition-colors',
+              'flex h-full items-center justify-center rounded-14px px-5 text-16 text-purple-500 transition-colors',
               isActive ? 'bg-purple-50 font-semibold' : 'font-medium',
             ].join(' ')
           }
