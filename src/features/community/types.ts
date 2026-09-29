@@ -7,6 +7,13 @@ export interface CommunityAuthor {
 export type CommunityFeedTab = 'recommended' | 'question'
 export type CommunitySortOrder = 'latest' | 'scrap'
 
+export interface PostLocation {
+  lat: number
+  lng: number
+  placeName: string
+  source: 'AUTO' | 'MANUAL'
+}
+
 export interface CommunityPost {
   id: string
   author: CommunityAuthor
