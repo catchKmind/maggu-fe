@@ -5,6 +5,7 @@ import { useImeAwareInput } from '../shared/hooks/useImeAwareInput'
 import { useMapSearchAutocomplete } from '../features/map/hooks/useMapSearchAutocomplete'
 import { useSearchMapSpots } from '../features/map/hooks/useSearchMapSpots'
 import { useSearchMapPosts } from '../features/map/hooks/useSearchMapPosts'
+import { PlaceResultItem } from '../features/map/components/PlaceResultItem'
 import type { FeedSort } from '../features/map/api/mapSearch.types'
 
 type SearchTab = 'place' | 'popular' | 'recent'
@@ -146,10 +147,7 @@ export default function MapSearchPage() {
                   <p className="px-5 py-8 text-center text-14 text-gray-400">{t('searchPage.empty')}</p>
                 )}
                 {places?.map((place) => (
-                  <div key={place.contentId} className="flex flex-col gap-1 px-5 py-3">
-                    <span className="text-15 font-medium text-gray-900">{place.title}</span>
-                    {place.addr && <span className="text-13 text-gray-400">{place.addr}</span>}
-                  </div>
+                  <PlaceResultItem key={place.contentId} place={place} />
                 ))}
               </div>
             )}

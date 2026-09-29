@@ -7,6 +7,7 @@ import type {
   SearchMapPostsParams,
 } from './mapSearch.types'
 
+//검색
 const MAP_SEARCH_POSTS_PATH = '/api/v1/map/search/posts'
 const MAP_SEARCH_AUTOCOMPLETE_PATH = '/api/v1/map/search/autocomplete'
 
