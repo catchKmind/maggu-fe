@@ -55,5 +55,15 @@
     "save": "Save",
     "noStickers": "You don't have any stickers yet",
     "error": "Couldn't scrap this place"
+  },
+  "placePage": {
+    "address": "Address",
+    "eventPeriod": "Event period",
+    "hours": "Hours",
+    "closedDays": "Closed",
+    "phone": "Phone",
+    "openMap": "Open in Maggu map",
+    "loading": "Loading...",
+    "error": "Couldn't load this place."
   }
 }

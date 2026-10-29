@@ -9,6 +9,40 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
     />
     <title>Maggu</title>
+    <meta
+      name="description"
+      content="Maggu is a map-based travel service where visitors to Korea decorate tourist spots on the map with photos and stickers and share them."
+    />
+    <!--
+      사이트 단위 구조화 데이터. 서버가 처음 내려주는 HTML에 들어 있어서
+      자바스크립트를 실행하지 않는 크롤러(다수의 AI 크롤러)도 읽을 수 있다.
+      장소별 데이터는 /places/:contentId 요청 때 api/place-page.ts가 따로 넣는다.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://maggu-fe.vercel.app/#website",
+            "name": "Maggu",
+            "url": "https://maggu-fe.vercel.app/",
+            "inLanguage": ["en", "ko"]
+          },
+          {
+            "@type": "WebApplication",
+            "@id": "https://maggu-fe.vercel.app/#app",
+            "name": "Maggu",
+            "url": "https://maggu-fe.vercel.app/",
+            "description": "A map-based travel service where visitors to Korea decorate tourist spots on the map with photos and stickers and share them.",
+            "applicationCategory": "TravelApplication",
+            "operatingSystem": "Web",
+            "inLanguage": ["en", "ko"],
+            "isPartOf": { "@id": "https://maggu-fe.vercel.app/#website" }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

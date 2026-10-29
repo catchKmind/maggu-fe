@@ -1,5 +1,7 @@
 {
   "rewrites": [
+    { "source": "/places/:contentId", "destination": "/api/place-page?contentId=:contentId" },
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/api/:path*", "destination": "http://13.209.70.147:8080/api/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
