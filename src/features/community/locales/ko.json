@@ -40,6 +40,7 @@
     "curation": "큐레이션",
     "cancel": "취소",
     "submit": "완료",
+    "posting": "게시 중...",
     "placeholder": "내용을 입력하세요",
     "error": "게시글을 올리지 못했어요",
     "location": "사진 위치",
@@ -54,15 +55,17 @@
     "photoError": "사진을 추가하지 못했어요"
   },
   "postDetail": {
+    "pageTitle": "게시물",
     "author": "작성자",
     "reply": "답글달기",
     "commentCount": "댓글 {{count}}개",
-    "noComments": "아직 댓글이 없어요",
-    "commentPlaceholder": "댓글을 입력해주세요",
+    "noComments": "첫 댓글을 입력해보세요",
+    "commentPlaceholder": "댓글을 입력하세요",
     "replyingTo": "{{name}}님에게 답글 남기는 중",
     "cancelReply": "취소",
     "send": "게시",
     "share": "공유",
-    "linkCopied": "링크가 복사되었어요"
+    "linkCopied": "링크가 복사되었어요",
+    "reportComment": "댓글 신고"
   }
 }

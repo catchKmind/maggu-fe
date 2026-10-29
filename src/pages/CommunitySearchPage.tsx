@@ -53,16 +53,16 @@ export default function CommunitySearchPage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <form onSubmit={handleSubmit} className="flex items-center gap-2 px-4 py-3">
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          aria-label={t('searchPage.back')}
-          className="flex h-9 w-9 shrink-0 items-center justify-center"
-        >
-          <BackIcon />
-        </button>
-        <div className="relative flex-1">
+      <form onSubmit={handleSubmit} className="px-4 py-3">
+        <div className="flex h-11 items-center rounded-full bg-gray-50 pr-4 pl-1">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            aria-label={t('searchPage.back')}
+            className="flex h-9 w-9 shrink-0 items-center justify-center"
+          >
+            <BackIcon />
+          </button>
           <input
             value={keyword}
             onChange={handleChangeInput}
@@ -70,7 +70,7 @@ export default function CommunitySearchPage() {
             onCompositionEnd={onCompositionEnd}
             placeholder={t('searchPage.placeholder')}
             autoFocus
-            className="h-11 w-full rounded-full bg-gray-50 px-4 text-14 text-gray-900 outline-none placeholder:text-gray-400"
+            className="h-full flex-1 bg-transparent text-14 text-gray-900 outline-none placeholder:text-gray-400"
           />
           {keyword && (
             <button
@@ -80,7 +80,7 @@ export default function CommunitySearchPage() {
                 setSubmittedKeyword(null)
               }}
               aria-label={t('searchPage.clear')}
-              className="absolute top-1/2 right-3 flex h-5 w-5 -translate-y-1/2 items-center justify-center"
+              className="flex h-5 w-5 shrink-0 items-center justify-center"
             >
               <ClearIcon />
             </button>

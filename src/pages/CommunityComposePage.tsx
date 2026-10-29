@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createPost } from '../features/community/api/posts'
 import { pickPhotoFromGallery, takePostPhoto } from '../features/community/hooks/usePickPostPhoto'
+import { uploadFile } from '../features/uploads/uploadFile'
 import { LocationPickerSheet } from '../features/community/components/LocationPickerSheet'
 import { GifPickerSheet } from '../features/community/components/GifPickerSheet'
 import { StickerPickerSheet } from '../features/community/components/StickerPickerSheet'
@@ -16,14 +17,17 @@ import stickerIcon from '../assets/community/icon_community_stiker.svg'
 
 const CONTENT_MAX_LENGTH = 500
 const MAX_PHOTOS = 4
+
 /** 목업에 카테고리 선택 UI가 없어서 고정값으로 보냄 */
 const DEFAULT_CATEGORY: PostCategory = 'RECOMMEND'
 
 interface ComposedPhoto {
   id: string
   previewUrl: string
-  /** 갤러리/카메라 사진은 S3 objectKey, 스티커/GIF는 이미 완전한 URL */
-  value: string
+  /** 갤러리/카메라로 고른 사진 — 완료를 누를 때 업로드할 원본 파일 (스티커/GIF는 없음) */
+  blob?: Blob
+  /** 스티커/GIF는 이미 완전한 URL이라 업로드 없이 바로 이 값을 보냄 */
+  value?: string
 }
 
 function CloseIcon() {
@@ -90,9 +94,9 @@ export default function CommunityComposePage() {
     setPhotoError(false)
     try {
       const result = await pickPhotoFromGallery()
-      addPhoto({ id: crypto.randomUUID(), previewUrl: result.previewUrl, value: result.objectKey }, result.location)
+      addPhoto({ id: crypto.randomUUID(), previewUrl: result.previewUrl, blob: result.blob }, result.location)
     } catch (e) {
-      // 사용자가 선택을 취소한 경우는 조용히 무시하고, 그 외(업로드 실패 등)만 에러 표시
+      // 사진 업로드시 사용자가 선택을 취소한 경우 제외 그 에러 메세지 하단에 표시
       if (!(e instanceof Error && /cancel/i.test(e.message))) setPhotoError(true)
     } finally {
       setIsPickingPhoto(false)
@@ -105,7 +109,7 @@ export default function CommunityComposePage() {
     setPhotoError(false)
     try {
       const result = await takePostPhoto()
-      addPhoto({ id: crypto.randomUUID(), previewUrl: result.previewUrl, value: result.objectKey }, result.location)
+      addPhoto({ id: crypto.randomUUID(), previewUrl: result.previewUrl, blob: result.blob }, result.location)
     } catch (e) {
       if (!(e instanceof Error && /cancel/i.test(e.message))) setPhotoError(true)
     } finally {
@@ -114,11 +118,15 @@ export default function CommunityComposePage() {
   }
 
   const createMutation = useMutation({
-    mutationFn: () =>
-      createPost({
+    // 사진 실제 업로드는 여기(완료를 눌렀을 때)에서만 일어난다 — 고를 때는 화면에 미리보기만 채워둠
+    mutationFn: async () => {
+      const imageUrls = await Promise.all(
+        photos.map((photo) => (photo.value ? photo.value : uploadFile(photo.blob!, 'POST'))),
+      )
+      return createPost({
         content,
         category: DEFAULT_CATEGORY,
-        imageUrls: photos.map((p) => p.value),
+        imageUrls,
         ...(photos.length > 0 && location
           ? {
               placeName: location.placeName,
@@ -127,7 +135,8 @@ export default function CommunityComposePage() {
               locationSource: location.source,
             }
           : {}),
-      }),
+      })
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['communityFeed'] })
       navigate('/community')
@@ -154,7 +163,7 @@ export default function CommunityComposePage() {
           disabled={!canSubmit}
           className="text-15 font-semibold text-purple-500 disabled:text-gray-300"
         >
-          {t('compose.submit')}
+          {createMutation.isPending ? t('compose.posting') : t('compose.submit')}
         </button>
       </div>
 

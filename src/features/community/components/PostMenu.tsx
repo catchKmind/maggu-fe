@@ -21,9 +21,10 @@ function MoreIcon() {
 
 interface PostMenuProps {
   postId: number
+  onShare?: () => void
 }
 
-export function PostMenu({ postId }: PostMenuProps) {
+export function PostMenu({ postId, onShare }: PostMenuProps) {
   const { t } = useTranslation('community')
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -58,6 +59,18 @@ export function PostMenu({ postId }: PostMenuProps) {
       </button>
       {isOpen && (
         <div className="absolute top-7 right-0 z-10 w-44 overflow-hidden rounded-2xl bg-white py-1 shadow-[0_4px_20px_rgba(0,0,0,0.12)]">
+          {onShare && (
+            <button
+              type="button"
+              onClick={() => {
+                onShare()
+                setIsOpen(false)
+              }}
+              className="block w-full border-b border-gray-50 px-4 py-2.5 text-left text-14 text-gray-700"
+            >
+              {t('postDetail.share')}
+            </button>
+          )}
           {REPORT_REASONS.map((reason) => (
             <button
               key={reason.key}
