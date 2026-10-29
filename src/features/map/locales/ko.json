@@ -55,5 +55,15 @@
     "save": "저장",
     "noStickers": "만든 스티커가 없어요",
     "error": "스크랩하지 못했어요"
+  },
+  "placePage": {
+    "address": "주소",
+    "eventPeriod": "행사 기간",
+    "hours": "이용 시간",
+    "closedDays": "쉬는 날",
+    "phone": "전화",
+    "openMap": "Maggu 지도에서 보기",
+    "loading": "불러오는 중...",
+    "error": "장소 정보를 불러오지 못했어요."
   }
 }

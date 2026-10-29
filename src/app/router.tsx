@@ -10,6 +10,7 @@ import CommunityComposePage from '../pages/CommunityComposePage'
 import CommunityPostDetailPage from '../pages/CommunityPostDetailPage'
 import MyPage from '../pages/MyPage'
 import LoginPage from '../pages/LoginPage'
+import PlacePage from '../pages/PlacePage'
 
 const routes = [
   {
@@ -24,6 +25,8 @@ const routes = [
           </RedirectIfAuthed>
         ),
       },
+      // 공개 장소 페이지: 검색엔진·AI 크롤러가 읽을 수 있도록 로그인 없이 연다.
+      { path: 'places/:contentId', element: <PlacePage /> },
       {
         element: <RequireAuth />,
         children: [
