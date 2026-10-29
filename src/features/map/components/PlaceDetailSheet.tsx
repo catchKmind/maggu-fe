@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSlideSheet } from '../../../shared/hooks/useSlideSheet'
 import { PhotoGrid } from '../../../shared/components/PhotoGrid'
+import { JsonLd } from '../../../shared/components/JsonLd'
 import { useContentFeed } from '../hooks/useContentFeed'
 import { useMapSpot } from '../hooks/useMapSpot'
 import { PlaceScrapSheet } from '../../myplaces/components/PlaceScrapSheet'
+import { toPlaceJsonLd } from '../mappers/toPlaceJsonLd'
 import type { FeedSort } from '../../community/api/posts.types'
 import type { PhotoSpot } from '../types'
 
@@ -151,6 +153,7 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
 
   return (
     <div className="fixed inset-0 z-50">
+      {spotDetail && <JsonLd data={toPlaceJsonLd(spotDetail)} />}
       <button
         type="button"
         aria-label={t('placeDetail.close')}
