@@ -5,7 +5,7 @@ interface PostPhotoGridProps {
 }
 
 /**
- * 게시글 사진 그리드. 1장: 전체 채움 / 2장: 좌우 반반 / 3장 이상: 상단 2장 + 하단 1장(가로로 넓게),
+ * 게시글 사진 그리드 컴포넌트. 1장: 전체 채움 / 2장: 좌우 반반 / 3장 이상: 상단 2장 + 하단 1장(가로로 넓게),
  * 4장 이상이면 마지막 칸에 "+N" 오버레이.
  */
 export function PostPhotoGrid({ photos }: PostPhotoGridProps) {

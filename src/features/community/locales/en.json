@@ -40,6 +40,7 @@
     "curation": "Curation",
     "cancel": "Cancel",
     "submit": "Done",
+    "posting": "Posting...",
     "placeholder": "Enter your content",
     "error": "Couldn't post",
     "location": "Photo location",
@@ -54,15 +55,17 @@
     "photoError": "Couldn't add the photo"
   },
   "postDetail": {
+    "pageTitle": "Post",
     "author": "Author",
     "reply": "Reply",
     "commentCount": "{{count}} comments",
-    "noComments": "No comments yet",
-    "commentPlaceholder": "Write a comment",
+    "noComments": "Be the first to comment",
+    "commentPlaceholder": "Enter a comment",
     "replyingTo": "Replying to {{name}}",
     "cancelReply": "Cancel",
     "send": "Post",
     "share": "Share",
-    "linkCopied": "Link copied"
+    "linkCopied": "Link copied",
+    "reportComment": "Report comment"
   }
 }

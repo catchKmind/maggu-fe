@@ -27,13 +27,13 @@ function BackIcon() {
   )
 }
 
-function ShareIcon() {
+function CommentIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
-        d="M11.5 5.5a1.8 1.8 0 1 0-1.7-2.4L5.4 5.6a1.8 1.8 0 0 0 0 2.8l4.4 2.5a1.8 1.8 0 1 0 .6-1l-4-2.3a1.8 1.8 0 0 0 0-.2l4-2.3c.3.2.7.4 1.1.4Z"
-        stroke="#374151"
-        strokeWidth="1.1"
+        d="M2 8c0-3 2.7-5.5 6-5.5s6 2.5 6 5.5-2.7 5.5-6 5.5c-.7 0-1.4-.1-2-.3L3 14l.8-2.7C2.7 10.3 2 9.2 2 8Z"
+        stroke="#A3A3A3"
+        strokeWidth="1.3"
         strokeLinejoin="round"
       />
     </svg>
@@ -50,6 +50,14 @@ function BookmarkIcon({ filled }: { filled: boolean }) {
         strokeLinejoin="round"
         fill={filled ? '#5b6cff' : 'none'}
       />
+    </svg>
+  )
+}
+
+function SendIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -104,32 +112,23 @@ export default function CommunityPostDetailPage() {
   const totalReactions = post ? Object.values(post.stickerReactionCounts).reduce((sum, count) => sum + count, 0) : 0
   const totalComments = comments ? countComments(comments) : 0
 
+  // content 첫 줄에 줄바꿈이 있으면 헤드라인처럼 굵게, 나머지는 본문으로 구분해서 보여준다
+  const [contentTitle, ...contentRestLines] = post?.content.split('\n') ?? ['']
+  const contentBody = contentRestLines.join('\n')
+
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
+      <div className="flex items-center gap-3 border-b border-gray-100 px-4 py-3">
         <button
           type="button"
           onClick={() => navigate(-1)}
           aria-label={t('searchPage.back')}
-          className="flex h-9 w-9 items-center justify-center"
+          className="-ml-2 flex h-9 w-9 items-center justify-center"
         >
           <BackIcon />
         </button>
-        {post && (
-          <div className="flex items-center gap-1">
-            {isLinkCopied && <span className="text-13 text-gray-400">{t('postDetail.linkCopied')}</span>}
-            <button
-              type="button"
-              onClick={handleShare}
-              disabled={sharePost.isPending}
-              aria-label={t('postDetail.share')}
-              className="flex h-9 w-9 items-center justify-center"
-            >
-              <ShareIcon />
-            </button>
-            <PostMenu postId={postId} />
-          </div>
-        )}
+        <span className="text-16 font-semibold text-gray-900">{t('postDetail.pageTitle')}</span>
+        {isLinkCopied && <span className="ml-auto text-13 text-gray-400">{t('postDetail.linkCopied')}</span>}
       </div>
 
       {isLoading && <p className="px-5 py-8 text-center text-14 text-gray-400">{t('feed.loading')}</p>}
@@ -140,33 +139,53 @@ export default function CommunityPostDetailPage() {
           <div className="flex flex-col gap-3 px-5 py-4">
             <div className="flex items-center gap-2">
               <Avatar name={post.writerNickname} size={36} />
-              <div className="flex flex-col">
+              <div className="flex flex-1 flex-col">
                 <span className="text-15 font-semibold text-gray-900">{post.writerNickname}</span>
                 <span className="text-13 text-gray-400">{formatRelativeTime(post.createdAt)}</span>
               </div>
+              <PostMenu postId={postId} onShare={handleShare} />
             </div>
 
-            <p className="text-15 whitespace-pre-line text-gray-800">{post.content}</p>
+            {contentBody ? (
+              <div className="flex flex-col gap-1">
+                <p className="text-15 font-bold text-gray-900">{contentTitle}</p>
+                <p className="text-14 whitespace-pre-line text-gray-700">{contentBody}</p>
+              </div>
+            ) : (
+              <p className="text-14 whitespace-pre-line text-gray-800">{post.content}</p>
+            )}
 
             <PostPhotoGrid photos={post.imageUrls} />
 
             {post.placeName && <p className="text-13 text-gray-400">📍 {post.placeName}</p>}
 
-            <div className="flex items-center gap-4 border-b border-gray-100 pb-4">
-              <div className="flex items-center gap-1">
+            <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+              <div className="flex items-center gap-3">
+                {totalReactions > 0 && (
+                  <div className="flex items-center gap-1">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-50 text-11">
+                      ✨
+                    </span>
+                    <span className="text-13 text-gray-500">{totalReactions}</span>
+                  </div>
+                )}
                 <StickerReactionPicker postId={postId} />
-                <span className="text-13 text-gray-400">{totalReactions}</span>
               </div>
-              <button
-                type="button"
-                onClick={() => toggleScrap.mutate({ postId, scrapped: post.scrappedByMe })}
-                disabled={toggleScrap.isPending}
-                className="flex items-center gap-1 disabled:opacity-50"
-              >
-                <BookmarkIcon filled={post.scrappedByMe} />
-                <span className="text-13 text-gray-400">{post.scrapCount}</span>
-              </button>
-              <span className="text-13 text-gray-400">{t('postDetail.commentCount', { count: totalComments })}</span>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1 text-gray-500">
+                  <CommentIcon />
+                  <span className="text-13">{totalComments}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => toggleScrap.mutate({ postId, scrapped: post.scrappedByMe })}
+                  disabled={toggleScrap.isPending}
+                  className="flex items-center gap-1 disabled:opacity-50"
+                >
+                  <BookmarkIcon filled={post.scrappedByMe} />
+                  <span className="text-13 text-gray-500">{post.scrapCount}</span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -208,9 +227,10 @@ export default function CommunityPostDetailPage() {
             type="button"
             onClick={handleSubmitComment}
             disabled={!commentText.trim() || createComment.isPending}
-            className="shrink-0 rounded-full bg-purple-500 px-4 py-2.5 text-14 font-semibold text-white disabled:opacity-40"
+            aria-label={t('postDetail.send')}
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-purple-500 disabled:opacity-40"
           >
-            {t('postDetail.send')}
+            <SendIcon />
           </button>
         </div>
       </div>

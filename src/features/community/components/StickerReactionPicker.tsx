@@ -3,16 +3,16 @@ import { useTranslation } from 'react-i18next'
 import { useMyStickers } from '../../sticker/hooks/useMyStickers'
 import { useReactToPost } from '../hooks/useReactToPost'
 
-function StickerIcon() {
+function AddReactionIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
       <path
-        d="M4.5 2.5h7l2 2v7a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Z"
+        d="M2.5 8.5c0-3.3 2.9-6 6.5-6s6.5 2.7 6.5 6-2.9 6-6.5 6c-.7 0-1.5-.1-2.1-.4L3.5 15l.9-2.9C3.2 11 2.5 9.8 2.5 8.5Z"
         stroke="#A3A3A3"
         strokeWidth="1.3"
         strokeLinejoin="round"
       />
-      <path d="M11.5 2.5v2.5H14" stroke="#A3A3A3" strokeWidth="1.3" strokeLinejoin="round" />
+      <path d="M9 6.3v4.4M6.8 8.5h4.4" stroke="#A3A3A3" strokeWidth="1.3" strokeLinecap="round" />
     </svg>
   )
 }
@@ -51,9 +51,9 @@ export function StickerReactionPicker({ postId }: StickerReactionPickerProps) {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label={t('reaction.label')}
-        className="flex h-4 w-4 items-center justify-center"
+        className="flex h-[18px] w-[18px] items-center justify-center"
       >
-        <StickerIcon />
+        <AddReactionIcon />
       </button>
       {isOpen && (
         <div className="absolute bottom-7 left-0 z-10 flex max-w-[220px] gap-2 overflow-x-auto rounded-2xl bg-white p-2 shadow-[0_4px_20px_rgba(0,0,0,0.12)]">

@@ -28,19 +28,26 @@ export function LocationPickerSheet({ isOpen, onSelect, onClose }: LocationPicke
 
   return (
     <div className="fixed inset-0 z-[60] flex flex-col bg-white">
-      <div className="flex items-center gap-2 px-4 pt-[calc(var(--safe-top)+12px)] pb-3">
-        <button type="button" onClick={onClose} aria-label={t('compose.locationBack')} className="flex h-9 w-9 shrink-0 items-center justify-center">
-          <BackIcon />
-        </button>
-        <input
-          value={keyword}
-          onChange={onChange}
-          onCompositionStart={onCompositionStart}
-          onCompositionEnd={onCompositionEnd}
-          placeholder={t('compose.locationSearchPlaceholder')}
-          autoFocus
-          className="h-11 w-full rounded-full bg-gray-50 px-4 text-14 text-gray-900 outline-none placeholder:text-gray-400"
-        />
+      <div className="px-4 pt-[calc(var(--safe-top)+12px)] pb-3">
+        <div className="flex h-11 items-center rounded-full bg-gray-50 pr-4 pl-1">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t('compose.locationBack')}
+            className="flex h-9 w-9 shrink-0 items-center justify-center"
+          >
+            <BackIcon />
+          </button>
+          <input
+            value={keyword}
+            onChange={onChange}
+            onCompositionStart={onCompositionStart}
+            onCompositionEnd={onCompositionEnd}
+            placeholder={t('compose.locationSearchPlaceholder')}
+            autoFocus
+            className="h-full flex-1 bg-transparent text-14 text-gray-900 outline-none placeholder:text-gray-400"
+          />
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto">
