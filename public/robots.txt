@@ -1,0 +1,21 @@
+# 검색엔진과 AI 크롤러 모두 공개 장소 페이지(/places/...)를 읽을 수 있게 허용한다.
+# AI 크롤러는 명시적으로 적어 두어, 허용 정책이 의도된 것임을 분명히 한다.
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /places/
+
+User-agent: OAI-SearchBot
+Allow: /places/
+
+User-agent: ClaudeBot
+Allow: /places/
+
+User-agent: PerplexityBot
+Allow: /places/
+
+User-agent: Google-Extended
+Allow: /places/
+
+Sitemap: https://maggu-fe.vercel.app/sitemap.xml

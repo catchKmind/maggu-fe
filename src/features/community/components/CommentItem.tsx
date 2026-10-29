@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Avatar } from '../../../shared/components/Avatar'
 import { formatRelativeTime } from '../../../shared/lib/formatRelativeTime'
+import { CommentMenu } from './CommentMenu'
 import type { CommentResponse } from '../api/comments.types'
 
 function HeartIcon({ filled }: { filled: boolean }) {
@@ -17,6 +18,27 @@ function HeartIcon({ filled }: { filled: boolean }) {
   )
 }
 
+function CommentIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path
+        d="M2 8c0-3 2.7-5.5 6-5.5s6 2.5 6 5.5-2.7 5.5-6 5.5c-.7 0-1.4-.1-2-.3L3 14l.8-2.7C2.7 10.3 2 9.2 2 8Z"
+        stroke="#A3A3A3"
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function ReplyConnectorIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+      <path d="M4 2v6a2 2 0 0 0 2 2h8" stroke="#D4D4D4" strokeWidth="1.3" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 interface CommentItemProps {
   comment: CommentResponse
   depth?: number
@@ -28,33 +50,36 @@ export function CommentItem({ comment, depth = 0, onReply, onToggleLike }: Comme
   const { t } = useTranslation('community')
 
   return (
-    <div style={{ marginLeft: depth * 20 }} className="flex flex-col gap-2 border-b border-gray-50 py-3">
-      <div className="flex items-center gap-2">
-        <Avatar name={comment.writerNickname} size={28} />
-        <span className="text-14 font-semibold text-gray-900">{comment.writerNickname}</span>
-        {comment.postWriter && (
-          <span className="rounded-full bg-purple-50 px-2 py-0.5 text-11 font-medium text-purple-500">
-            {t('postDetail.author')}
-          </span>
-        )}
-        <span className="text-13 text-gray-400">{formatRelativeTime(comment.createdAt)}</span>
+    <div className="flex items-start gap-1 py-3">
+      {depth > 0 && <ReplyConnectorIcon />}
+      <div className="flex flex-1 flex-col gap-2">
+        <div className="flex items-center gap-2">
+          <Avatar name={comment.writerNickname} size={28} />
+          <span className="text-14 font-semibold text-gray-900">{comment.writerNickname}</span>
+          <span className="text-13 text-gray-400">{formatRelativeTime(comment.createdAt)}</span>
+          {comment.postWriter && <span className="text-13 text-gray-400">· {t('postDetail.author')}</span>}
+          <div className="ml-auto">
+            <CommentMenu commentId={comment.commentId} />
+          </div>
+        </div>
+
+        <p className="text-14 whitespace-pre-line text-gray-700">{comment.content}</p>
+
+        <div className="flex items-center gap-4">
+          <button type="button" onClick={() => onToggleLike(comment.commentId)} className="flex items-center gap-1">
+            <HeartIcon filled={comment.likedByMe} />
+            <span className="text-13 text-gray-400">{comment.likeCount}</span>
+          </button>
+          <button type="button" onClick={() => onReply(comment)} className="flex items-center gap-1">
+            <CommentIcon />
+            <span className="text-13 text-gray-400">{comment.replies.length}</span>
+          </button>
+        </div>
+
+        {comment.replies.map((reply) => (
+          <CommentItem key={reply.commentId} comment={reply} depth={depth + 1} onReply={onReply} onToggleLike={onToggleLike} />
+        ))}
       </div>
-
-      <p className="text-14 whitespace-pre-line text-gray-700">{comment.content}</p>
-
-      <div className="flex items-center gap-4">
-        <button type="button" onClick={() => onToggleLike(comment.commentId)} className="flex items-center gap-1">
-          <HeartIcon filled={comment.likedByMe} />
-          <span className="text-13 text-gray-400">{comment.likeCount}</span>
-        </button>
-        <button type="button" onClick={() => onReply(comment)} className="text-13 text-gray-400">
-          {t('postDetail.reply')}
-        </button>
-      </div>
-
-      {comment.replies.map((reply) => (
-        <CommentItem key={reply.commentId} comment={reply} depth={depth + 1} onReply={onReply} onToggleLike={onToggleLike} />
-      ))}
     </div>
   )
 }

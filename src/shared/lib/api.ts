@@ -42,7 +42,9 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   })
   // 액세스 토큰은 1시간 뒤 만료되는데 재발급 엔드포인트가 아직 없어서, 만료되면 로그아웃시킨다.
   // (토큰만 남아있으면 로그인된 것으로 취급돼 모든 요청이 조용히 401로 실패하기 때문)
-  if (res.status === 401) {
+  // 502는 백엔드 서버 자체가 죽어있을 때 뜨는데, 이 상태로 화면만 깨진 채 남아있는 것보다
+  // 로그인 화면으로 보내는 게 나아서 같이 처리한다.
+  if (res.status === 401 || res.status === 502) {
     clearAuthToken()
     useAppStore.getState().setLoggedIn(false)
   }

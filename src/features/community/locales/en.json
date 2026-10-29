@@ -39,20 +39,33 @@
     "info": "Info",
     "curation": "Curation",
     "cancel": "Cancel",
-    "submit": "Post",
-    "placeholder": "What would you like to share?",
-    "error": "Couldn't post"
+    "submit": "Done",
+    "posting": "Posting...",
+    "placeholder": "Enter your content",
+    "error": "Couldn't post",
+    "location": "Photo location",
+    "locationBack": "Back",
+    "locationSearchPlaceholder": "Search for a place",
+    "locationEmpty": "No results found",
+    "removePhoto": "Remove photo",
+    "gallery": "Gallery",
+    "camera": "Camera",
+    "gif": "GIF",
+    "sticker": "Sticker",
+    "photoError": "Couldn't add the photo"
   },
   "postDetail": {
+    "pageTitle": "Post",
     "author": "Author",
     "reply": "Reply",
     "commentCount": "{{count}} comments",
-    "noComments": "No comments yet",
-    "commentPlaceholder": "Write a comment",
+    "noComments": "Be the first to comment",
+    "commentPlaceholder": "Enter a comment",
     "replyingTo": "Replying to {{name}}",
     "cancelReply": "Cancel",
     "send": "Post",
     "share": "Share",
-    "linkCopied": "Link copied"
+    "linkCopied": "Link copied",
+    "reportComment": "Report comment"
   }
 }

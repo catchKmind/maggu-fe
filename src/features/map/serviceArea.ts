@@ -4,7 +4,7 @@ import type { MapMarkersBounds } from './api/mapMarkers.types'
  * 서비스 범위(경상도). 경남·경북 본토에 울릉도/독도까지 포함한 사각 범위로,
  * 실제 등록된 장소 데이터 분포(위도 34.57~37.55, 경도 126.70~131.87)를 참고해 잡았다.
  */
-const SERVICE_AREA = {
+export const SERVICE_AREA = {
   minLat: 34.5,
   maxLat: 37.6,
   minLng: 127.5,
