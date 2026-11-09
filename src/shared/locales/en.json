@@ -20,6 +20,17 @@
   },
   "myPage": {
     "loading": "Loading...",
-    "error": "Couldn't load your account"
+    "error": "Couldn't load your account",
+    "editProfile": "Edit profile",
+    "activity": "My activity",
+    "myPosts": "My posts",
+    "myComments": "My comments",
+    "storage": "My collection",
+    "myStickers": "My stickers",
+    "myLists": "My lists",
+    "account": "Account",
+    "linkedAccount": "Linked social account",
+    "logout": "Log out",
+    "withdraw": "Delete account"
   }
 }
