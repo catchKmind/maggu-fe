@@ -63,7 +63,7 @@ export function CommentItem({ comment, depth = 0, onReply, onToggleLike }: Comme
           </div>
         </div>
 
-        <p className="text-14 whitespace-pre-line text-gray-700">{comment.content}</p>
+        <p className="text-14 whitespace-pre-line wrap-anywhere text-gray-700">{comment.content}</p>
 
         <div className="flex items-center gap-4">
           <button type="button" onClick={() => onToggleLike(comment.commentId)} className="flex items-center gap-1">

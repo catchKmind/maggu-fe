@@ -81,7 +81,7 @@ export function PostCard({ post }: PostCardProps) {
       </div>
 
       <div onClick={goToDetail} className="cursor-pointer">
-        <p className={`text-14 whitespace-pre-line text-gray-700 ${!isExpanded && canTruncate ? 'line-clamp-2' : ''}`}>
+        <p className={`text-14 whitespace-pre-line wrap-anywhere text-gray-700 ${!isExpanded && canTruncate ? 'line-clamp-2' : ''}`}>
           {post.content}
         </p>
         {canTruncate && !isExpanded && (
