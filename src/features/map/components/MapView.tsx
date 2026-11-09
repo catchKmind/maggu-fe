@@ -10,8 +10,12 @@ import { OutOfServiceNotice } from './OutOfServiceNotice'
 import type { MapPostCategory } from '../api/mapPosts.types'
 import type { PhotoSpot } from '../types'
 
-/** 이 줌보다 멀어지면 마커를 그리지 않는다 (전국이 마커로 뒤덮이는 걸 방지) */
-const MIN_MARKER_ZOOM = 14
+/**
+ * 이 줌보다 멀어지면 마커를 그리지 않는다.
+ * 게시글이 아직 적어서 경상도 전체가 보이는 정도(7)까지 사진을 보여준다.
+ * 게시글이 많아져 화면이 뒤덮이면 다시 올린다 (이전 값 14 = 동네 몇 블록 정도).
+ */
+const MIN_MARKER_ZOOM = 7
 /** 밀집 지역에서도 화면이 가려지지 않도록 한 화면에 그리는 마커 수 상한 */
 const MAX_MARKERS = 20
 
