@@ -7,6 +7,7 @@ import { FolderIconPicker } from '../features/mypage/components/FolderIconPicker
 import { usePlaceFolders } from '../features/myplaces/hooks/usePlaceFolders'
 import { useCreatePlaceFolder } from '../features/myplaces/hooks/useCreatePlaceFolder'
 import { DEFAULT_FOLDER_ICON } from '../features/myplaces/folderIcons'
+import { ApiError } from '../shared/lib/api'
 import pencilMiniDarkIcon from '../assets/mypage/icon_pencil_mini_dark.svg'
 import xMarkIcon from '../assets/mypage/icon_x_mark_mini.svg'
 
@@ -29,12 +30,22 @@ export default function MyListEditPage() {
   const name = editedName ?? folder?.name ?? ''
   const icon = editedIcon ?? folder?.icon ?? DEFAULT_FOLDER_ICON
   const [isPickingIcon, setIsPickingIcon] = useState(false)
+  const [errorKey, setErrorKey] = useState<string | null>(null)
 
   const handleDone = () => {
     const trimmed = name.trim()
     if (!trimmed) return
     if (isNew) {
-      createFolder.mutate({ name: trimmed, icon }, { onSuccess: () => navigate(-1) })
+      // 주소로 바로 들어온 경우 뒤로가기(-1)는 앱 밖이나 다른 화면으로 갈 수 있어서, 만든 뒤에는 항상 내 리스트로 보낸다.
+      createFolder.mutate(
+        { name: trimmed, icon },
+        {
+          onSuccess: () => navigate('/my-page/lists', { replace: true }),
+          // 409: 같은 이름의 리스트가 이미 있음 / 그 외(400 등): 입력값 오류
+          onError: (error) =>
+            setErrorKey(error instanceof ApiError && error.status === 409 ? 'myPage.listNameDuplicated' : 'myPage.listCreateFailed'),
+        },
+      )
       return
     }
     // TODO: 리스트 이름·아이콘 수정 API가 아직 없음. 생기면 여기서 호출하고 ['placeFolders'] 무효화.
@@ -47,6 +58,7 @@ export default function MyListEditPage() {
         onBack={() => setIsPickingIcon(false)}
         onSelect={(next) => {
           setEditedIcon(next)
+          setErrorKey(null)
           setIsPickingIcon(false)
         }}
       />
@@ -87,7 +99,10 @@ export default function MyListEditPage() {
             <input
               id="list-name"
               value={name}
-              onChange={(e) => setEditedName(e.target.value)}
+              onChange={(e) => {
+                setEditedName(e.target.value)
+                setErrorKey(null)
+              }}
               className="min-w-0 flex-1 bg-transparent text-14 leading-[20px] tracking-[-0.28px] text-gray-700 caret-purple-400 outline-none"
             />
             {name && (
@@ -96,6 +111,9 @@ export default function MyListEditPage() {
               </button>
             )}
           </div>
+          {errorKey && (
+            <p className="mt-[6px] pl-[2px] text-12 leading-[18px] tracking-[-0.24px] text-[#df0303]">{t(errorKey)}</p>
+          )}
         </div>
       </section>
     </div>
