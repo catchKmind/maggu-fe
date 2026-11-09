@@ -7,11 +7,11 @@ import { useCreatePlaceScrap } from '../hooks/useCreatePlaceScrap'
 import { useMyStickers } from '../../sticker/hooks/useMyStickers'
 import { useCreateSticker } from '../../sticker/hooks/useCreateSticker'
 import { StickerCreateScreen } from '../../../shared/sticker/StickerCreateScreen'
+import { DEFAULT_FOLDER_ICON, FOLDER_ICON_OPTIONS } from '../folderIcons'
 
 type ScrapStep = 'folder' | 'newFolder' | 'sticker' | 'confirm'
 
-const DEFAULT_FOLDER_ICON = '📍'
-const ICON_OPTIONS = ['📍', '❤️', '⭐️', '🌸', '🍜', '☕️', '🏖️', '🎡', '🐶', '🐱', '🎵', '🏔️', '🍔', '🌙', '🔥', '💜']
+const ICON_OPTIONS = FOLDER_ICON_OPTIONS
 
 function BackIcon({ color = '#171717' }: { color?: string }) {
   return (

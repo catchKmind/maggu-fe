@@ -2,13 +2,26 @@ import silhouetteIcon from '../../../assets/mypage/icon_profile_silhouette.svg'
 
 interface ProfileAvatarProps {
   size?: number
+  /** 프로필 사진. 없으면 기본 실루엣 */
+  src?: string | null
 }
 
 /**
- * 기본 프로필 이미지 (Figma: mypage/avatar - default).
- * 계정 API에 프로필 사진 필드가 아직 없어서 항상 기본 실루엣을 보여준다.
+ * 프로필 이미지 (Figma: mypage/avatar - default).
+ * 계정 API에 프로필 사진 필드가 아직 없어서 메인에서는 항상 기본 실루엣을 보여준다.
  */
-export function ProfileAvatar({ size = 42 }: ProfileAvatarProps) {
+export function ProfileAvatar({ size = 42, src }: ProfileAvatarProps) {
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt=""
+        className="shrink-0 rounded-full border-[0.5px] border-gray-400 object-cover"
+        style={{ width: size, height: size }}
+      />
+    )
+  }
+
   return (
     <div
       className="relative shrink-0 overflow-hidden rounded-full border-[0.5px] border-gray-400 bg-gray-200"
