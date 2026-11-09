@@ -90,6 +90,8 @@
     "clearInput": "Clear",
     "emptyPlacesTitle": "No saved places yet.",
     "emptyPlacesDescription": "Find places on the map and save them to a list!",
-    "addPlace": "Add place"
+    "addPlace": "Add place",
+    "listNameDuplicated": "This list name is already in use.",
+    "listCreateFailed": "Couldn't create the list. Please try again."
   }
 }
