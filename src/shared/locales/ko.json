@@ -20,6 +20,17 @@
   },
   "myPage": {
     "loading": "불러오는 중...",
-    "error": "계정 정보를 불러오지 못했어요"
+    "error": "계정 정보를 불러오지 못했어요",
+    "editProfile": "프로필 수정",
+    "activity": "내 활동",
+    "myPosts": "내가 쓴 글",
+    "myComments": "내가 쓴 댓글",
+    "storage": "내 보관함",
+    "myStickers": "내 스티커",
+    "myLists": "내 리스트",
+    "account": "계정 정보",
+    "linkedAccount": "연동된 소셜 계정",
+    "logout": "로그아웃",
+    "withdraw": "회원 탈퇴"
   }
 }
