@@ -1,5 +1,6 @@
 import type { MapPostFeature } from '../api/mapPosts.types'
 import type { PhotoSpot } from '../types'
+import { toImageUrl } from '../../../shared/lib/imageUrl'
 
 export function toPostSpot(feature: MapPostFeature): PhotoSpot {
   const [lng, lat] = feature.geometry.coordinates
@@ -10,7 +11,7 @@ export function toPostSpot(feature: MapPostFeature): PhotoSpot {
     lng,
     lat,
     name: placeName,
-    photos: [representativeImageUrl],
+    photos: [toImageUrl(representativeImageUrl)],
     tourismContentId,
     postCount: placePostCount ?? 1,
   }
