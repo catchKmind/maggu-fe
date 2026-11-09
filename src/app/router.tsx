@@ -9,6 +9,12 @@ import CommunitySearchPage from '../pages/CommunitySearchPage'
 import CommunityComposePage from '../pages/CommunityComposePage'
 import CommunityPostDetailPage from '../pages/CommunityPostDetailPage'
 import MyPage from '../pages/MyPage'
+import MyProfileEditPage from '../pages/MyProfileEditPage'
+import MyActivityPage from '../pages/MyActivityPage'
+import MyStickersPage from '../pages/MyStickersPage'
+import MyListsPage from '../pages/MyListsPage'
+import MyListDetailPage from '../pages/MyListDetailPage'
+import MyListEditPage from '../pages/MyListEditPage'
 import LoginPage from '../pages/LoginPage'
 import PlacePage from '../pages/PlacePage'
 
@@ -37,6 +43,13 @@ const routes = [
           { path: 'community/write', element: <CommunityComposePage /> },
           { path: 'community/posts/:postId', element: <CommunityPostDetailPage /> },
           { path: 'my-page', element: <MyPage /> },
+          { path: 'my-page/profile', element: <MyProfileEditPage /> },
+          { path: 'my-page/activity', element: <MyActivityPage /> },
+          { path: 'my-page/stickers', element: <MyStickersPage /> },
+          { path: 'my-page/lists', element: <MyListsPage /> },
+          { path: 'my-page/lists/new', element: <MyListEditPage /> },
+          { path: 'my-page/lists/:folderId', element: <MyListDetailPage /> },
+          { path: 'my-page/lists/:folderId/edit', element: <MyListEditPage /> },
           // 라우트는 여기에 추가
         ],
       },
