@@ -1,5 +1,10 @@
 import { api, type ApiResponse } from '../../../shared/lib/api'
-import type { StickerCreateRequest, StickerDeleteResponse, StickerResponse } from './stickers.types'
+import type {
+  GiphyStickerCreateRequest,
+  StickerCreateRequest,
+  StickerDeleteResponse,
+  StickerResponse,
+} from './stickers.types'
 
 const STICKERS_PATH = '/api/v1/stickers'
 
@@ -9,6 +14,10 @@ export function getMyStickers() {
 
 export function createMySticker(body: StickerCreateRequest) {
   return api.post<ApiResponse<StickerResponse>>(STICKERS_PATH, body).then((res) => res.data)
+}
+
+export function createGiphySticker(body: GiphyStickerCreateRequest) {
+  return api.post<ApiResponse<StickerResponse>>(`${STICKERS_PATH}/giphy`, body).then((res) => res.data)
 }
 
 export function deleteMySticker(stickerId: number) {
