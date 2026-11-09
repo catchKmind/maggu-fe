@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Avatar } from '../../../shared/components/Avatar'
@@ -7,8 +7,6 @@ import type { CommunityPost } from '../types'
 import { PostPhotoGrid } from './PostPhotoGrid'
 import { PostMenu } from './PostMenu'
 import { StickerReactionPicker } from './StickerReactionPicker'
-
-const TRUNCATE_THRESHOLD = 70
 
 function CommentIcon() {
   return (
@@ -59,7 +57,20 @@ export function PostCard({ post }: PostCardProps) {
   const { t } = useTranslation('community')
   const navigate = useNavigate()
   const [isExpanded, setIsExpanded] = useState(false)
-  const canTruncate = post.content.length > TRUNCATE_THRESHOLD
+  // 본문은 3줄까지만 보여준다. 글자 수가 아니라 실제로 3줄을 넘어 잘렸는지를 재서 '더보기'를 띄운다.
+  const contentRef = useRef<HTMLParagraphElement>(null)
+  const [isClamped, setIsClamped] = useState(false)
+
+  useLayoutEffect(() => {
+    const element = contentRef.current
+    if (!element || isExpanded) return
+    const measure = () => setIsClamped(element.scrollHeight > element.clientHeight + 1)
+    measure()
+    // 화면 폭이 바뀌면 줄 수도 바뀌므로 다시 잰다.
+    const observer = new ResizeObserver(measure)
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [post.content, isExpanded])
   const postId = Number(post.id)
   const toggleScrap = useToggleScrap()
 
@@ -81,10 +92,13 @@ export function PostCard({ post }: PostCardProps) {
       </div>
 
       <div onClick={goToDetail} className="cursor-pointer">
-        <p className={`text-14 whitespace-pre-line wrap-anywhere text-gray-700 ${!isExpanded && canTruncate ? 'line-clamp-2' : ''}`}>
+        <p
+          ref={contentRef}
+          className={`text-14 whitespace-pre-line wrap-anywhere text-gray-700 ${isExpanded ? '' : 'line-clamp-3'}`}
+        >
           {post.content}
         </p>
-        {canTruncate && !isExpanded && (
+        {isClamped && !isExpanded && (
           <button
             type="button"
             onClick={(e) => {

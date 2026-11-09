@@ -12,7 +12,7 @@ export function BottomNavigation() {
   const { t } = useTranslation()
 
   return (
-    <nav className="inline-flex h-[58px] items-center gap-1 rounded-[28px] bg-gray-50 p-1">
+    <nav className="inline-flex h-[58px] items-center gap-1 rounded-[14px] bg-gray-50 p-1">
       {NAV_ITEMS.map((item) => (
         <NavLink
           key={item.to}
@@ -20,7 +20,7 @@ export function BottomNavigation() {
           end={item.end}
           className={({ isActive }) =>
             [
-              'flex h-full items-center justify-center rounded-14px px-5 text-16 text-purple-500 transition-colors',
+              'flex h-full items-center justify-center rounded-lg px-5 text-16 text-purple-500 transition-colors',
               isActive ? 'bg-purple-50 font-semibold' : 'font-medium',
             ].join(' ')
           }
