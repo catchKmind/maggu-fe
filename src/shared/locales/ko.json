@@ -90,6 +90,8 @@
     "clearInput": "입력 지우기",
     "emptyPlacesTitle": "아직 저장한 장소가 없어요.",
     "emptyPlacesDescription": "지도에서 장소를 찾아 리스트에 저장해 보세요!",
-    "addPlace": "장소 추가"
+    "addPlace": "장소 추가",
+    "listNameDuplicated": "이미 사용 중인 리스트 이름이에요.",
+    "listCreateFailed": "리스트를 만들지 못했어요. 다시 시도해 주세요."
   }
 }
