@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { SearchSuggestionItem } from '../shared/components/SearchSuggestionItem'
 import { useImeAwareInput } from '../shared/hooks/useImeAwareInput'
@@ -16,11 +17,10 @@ const TABS: { key: SearchTab; labelKey: string }[] = [
   { key: 'recent', labelKey: 'searchPage.tabs.recent' },
 ]
 
-function SearchIcon() {
+function BackIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <circle cx="7.2" cy="7.2" r="4.7" stroke="#A3A3A3" strokeWidth="1.5" />
-      <path d="M10.8 10.8 14 14" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" />
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M12.5 4.5 6 11l6.5 6.5" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -35,6 +35,7 @@ function ClearIcon() {
 
 export default function MapSearchPage() {
   const { t } = useTranslation('map')
+  const navigate = useNavigate()
   const { value: keyword, committedValue, setValue, onChange, onCompositionStart, onCompositionEnd } =
     useImeAwareInput()
   const [submittedKeyword, setSubmittedKeyword] = useState<string | null>(null)
@@ -75,9 +76,14 @@ export default function MapSearchPage() {
     <div className="flex flex-1 flex-col">
       <form onSubmit={handleSubmit} className="px-4 py-3">
         <div className="relative">
-          <span className="absolute top-1/2 left-4 -translate-y-1/2">
-            <SearchIcon />
-          </span>
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            aria-label={t('searchPage.back')}
+            className="absolute top-1/2 left-1 flex h-9 w-9 -translate-y-1/2 items-center justify-center"
+          >
+            <BackIcon />
+          </button>
           <input
             value={keyword}
             onChange={handleChangeInput}

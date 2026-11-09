@@ -7,8 +7,10 @@ export function useReactToPost() {
   return useMutation({
     mutationFn: ({ postId, stickerId }: { postId: number; stickerId: number }) =>
       reactToPost(postId, { stickerId }),
-    onSuccess: () => {
+    onSuccess: (_data, { postId }) => {
       queryClient.invalidateQueries({ queryKey: ['communityFeed'] })
+      queryClient.invalidateQueries({ queryKey: ['postDetail', postId] })
+      queryClient.invalidateQueries({ queryKey: ['searchPosts'] })
     },
   })
 }

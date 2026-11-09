@@ -21,10 +21,10 @@ export function FeedTabs({ activeTab, onChange }: FeedTabsProps) {
           key={tab.key}
           type="button"
           onClick={() => onChange(tab.key)}
-          className={`shrink-0 rounded-full px-4 py-2 text-14 transition-colors ${
+          className={`shrink-0 rounded-lg border px-3 py-[6px] text-14 transition-colors ${
             activeTab === tab.key
-              ? 'border border-purple-500 font-semibold text-purple-500'
-              : 'border border-transparent font-medium text-gray-500'
+              ? 'border-purple-400 bg-purple-50 font-medium text-purple-500'
+              : 'border-gray-200 bg-white font-medium text-gray-800'
           }`}
         >
           {t(tab.labelKey)}

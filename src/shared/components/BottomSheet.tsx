@@ -36,9 +36,19 @@ interface BottomSheetProps {
   onAdd?: (sticker: Blob) => void
   onSelectGif?: (gif: Gif) => void
   onDeleteSticker?: (stickerId: number) => void
+  /** 내 스티커 탭에서 스티커를 눌렀을 때 (예: 게시글 스티커 반응). 없으면 타일은 누를 수 없다. */
+  onSelectSticker?: (sticker: StickerResponse) => void
 }
 
-export function BottomSheet({ isOpen, onClose, myStickers, onAdd, onSelectGif, onDeleteSticker }: BottomSheetProps) {
+export function BottomSheet({
+  isOpen,
+  onClose,
+  myStickers,
+  onAdd,
+  onSelectGif,
+  onDeleteSticker,
+  onSelectSticker,
+}: BottomSheetProps) {
   const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState<StickerTab>('mySticker')
   const activeTabIndex = TABS.findIndex((tab) => tab.key === activeTab)
@@ -124,7 +134,20 @@ export function BottomSheet({ isOpen, onClose, myStickers, onAdd, onSelectGif, o
                       key={sticker.stickerId}
                       className="relative aspect-square overflow-hidden rounded-2xl bg-gray-50"
                     >
-                      <img src={sticker.imageUrl} alt="" className="h-full w-full object-contain" />
+                      {onSelectSticker ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onSelectSticker(sticker)
+                            onClose()
+                          }}
+                          className="h-full w-full"
+                        >
+                          <img src={sticker.imageUrl} alt="" className="h-full w-full object-contain" />
+                        </button>
+                      ) : (
+                        <img src={sticker.imageUrl} alt="" className="h-full w-full object-contain" />
+                      )}
                       {onDeleteSticker && (
                         <button
                           type="button"
