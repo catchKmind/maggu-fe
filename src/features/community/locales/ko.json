@@ -28,7 +28,8 @@
   "report": {
     "hate": "혐오 발언",
     "harassment": "괴롭힘/욕설",
-    "inappropriate": "부적절한 콘텐츠"
+    "inappropriate": "부적절한 콘텐츠",
+    "label": "신고"
   },
   "reaction": {
     "label": "스티커 반응 남기기",

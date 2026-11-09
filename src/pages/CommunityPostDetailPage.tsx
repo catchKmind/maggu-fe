@@ -148,11 +148,11 @@ export default function CommunityPostDetailPage() {
 
             {contentBody ? (
               <div className="flex flex-col gap-1">
-                <p className="text-15 font-bold text-gray-900">{contentTitle}</p>
-                <p className="text-14 whitespace-pre-line text-gray-700">{contentBody}</p>
+                <p className="text-15 font-bold wrap-anywhere text-gray-900">{contentTitle}</p>
+                <p className="text-14 whitespace-pre-line wrap-anywhere text-gray-700">{contentBody}</p>
               </div>
             ) : (
-              <p className="text-14 whitespace-pre-line text-gray-800">{post.content}</p>
+              <p className="text-14 whitespace-pre-line wrap-anywhere text-gray-800">{post.content}</p>
             )}
 
             <PostPhotoGrid photos={post.imageUrls} />

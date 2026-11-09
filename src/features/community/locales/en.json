@@ -28,7 +28,8 @@
   "report": {
     "hate": "Hate speech",
     "harassment": "Harassment",
-    "inappropriate": "Inappropriate content"
+    "inappropriate": "Inappropriate content",
+    "label": "Report"
   },
   "reaction": {
     "label": "React with a sticker",
