@@ -60,7 +60,13 @@ export function LocationPickerSheet({ isOpen, onSelect, onClose }: LocationPicke
             key={place.contentId}
             type="button"
             onClick={() =>
-              onSelect({ lat: place.lat, lng: place.lng, placeName: place.title, source: 'MANUAL' })
+              onSelect({
+                lat: place.lat,
+                lng: place.lng,
+                placeName: place.title,
+                source: 'MANUAL',
+                tourismContentId: place.contentId,
+              })
             }
             className="flex w-full flex-col items-start gap-0.5 border-b border-gray-50 px-5 py-3.5 text-left"
           >
