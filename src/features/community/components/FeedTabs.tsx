@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import type { CommunityFeedTab } from '../types'
 
+// 나를 위한 추천, 질문 탭
 const TABS: { key: CommunityFeedTab; labelKey: string }[] = [
   { key: 'recommended', labelKey: 'tabs.recommended' },
   { key: 'question', labelKey: 'tabs.question' },

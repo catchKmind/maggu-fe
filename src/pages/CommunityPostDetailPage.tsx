@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import sendIcon from '../assets/community/icon_community_send.svg'
 import { Avatar } from '../shared/components/Avatar'
 import { formatRelativeTime } from '../shared/lib/formatRelativeTime'
 import { PostPhotoGrid } from '../features/community/components/PostPhotoGrid'
@@ -50,14 +51,6 @@ function BookmarkIcon({ filled }: { filled: boolean }) {
         strokeLinejoin="round"
         fill={filled ? '#5b6cff' : 'none'}
       />
-    </svg>
-  )
-}
-
-function SendIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -228,9 +221,9 @@ export default function CommunityPostDetailPage() {
             onClick={handleSubmitComment}
             disabled={!commentText.trim() || createComment.isPending}
             aria-label={t('postDetail.send')}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-purple-500 disabled:opacity-40"
+            className="flex shrink-0 items-center justify-center disabled:opacity-40"
           >
-            <SendIcon />
+            <img src={sendIcon} alt="" className="h-[30px] w-[30px]" />
           </button>
         </div>
       </div>

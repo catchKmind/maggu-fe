@@ -12,6 +12,8 @@ export interface PostLocation {
   lng: number
   placeName: string
   source: 'AUTO' | 'MANUAL'
+  /** 관광지 검색으로 고른 경우의 관광공사 콘텐츠 ID. 지도 장소 시트와 게시글을 연결하는 데 쓰인다. */
+  tourismContentId?: string
 }
 
 export interface CommunityPost {

@@ -130,6 +130,7 @@ export default function CommunityComposePage() {
         ...(photos.length > 0 && location
           ? {
               placeName: location.placeName,
+              tourismContentId: location.tourismContentId,
               latitude: location.lat,
               longitude: location.lng,
               locationSource: location.source,
