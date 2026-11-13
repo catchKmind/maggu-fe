@@ -209,12 +209,12 @@ export default function CommunityPostDetailPage() {
             </button>
           </div>
         )}
-        <div className="flex items-center gap-2">
+        <div className="flex h-11 items-center gap-2 rounded-full bg-gray-50 py-[7px] pr-[7px] pl-4">
           <input
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             placeholder={t('postDetail.commentPlaceholder')}
-            className="h-11 flex-1 rounded-full bg-gray-50 px-4 text-14 text-gray-900 outline-none placeholder:text-gray-400"
+            className="h-full min-w-0 flex-1 bg-transparent text-14 text-gray-900 outline-none placeholder:text-gray-400"
           />
           <button
             type="button"
