@@ -45,7 +45,7 @@ export function LocationPickerSheet({ isOpen, onSelect, onClose }: LocationPicke
             onCompositionEnd={onCompositionEnd}
             placeholder={t('compose.locationSearchPlaceholder')}
             autoFocus
-            className="h-full flex-1 bg-transparent text-14 text-gray-900 outline-none placeholder:text-gray-400"
+            className="h-full flex-1 bg-transparent text-14 text-gray-900 outline-none"
           />
         </div>
       </div>
