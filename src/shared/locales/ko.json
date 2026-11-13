@@ -91,6 +91,12 @@
     "emptyPlacesTitle": "아직 저장한 장소가 없어요.",
     "emptyPlacesDescription": "지도에서 장소를 찾아 리스트에 저장해 보세요!",
     "addPlace": "장소 추가",
+    "placeCount": "장소 {{count}}",
+    "selectPlacesToDelete": "삭제할 장소를 선택해 주세요",
+    "deleteSelectedPlaces": "선택한 장소 삭제",
+    "deleteSelectedPlacesCount": "선택한 장소 삭제 ({{count}})",
+    "deletePlacesConfirm": "장소 {{count}}개를 삭제할까요?",
+    "deletePlacesDescription": "리스트에서 장소가 삭제되며 복구할 수 없습니다.",
     "listNameDuplicated": "이미 사용 중인 리스트 이름이에요.",
     "listCreateFailed": "리스트를 만들지 못했어요. 다시 시도해 주세요."
   }
