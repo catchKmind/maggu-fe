@@ -5,27 +5,13 @@ import { EmptyState } from '../features/mypage/components/EmptyState'
 import { SegmentTab, SegmentTabs } from '../features/mypage/components/SegmentTab'
 import documentIcon from '../assets/mypage/icon_document.svg'
 import chatBubbleIcon from '../assets/mypage/icon_chat_bubble.svg'
+import { MOCK_MY_COMMENTS, MOCK_MY_POSTS } from '../features/mypage/mocks/myActivity'
+
+// TODO: 조회 API가 생기면 목업 대신 useQuery 결과를 쓴다.
+const MY_POSTS = MOCK_MY_POSTS
+const MY_COMMENTS = MOCK_MY_COMMENTS
 
 export type ActivityTab = 'posts' | 'comments'
-
-interface MyPostItem {
-  postId: number
-  title: string
-  thumbnailUrl: string | null
-}
-
-interface MyCommentItem {
-  commentId: number
-  postId: number
-  content: string
-  isReply: boolean
-  postAuthorNickname: string
-  createdAt: string
-}
-
-// TODO: '내가 쓴 글' / '내가 쓴 댓글' 조회 API가 아직 없음. 생기면 useQuery로 교체.
-const MY_POSTS: MyPostItem[] = []
-const MY_COMMENTS: MyCommentItem[] = []
 
 function formatDate(iso: string) {
   const date = new Date(iso)

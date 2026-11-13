@@ -91,6 +91,12 @@
     "emptyPlacesTitle": "No saved places yet.",
     "emptyPlacesDescription": "Find places on the map and save them to a list!",
     "addPlace": "Add place",
+    "placeCount": "Places {{count}}",
+    "selectPlacesToDelete": "Select places to delete",
+    "deleteSelectedPlaces": "Delete selected places",
+    "deleteSelectedPlacesCount": "Delete selected places ({{count}})",
+    "deletePlacesConfirm": "Delete {{count}} place(s)?",
+    "deletePlacesDescription": "The places will be removed from this list permanently.",
     "listNameDuplicated": "This list name is already in use.",
     "listCreateFailed": "Couldn't create the list. Please try again."
   }

@@ -40,7 +40,7 @@ export function StickerReactionPicker({ postId }: StickerReactionPickerProps) {
         aria-label={t('reaction.label')}
         className="flex items-center gap-1 rounded-xl bg-gray-50 px-[10px] py-[6px]"
       >
-        <img src={stickerIcon} alt="" className="size-6" />
+        <img src={stickerIcon} alt="" className="size-4" />
         <span className="text-14 leading-none text-purple-400">+</span>
       </button>
 
