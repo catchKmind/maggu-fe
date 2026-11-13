@@ -45,7 +45,7 @@ export function LocationPickerSheet({ isOpen, onSelect, onClose }: LocationPicke
             onCompositionEnd={onCompositionEnd}
             placeholder={t('compose.locationSearchPlaceholder')}
             autoFocus
-            className="h-full flex-1 bg-transparent text-14 text-gray-900 outline-none placeholder:text-gray-400"
+            className="h-full flex-1 bg-transparent text-14 text-gray-900 outline-none"
           />
         </div>
       </div>
@@ -60,7 +60,13 @@ export function LocationPickerSheet({ isOpen, onSelect, onClose }: LocationPicke
             key={place.contentId}
             type="button"
             onClick={() =>
-              onSelect({ lat: place.lat, lng: place.lng, placeName: place.title, source: 'MANUAL' })
+              onSelect({
+                lat: place.lat,
+                lng: place.lng,
+                placeName: place.title,
+                source: 'MANUAL',
+                tourismContentId: place.contentId,
+              })
             }
             className="flex w-full flex-col items-start gap-0.5 border-b border-gray-50 px-5 py-3.5 text-left"
           >
