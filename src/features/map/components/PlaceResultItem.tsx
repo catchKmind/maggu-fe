@@ -4,14 +4,17 @@ import type { MapSpotDetail } from '../api/mapSpots.types'
 
 interface PlaceResultItemProps {
   place: MapSpotDetail
+  /** 값이 있으면 항목 전체가 눌리는 버튼이 된다 */
+  onClick?: () => void
 }
 
-export function PlaceResultItem({ place }: PlaceResultItemProps) {
+export function PlaceResultItem({ place, onClick }: PlaceResultItemProps) {
   const { t } = useTranslation('map')
   const status = parseOpeningStatus(place.businessHours)
 
-  return (
-    <div className="flex flex-col gap-2 px-5 py-4">
+  const className = 'flex w-full flex-col gap-2 px-5 py-4 text-left'
+  const content = (
+    <>
       <div className="flex items-center gap-2">
         <span className="text-18 font-bold text-gray-900">{place.title}</span>
         <span className="text-14 text-gray-500">{t(`placeDetail.contentType.${place.contentType}`)}</span>
@@ -42,6 +45,14 @@ export function PlaceResultItem({ place }: PlaceResultItemProps) {
           ))}
         </div>
       )}
-    </div>
+    </>
+  )
+
+  return onClick ? (
+    <button type="button" onClick={onClick} className={className}>
+      {content}
+    </button>
+  ) : (
+    <div className={className}>{content}</div>
   )
 }
