@@ -85,8 +85,8 @@ export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }:
       </div>
 
       <div className="flex w-full flex-col gap-3 px-6 pb-[calc(var(--safe-bottom)+32px)]">
-        {appleLogin.isError && <p className="text-center text-13 text-red-500">{t('appleLoginError')}</p>}
-        {guestLogin.isError && <p className="text-center text-13 text-red-500">{t('guestLoginError')}</p>}
+        {appleLogin.isError && <p className="text-center text-13 text-error">{t('appleLoginError')}</p>}
+        {guestLogin.isError && <p className="text-center text-13 text-error">{t('guestLoginError')}</p>}
         <button
           type="button"
           onClick={handleAppleLogin}

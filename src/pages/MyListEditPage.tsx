@@ -91,7 +91,7 @@ export default function MyListEditPage() {
       </section>
 
       <section className="flex flex-col gap-3 py-[18px]">
-        <label htmlFor="list-name" className="px-4 text-14 leading-[20px] tracking-[-0.28px] text-gray-500">
+        <label htmlFor="list-name" className="px-4 typo-body-m text-gray-500">
           {t('myPage.listName')}
         </label>
         <div className="px-4">
@@ -103,7 +103,7 @@ export default function MyListEditPage() {
                 setEditedName(e.target.value)
                 setErrorKey(null)
               }}
-              className="min-w-0 flex-1 bg-transparent text-14 leading-[20px] tracking-[-0.28px] text-gray-700 caret-purple-400 outline-none"
+              className="min-w-0 flex-1 bg-transparent typo-body-m text-gray-700 caret-purple-400 outline-none"
             />
             {name && (
               <button type="button" onClick={() => setEditedName('')} aria-label={t('myPage.clearInput')}>
@@ -112,7 +112,7 @@ export default function MyListEditPage() {
             )}
           </div>
           {errorKey && (
-            <p className="mt-[6px] pl-[2px] text-12 leading-[18px] tracking-[-0.24px] text-[#df0303]">{t(errorKey)}</p>
+            <p className="mt-[6px] pl-[2px] typo-body-s text-error">{t(errorKey)}</p>
           )}
         </div>
       </section>

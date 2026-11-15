@@ -4,7 +4,7 @@ import { Avatar } from '../../../shared/components/Avatar'
 function PlusIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <path d="M9 3v12M3 9h12" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M9 3v12M3 9h12" stroke="var(--color-icon-default)" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }

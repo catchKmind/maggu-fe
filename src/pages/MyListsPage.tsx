@@ -78,7 +78,7 @@ export default function MyListsPage() {
         />
       ) : (
         <>
-          <p className="px-4 pt-4 pb-3 text-14 leading-[20px] tracking-[-0.28px] text-gray-500">
+          <p className="px-4 pt-4 pb-3 typo-body-m text-gray-500">
             {isEditing
               ? selectedCount > 0
                 ? t('myPage.selectedCount', { count: selectedCount })
@@ -92,7 +92,7 @@ export default function MyListsPage() {
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-white">
                   <img src={plusIcon} alt="" className="size-5" />
                 </span>
-                <span className="text-14 leading-[20px] tracking-[-0.28px] text-gray-800">{t('myPage.createList')}</span>
+                <span className="typo-body-m text-gray-800">{t('myPage.createList')}</span>
               </button>
             )}
 
@@ -108,7 +108,7 @@ export default function MyListsPage() {
                     className={ROW_CLASS}
                   >
                     <FolderIconTile icon={folder.icon} />
-                    <span className="min-w-0 flex-1 truncate text-14 leading-[20px] tracking-[-0.28px] text-gray-800">
+                    <span className="min-w-0 flex-1 truncate typo-body-m text-gray-800">
                       {folder.name}
                     </span>
                     <img src={chevronIcon} alt="" className="size-5 rotate-180" />
@@ -126,7 +126,7 @@ export default function MyListsPage() {
                 >
                   <SelectCheck checked={isSelected} />
                   <FolderIconTile icon={folder.icon} />
-                  <span className="min-w-0 flex-1 truncate text-14 leading-[20px] tracking-[-0.28px] text-gray-800">
+                  <span className="min-w-0 flex-1 truncate typo-body-m text-gray-800">
                     {folder.name}
                   </span>
                   <button

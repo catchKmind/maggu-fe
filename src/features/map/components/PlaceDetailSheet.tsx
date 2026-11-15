@@ -26,11 +26,11 @@ function PinIcon() {
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
         d="M8 14.5s5-4.2 5-8.2a5 5 0 1 0-10 0c0 4 5 8.2 5 8.2Z"
-        stroke="#A3A3A3"
+        stroke="var(--color-icon-muted)"
         strokeWidth="1.3"
         strokeLinejoin="round"
       />
-      <circle cx="8" cy="6.3" r="1.8" stroke="#A3A3A3" strokeWidth="1.3" />
+      <circle cx="8" cy="6.3" r="1.8" stroke="var(--color-icon-muted)" strokeWidth="1.3" />
     </svg>
   )
 }
@@ -38,8 +38,8 @@ function PinIcon() {
 function ClockIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <circle cx="8" cy="8" r="6" stroke="#A3A3A3" strokeWidth="1.3" />
-      <path d="M8 4.8V8l2.2 1.3" stroke="#A3A3A3" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="8" cy="8" r="6" stroke="var(--color-icon-muted)" strokeWidth="1.3" />
+      <path d="M8 4.8V8l2.2 1.3" stroke="var(--color-icon-muted)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -49,7 +49,7 @@ function PhoneIcon() {
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
         d="M4 2.5h2l1 3-1.5 1.2a8 8 0 0 0 3.8 3.8L10.5 9l3 1v2c0 .8-.7 1.5-1.5 1.5C6.4 13.5 2.5 9.6 2.5 4.5c0-.8.7-1.5 1.5-1.5Z"
-        stroke="#A3A3A3"
+        stroke="var(--color-icon-muted)"
         strokeWidth="1.3"
         strokeLinejoin="round"
       />
@@ -60,7 +60,7 @@ function PhoneIcon() {
 function XIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="var(--color-icon-default)" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }
@@ -68,9 +68,9 @@ function XIcon() {
 function ListAddIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <path d="M3 5h8M3 9h6M3 13h4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="14" cy="13" r="3.2" fill="white" stroke="#374151" strokeWidth="1.2" />
-      <path d="M14 11.6v2.8M12.6 13h2.8" stroke="#374151" strokeWidth="1.1" strokeLinecap="round" />
+      <path d="M3 5h8M3 9h6M3 13h4" stroke="var(--color-icon-default)" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="14" cy="13" r="3.2" fill="white" stroke="var(--color-icon-default)" strokeWidth="1.2" />
+      <path d="M14 11.6v2.8M12.6 13h2.8" stroke="var(--color-icon-default)" strokeWidth="1.1" strokeLinecap="round" />
     </svg>
   )
 }
@@ -78,12 +78,12 @@ function ListAddIcon() {
 function StickerAddIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <rect x="1.5" y="1.5" width="10" height="10" rx="3" stroke="#374151" strokeWidth="1.4" />
-      <circle cx="5.3" cy="6" r="0.9" fill="#374151" />
-      <circle cx="8.2" cy="6" r="0.9" fill="#374151" />
-      <path d="M5 8.4c.5.6 1.2.9 1.9.9s1.4-.3 1.9-.9" stroke="#374151" strokeWidth="1.1" strokeLinecap="round" />
-      <circle cx="14" cy="13" r="3.2" fill="white" stroke="#374151" strokeWidth="1.2" />
-      <path d="M14 11.6v2.8M12.6 13h2.8" stroke="#374151" strokeWidth="1.1" strokeLinecap="round" />
+      <rect x="1.5" y="1.5" width="10" height="10" rx="3" stroke="var(--color-icon-default)" strokeWidth="1.4" />
+      <circle cx="5.3" cy="6" r="0.9" fill="var(--color-icon-default)" />
+      <circle cx="8.2" cy="6" r="0.9" fill="var(--color-icon-default)" />
+      <path d="M5 8.4c.5.6 1.2.9 1.9.9s1.4-.3 1.9-.9" stroke="var(--color-icon-default)" strokeWidth="1.1" strokeLinecap="round" />
+      <circle cx="14" cy="13" r="3.2" fill="white" stroke="var(--color-icon-default)" strokeWidth="1.2" />
+      <path d="M14 11.6v2.8M12.6 13h2.8" stroke="var(--color-icon-default)" strokeWidth="1.1" strokeLinecap="round" />
     </svg>
   )
 }

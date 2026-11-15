@@ -7,7 +7,7 @@ import type { PostLocation } from '../types'
 function BackIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M12.5 4.5 6 11l6.5 6.5" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12.5 4.5 6 11l6.5 6.5" stroke="var(--color-icon-default)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -70,7 +70,7 @@ export function LocationPickerSheet({ isOpen, onSelect, onClose }: LocationPicke
             }
             className="flex w-full flex-col items-start gap-0.5 border-b border-gray-50 px-5 py-3.5 text-left"
           >
-            <span className="text-15 font-medium text-gray-900">{place.title}</span>
+            <span className="text-16 font-medium text-gray-900">{place.title}</span>
             {place.addr && <span className="text-13 text-gray-400">{place.addr}</span>}
           </button>
         ))}

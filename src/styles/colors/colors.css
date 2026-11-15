@@ -1,4 +1,4 @@
-@theme {
+@theme static {
   /* Color - Primitive / Yellow */
   --color-yellow-50: #fff7e8;
   --color-yellow-100: #ffebc7;
@@ -47,4 +47,17 @@
   --color-purple-700: #3742b8;
   --color-purple-800: #293189;
   --color-purple-900: #1b205c;
+
+  /* Color - Primitive / Status (Figma: error) */
+  --color-error: #fa4d56;
+
+  /* Color - Semantic (코드 정의. Figma에는 아직 시맨틱 컬렉션 없음)
+     Tailwind 클래스(bg-primary 등)와 SVG(stroke="var(--color-icon-default)") 모두에서 사용 */
+  --color-primary: var(--color-purple-500);
+  --color-primary-soft: var(--color-purple-50);
+  --color-icon-strong: var(--color-gray-900);
+  --color-icon-default: var(--color-gray-700);
+  --color-icon-muted: var(--color-gray-400);
+  --color-icon-inverse: #ffffff;
+  --color-divider: var(--color-gray-200);
 }
