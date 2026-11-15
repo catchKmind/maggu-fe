@@ -81,14 +81,14 @@ export default function MyProfileEditPage() {
         <button
           type="button"
           onClick={() => setPhotoUrl(null)}
-          className="text-14 leading-[20px] tracking-[-0.28px] text-gray-400 underline underline-offset-4"
+          className="typo-body-m text-gray-400 underline underline-offset-4"
         >
           {t('myPage.resetPhoto')}
         </button>
       </section>
 
       <section className="flex flex-col gap-3 py-[18px]">
-        <label htmlFor="nickname" className="px-4 text-14 leading-[20px] tracking-[-0.28px] text-gray-500">
+        <label htmlFor="nickname" className="px-4 typo-body-m text-gray-500">
           {t('myPage.nickname')}
         </label>
         <div className="px-4">
@@ -100,7 +100,7 @@ export default function MyProfileEditPage() {
                 setEditedNickname(e.target.value)
                 setError(null)
               }}
-              className="min-w-0 flex-1 bg-transparent text-14 leading-[20px] tracking-[-0.28px] text-gray-700 caret-purple-400 outline-none"
+              className="min-w-0 flex-1 bg-transparent typo-body-m text-gray-700 caret-purple-400 outline-none"
             />
             {nickname && (
               <button type="button" onClick={() => setEditedNickname('')} aria-label={t('myPage.clearNickname')}>
@@ -109,7 +109,7 @@ export default function MyProfileEditPage() {
             )}
           </div>
           {error && (
-            <p className="mt-[6px] pl-[2px] text-12 leading-[18px] tracking-[-0.24px] text-[#df0303]">{t(ERROR_KEYS[error])}</p>
+            <p className="mt-[6px] pl-[2px] typo-body-s text-error">{t(ERROR_KEYS[error])}</p>
           )}
         </div>
       </section>

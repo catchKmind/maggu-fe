@@ -23,7 +23,7 @@ function countComments(comments: CommentResponse[]): number {
 function BackIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M12.5 4.5 6 11l6.5 6.5" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12.5 4.5 6 11l6.5 6.5" stroke="var(--color-icon-default)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -33,7 +33,7 @@ function CommentIcon() {
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
         d="M2 8c0-3 2.7-5.5 6-5.5s6 2.5 6 5.5-2.7 5.5-6 5.5c-.7 0-1.4-.1-2-.3L3 14l.8-2.7C2.7 10.3 2 9.2 2 8Z"
-        stroke="#A3A3A3"
+        stroke="var(--color-icon-muted)"
         strokeWidth="1.3"
         strokeLinejoin="round"
       />
@@ -46,10 +46,10 @@ function BookmarkIcon({ filled }: { filled: boolean }) {
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
         d="M4 2.5h8v11l-4-2.8-4 2.8v-11Z"
-        stroke={filled ? '#5b6cff' : '#A3A3A3'}
+        stroke={filled ? 'var(--color-primary)' : 'var(--color-icon-muted)'}
         strokeWidth="1.3"
         strokeLinejoin="round"
-        fill={filled ? '#5b6cff' : 'none'}
+        fill={filled ? 'var(--color-primary)' : 'none'}
       />
     </svg>
   )
@@ -133,7 +133,7 @@ export default function CommunityPostDetailPage() {
             <div className="flex items-center gap-2">
               <Avatar name={post.writerNickname} size={36} />
               <div className="flex flex-1 flex-col">
-                <span className="text-15 font-semibold text-gray-900">{post.writerNickname}</span>
+                <span className="text-16 font-semibold text-gray-900">{post.writerNickname}</span>
                 <span className="text-13 text-gray-400">{formatRelativeTime(post.createdAt)}</span>
               </div>
               <PostMenu postId={postId} onShare={handleShare} />
@@ -141,7 +141,7 @@ export default function CommunityPostDetailPage() {
 
             {contentBody ? (
               <div className="flex flex-col gap-1">
-                <p className="text-15 font-bold wrap-anywhere text-gray-900">{contentTitle}</p>
+                <p className="text-16 font-bold wrap-anywhere text-gray-900">{contentTitle}</p>
                 <p className="text-14 whitespace-pre-line wrap-anywhere text-gray-700">{contentBody}</p>
               </div>
             ) : (

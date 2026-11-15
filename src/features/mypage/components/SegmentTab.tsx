@@ -22,5 +22,5 @@ export function SegmentTab({ label, count, isActive, onClick }: SegmentTabProps)
 }
 
 export function SegmentTabs({ children }: { children: React.ReactNode }) {
-  return <div className="flex px-4 py-2 text-14 leading-[20px] tracking-[-0.28px]">{children}</div>
+  return <div className="flex px-4 py-2 typo-body-m">{children}</div>
 }

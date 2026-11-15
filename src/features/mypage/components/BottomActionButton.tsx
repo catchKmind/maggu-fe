@@ -12,7 +12,7 @@ export function BottomActionButton({ label, onClick, disabled }: BottomActionBut
         type="button"
         onClick={onClick}
         disabled={disabled}
-        className="h-12 w-full rounded-xl bg-gray-700 text-16 leading-[26px] font-medium tracking-[-0.32px] text-white disabled:bg-gray-200 disabled:text-gray-400"
+        className="h-12 w-full rounded-xl bg-gray-700 typo-title-m font-medium text-white disabled:bg-gray-200 disabled:text-gray-400"
       >
         {label}
       </button>

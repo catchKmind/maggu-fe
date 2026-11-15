@@ -12,7 +12,7 @@ export function SettingRow({ label, value, onClick }: SettingRowProps) {
   const className = 'flex w-full items-center justify-between rounded-[14px] bg-gray-50 px-4 pt-[14px] pb-[13px] text-left'
   const content = (
     <>
-      <span className="text-14 leading-[20px] tracking-[-0.28px] text-gray-800">{label}</span>
+      <span className="typo-body-m text-gray-800">{label}</span>
       {value !== undefined ? (
         <span className="text-14 leading-[19px] tracking-[-0.48px] text-gray-400">{value}</span>
       ) : (

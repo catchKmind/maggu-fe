@@ -16,7 +16,7 @@ export function MyPageHeader({ title, action, onBack }: MyPageHeaderProps) {
   const { t } = useTranslation()
 
   return (
-    <div className="flex items-center justify-between border-b border-[#eee] py-3 pr-5 pl-4">
+    <div className="flex items-center justify-between border-b border-gray-200 py-3 pr-5 pl-4">
       <button
         type="button"
         onClick={onBack ?? (() => navigate(-1))}

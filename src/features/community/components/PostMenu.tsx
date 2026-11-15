@@ -16,9 +16,9 @@ const ROW_CLASS = 'flex items-center justify-between rounded-2xl bg-gray-50 px-4
 function MoreIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <circle cx="4" cy="9" r="1.2" fill="#A3A3A3" />
-      <circle cx="9" cy="9" r="1.2" fill="#A3A3A3" />
-      <circle cx="14" cy="9" r="1.2" fill="#A3A3A3" />
+      <circle cx="4" cy="9" r="1.2" fill="var(--color-icon-muted)" />
+      <circle cx="9" cy="9" r="1.2" fill="var(--color-icon-muted)" />
+      <circle cx="14" cy="9" r="1.2" fill="var(--color-icon-muted)" />
     </svg>
   )
 }
@@ -26,10 +26,10 @@ function MoreIcon() {
 function ShareIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="17" cy="5.5" r="2.5" stroke="#171717" strokeWidth="1.5" />
-      <circle cx="6.5" cy="12" r="2.5" stroke="#171717" strokeWidth="1.5" />
-      <circle cx="17" cy="18.5" r="2.5" stroke="#171717" strokeWidth="1.5" />
-      <path d="m8.7 10.7 6.1-3.9M8.7 13.3l6.1 3.9" stroke="#171717" strokeWidth="1.5" />
+      <circle cx="17" cy="5.5" r="2.5" stroke="var(--color-icon-strong)" strokeWidth="1.5" />
+      <circle cx="6.5" cy="12" r="2.5" stroke="var(--color-icon-strong)" strokeWidth="1.5" />
+      <circle cx="17" cy="18.5" r="2.5" stroke="var(--color-icon-strong)" strokeWidth="1.5" />
+      <path d="m8.7 10.7 6.1-3.9M8.7 13.3l6.1 3.9" stroke="var(--color-icon-strong)" strokeWidth="1.5" />
     </svg>
   )
 }
@@ -39,12 +39,12 @@ function WarningIcon() {
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M10.3 4.2a2 2 0 0 1 3.4 0l7.6 13.1a2 2 0 0 1-1.7 3H4.4a2 2 0 0 1-1.7-3l7.6-13.1Z"
-        stroke="#DF0303"
+        stroke="var(--color-error)"
         strokeWidth="1.5"
         strokeLinejoin="round"
       />
-      <path d="M12 9.5v4.5" stroke="#DF0303" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="12" cy="16.8" r="0.9" fill="#DF0303" />
+      <path d="M12 9.5v4.5" stroke="var(--color-error)" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="12" cy="16.8" r="0.9" fill="var(--color-error)" />
     </svg>
   )
 }
@@ -136,7 +136,7 @@ export function PostMenu({ postId, onShare }: PostMenuProps) {
                     {t('postDetail.share')}
                     <ShareIcon />
                   </button>
-                  <button type="button" onClick={() => setStep('report')} className={`${ROW_CLASS} text-[#df0303]`}>
+                  <button type="button" onClick={() => setStep('report')} className={`${ROW_CLASS} text-error`}>
                     {t('report.label')}
                     <WarningIcon />
                   </button>

@@ -37,3 +37,39 @@
   --text-32: 32px;
   --text-40: 40px;
 }
+
+/* Typography - Figma Text Style 기준 (size / line-height / letter-spacing -2%)
+   :where() 로 특이도를 0으로 둬서 font-medium, font-semibold 같은 weight 클래스가 항상 우선한다. */
+@utility typo-headline-l {
+  :where(&) { font-size: var(--text-26); line-height: 150%; letter-spacing: -0.02em; font-weight: var(--font-weight-bold); }
+}
+@utility typo-headline-m {
+  :where(&) { font-size: var(--text-22); line-height: 150%; letter-spacing: -0.02em; font-weight: var(--font-weight-bold); }
+}
+@utility typo-title-l {
+  :where(&) { font-size: var(--text-18); line-height: 26px; letter-spacing: -0.02em; font-weight: var(--font-weight-medium); }
+}
+@utility typo-title-m {
+  :where(&) { font-size: var(--text-16); line-height: 26px; letter-spacing: -0.02em; font-weight: var(--font-weight-medium); }
+}
+@utility typo-body-l {
+  :where(&) { font-size: var(--text-16); line-height: 24px; letter-spacing: -0.02em; font-weight: var(--font-weight-medium); }
+}
+@utility typo-body-m {
+  :where(&) { font-size: var(--text-14); line-height: 20px; letter-spacing: -0.02em; font-weight: var(--font-weight-regular); }
+}
+@utility typo-body-m-medium {
+  :where(&) { font-size: var(--text-14); line-height: 26px; letter-spacing: -0.02em; font-weight: var(--font-weight-medium); }
+}
+@utility typo-body-s {
+  :where(&) { font-size: var(--text-12); line-height: 18px; letter-spacing: -0.02em; font-weight: var(--font-weight-regular); }
+}
+@utility typo-body-xs {
+  :where(&) { font-size: var(--text-11); line-height: 16px; letter-spacing: -0.02em; font-weight: var(--font-weight-regular); }
+}
+@utility typo-label-m {
+  :where(&) { font-size: var(--text-13); line-height: 18px; letter-spacing: -0.02em; font-weight: var(--font-weight-regular); }
+}
+@utility typo-label-s {
+  :where(&) { font-size: var(--text-11); line-height: 16px; letter-spacing: -0.02em; font-weight: var(--font-weight-regular); }
+}

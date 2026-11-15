@@ -13,7 +13,7 @@ type ScrapStep = 'folder' | 'newFolder' | 'sticker' | 'confirm'
 
 const ICON_OPTIONS = FOLDER_ICON_OPTIONS
 
-function BackIcon({ color = '#171717' }: { color?: string }) {
+function BackIcon({ color = 'var(--color-icon-strong)' }: { color?: string }) {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
       <path d="M11.5 4.5 6 10l5.5 5.5" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -21,7 +21,7 @@ function BackIcon({ color = '#171717' }: { color?: string }) {
   )
 }
 
-function CloseIcon({ color = '#374151' }: { color?: string }) {
+function CloseIcon({ color = 'var(--color-icon-default)' }: { color?: string }) {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
@@ -32,7 +32,7 @@ function CloseIcon({ color = '#374151' }: { color?: string }) {
 function PlusIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <path d="M9 3v12M3 9h12" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M9 3v12M3 9h12" stroke="var(--color-icon-muted)" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }
@@ -40,7 +40,7 @@ function PlusIcon() {
 function CheckIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <path d="M2.5 7.2 5.5 10.2 11.5 3.8" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M2.5 7.2 5.5 10.2 11.5 3.8" stroke="var(--color-icon-inverse)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -155,7 +155,7 @@ export function PlaceScrapSheet({
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-50">
                 <PlusIcon />
               </span>
-              <span className="text-15 text-gray-700">{t('placeScrap.newFolder')}</span>
+              <span className="text-16 text-gray-700">{t('placeScrap.newFolder')}</span>
             </button>
 
             {folders?.map((folder) => (
@@ -169,7 +169,7 @@ export function PlaceScrapSheet({
                   <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-50 text-18">
                     {folder.icon}
                   </span>
-                  <span className="text-15 text-gray-900">{folder.name}</span>
+                  <span className="text-16 text-gray-900">{folder.name}</span>
                 </span>
                 {selectedFolderId === folder.placeFolderId && (
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-500">
@@ -221,7 +221,7 @@ export function PlaceScrapSheet({
             <button
               type="button"
               onClick={() => setIsIconPickerOpen(true)}
-              className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-50 text-28"
+              className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-50 text-26"
             >
               {newFolderIcon}
               <span className="absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-full border border-white bg-gray-200 text-11">
@@ -422,7 +422,7 @@ export function PlaceScrapSheet({
             {t('placeScrap.save')}
           </button>
         </div>
-        {createScrap.isError && <p className="mt-2 text-center text-13 text-red-400">{t('placeScrap.error')}</p>}
+        {createScrap.isError && <p className="mt-2 text-center text-13 text-error">{t('placeScrap.error')}</p>}
       </div>
     </div>
   )

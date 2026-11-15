@@ -21,7 +21,7 @@ function CornerBracket({ position }: { position: CornerPosition }) {
 function BackIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <path d="M11.5 4.5 6 10l5.5 5.5" stroke="#171717" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M11.5 4.5 6 10l5.5 5.5" stroke="var(--color-icon-strong)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }

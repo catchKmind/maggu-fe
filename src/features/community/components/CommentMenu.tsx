@@ -12,9 +12,9 @@ const REPORT_REASONS: { key: ReportReason; labelKey: string }[] = [
 function MoreIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <circle cx="4" cy="9" r="1.2" fill="#A3A3A3" />
-      <circle cx="9" cy="9" r="1.2" fill="#A3A3A3" />
-      <circle cx="14" cy="9" r="1.2" fill="#A3A3A3" />
+      <circle cx="4" cy="9" r="1.2" fill="var(--color-icon-muted)" />
+      <circle cx="9" cy="9" r="1.2" fill="var(--color-icon-muted)" />
+      <circle cx="14" cy="9" r="1.2" fill="var(--color-icon-muted)" />
     </svg>
   )
 }
