@@ -16,7 +16,7 @@ const TABS: { key: StickerTab; labelKey: string }[] = [
 function PlusIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M10 3v14M3 10h14" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M10 3v14M3 10h14" stroke="var(--color-icon-muted)" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }
@@ -24,7 +24,7 @@ function PlusIcon() {
 function DeleteBadgeIcon() {
   return (
     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-      <path d="M2 2l6 6M8 2l-6 6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M2 2l6 6M8 2l-6 6" stroke="var(--color-icon-inverse)" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }

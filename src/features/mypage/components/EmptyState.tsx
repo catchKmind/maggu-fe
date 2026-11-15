@@ -26,14 +26,14 @@ export function EmptyState({
         <img src={icon} alt="" className="size-7" />
       </div>
       <div className="flex flex-col items-center gap-1 text-center">
-        <p className="text-16 leading-[24px] font-medium tracking-[-0.32px] text-gray-800">{title}</p>
-        <p className="text-14 leading-[20px] tracking-[-0.28px] text-gray-500">{description}</p>
+        <p className="typo-body-l font-medium text-gray-800">{title}</p>
+        <p className="typo-body-m text-gray-500">{description}</p>
       </div>
       {actionLabel && onAction && (
         <button
           type="button"
           onClick={onAction}
-          className="rounded-3xl bg-purple-500 px-5 py-[10px] text-14 leading-[20px] font-medium tracking-[-0.28px] text-white"
+          className="rounded-3xl bg-purple-500 px-5 py-[10px] typo-body-m font-medium text-white"
         >
           {actionLabel}
         </button>

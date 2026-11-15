@@ -14,7 +14,7 @@ import type { CommunitySortOrder } from '../features/community/types'
 function BackIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M12.5 4.5 6 11l6.5 6.5" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12.5 4.5 6 11l6.5 6.5" stroke="var(--color-icon-default)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -22,7 +22,7 @@ function BackIcon() {
 function ClearIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <path d="M3 3l8 8M11 3l-8 8" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M3 3l8 8M11 3l-8 8" stroke="var(--color-icon-muted)" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }

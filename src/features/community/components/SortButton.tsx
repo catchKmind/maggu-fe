@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 function SortIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <path d="M3 5h12M5.5 9h7M8 13h2" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M3 5h12M5.5 9h7M8 13h2" stroke="var(--color-icon-default)" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }

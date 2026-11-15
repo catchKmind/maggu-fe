@@ -33,7 +33,7 @@ interface ComposedPhoto {
 function CloseIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M4.5 4.5l11 11M15.5 4.5l-11 11" stroke="#171717" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M4.5 4.5l11 11M15.5 4.5l-11 11" stroke="var(--color-icon-strong)" strokeWidth="1.6" strokeLinecap="round" />
     </svg>
   )
 }
@@ -41,7 +41,7 @@ function CloseIcon() {
 function RemovePhotoIcon() {
   return (
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="#171717" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="var(--color-icon-strong)" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }
@@ -51,11 +51,11 @@ function PinIcon() {
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
         d="M8 14.5s5-4.2 5-8.2a5 5 0 1 0-10 0c0 4 5 8.2 5 8.2Z"
-        stroke="#A3A3A3"
+        stroke="var(--color-icon-muted)"
         strokeWidth="1.3"
         strokeLinejoin="round"
       />
-      <circle cx="8" cy="6.3" r="1.8" stroke="#A3A3A3" strokeWidth="1.3" />
+      <circle cx="8" cy="6.3" r="1.8" stroke="var(--color-icon-muted)" strokeWidth="1.3" />
     </svg>
   )
 }
@@ -162,7 +162,7 @@ export default function CommunityComposePage() {
           type="button"
           onClick={() => createMutation.mutate()}
           disabled={!canSubmit}
-          className="text-15 font-semibold text-purple-500 disabled:text-gray-300"
+          className="text-16 font-semibold text-purple-500 disabled:text-gray-300"
         >
           {createMutation.isPending ? t('compose.posting') : t('compose.submit')}
         </button>
@@ -195,7 +195,7 @@ export default function CommunityComposePage() {
         </div>
       )}
 
-      {photoError && <p className="px-5 pb-2 text-13 text-red-500">{t('compose.photoError')}</p>}
+      {photoError && <p className="px-5 pb-2 text-13 text-error">{t('compose.photoError')}</p>}
 
       {photos.length > 0 && (
         <button
@@ -223,7 +223,7 @@ export default function CommunityComposePage() {
         </button>
       </div>
 
-      {createMutation.isError && <p className="px-5 pb-3 text-13 text-red-500">{t('compose.error')}</p>}
+      {createMutation.isError && <p className="px-5 pb-3 text-13 text-error">{t('compose.error')}</p>}
 
       <LocationPickerSheet
         isOpen={isLocationSheetOpen}

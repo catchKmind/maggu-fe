@@ -13,7 +13,7 @@ function CommentIcon() {
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
         d="M2.5 8.2a5.5 5.5 0 1 1 2.3 4.4L2.5 13.5l.9-2.8a5.4 5.4 0 0 1-.9-2.5Z"
-        stroke="#A3A3A3"
+        stroke="var(--color-icon-muted)"
         strokeWidth="1.3"
         strokeLinejoin="round"
       />
@@ -26,10 +26,10 @@ function BookmarkIcon({ filled }: { filled: boolean }) {
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
         d="M4 2.5h8v11l-4-2.8-4 2.8v-11Z"
-        stroke={filled ? '#5b6cff' : '#A3A3A3'}
+        stroke={filled ? 'var(--color-primary)' : 'var(--color-icon-muted)'}
         strokeWidth="1.3"
         strokeLinejoin="round"
-        fill={filled ? '#5b6cff' : 'none'}
+        fill={filled ? 'var(--color-primary)' : 'none'}
       />
     </svg>
   )
