@@ -31,16 +31,16 @@ export function ConfirmDialog({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col items-center gap-2 text-center">
-          <p className="text-16 leading-[24px] font-medium tracking-[-0.32px] text-gray-700">{title}</p>
+          <p className="typo-body-l font-medium text-gray-700">{title}</p>
           {description && (
-            <p className="text-14 leading-[20px] tracking-[-0.28px] whitespace-pre-line text-gray-500">{description}</p>
+            <p className="typo-body-m whitespace-pre-line text-gray-500">{description}</p>
           )}
         </div>
         <div className="flex gap-2">
           <button
             type="button"
             onClick={onCancel}
-            className="flex-1 rounded-[10px] bg-gray-100 pt-[14px] pb-[13px] text-14 leading-[20px] tracking-[-0.28px] text-gray-700"
+            className="flex-1 rounded-[10px] bg-gray-100 pt-[14px] pb-[13px] typo-body-m text-gray-700"
           >
             {cancelLabel}
           </button>
@@ -48,7 +48,7 @@ export function ConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={isPending}
-            className="flex-1 rounded-[10px] bg-gray-700 pt-[14px] pb-[13px] text-14 leading-[20px] tracking-[-0.28px] text-white disabled:opacity-60"
+            className="flex-1 rounded-[10px] bg-gray-700 pt-[14px] pb-[13px] typo-body-m text-white disabled:opacity-60"
           >
             {confirmLabel}
           </button>

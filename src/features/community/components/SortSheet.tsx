@@ -10,7 +10,7 @@ const SORT_OPTIONS: { key: CommunitySortOrder; labelKey: string }[] = [
 function CheckIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M3.5 8.3 6.5 11.3 12.5 4.7" stroke="#171717" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M3.5 8.3 6.5 11.3 12.5 4.7" stroke="var(--color-icon-strong)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }

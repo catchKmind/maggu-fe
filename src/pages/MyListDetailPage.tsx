@@ -73,7 +73,7 @@ export default function MyListDetailPage() {
         />
       ) : (
         <>
-          <p className="px-4 pt-4 pb-1 text-14 leading-[20px] tracking-[-0.28px] text-gray-500">
+          <p className="px-4 pt-4 pb-1 typo-body-m text-gray-500">
             {isEditing
               ? selectedCount > 0
                 ? t('myPage.selectedCount', { count: selectedCount })

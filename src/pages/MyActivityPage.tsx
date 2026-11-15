@@ -85,7 +85,7 @@ export default function MyActivityPage() {
               >
                 <span className="flex w-full items-center gap-[6px]">
                   {comment.isReply && (
-                    <span className="shrink-0 rounded-md border-[0.5px] border-purple-400 bg-purple-50 px-[6px] py-px text-12 leading-[18px] tracking-[-0.24px] text-purple-500">
+                    <span className="shrink-0 rounded-md border-[0.5px] border-purple-400 bg-purple-50 px-[6px] py-px typo-body-s text-purple-500">
                       {t('myPage.replyBadge')}
                     </span>
                   )}
@@ -93,7 +93,7 @@ export default function MyActivityPage() {
                     {comment.content}
                   </span>
                 </span>
-                <span className="flex items-center gap-[6px] text-12 leading-[18px] tracking-[-0.24px]">
+                <span className="flex items-center gap-[6px] typo-body-s">
                   <span className="truncate text-gray-500">
                     {t('myPage.commentOnPost', { nickname: comment.postAuthorNickname })}
                   </span>

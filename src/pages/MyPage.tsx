@@ -13,7 +13,7 @@ import pencilIcon from '../assets/mypage/icon_pencil.svg'
 type AccountDialog = 'logout' | 'withdraw' | null
 
 function SectionTitle({ children }: { children: string }) {
-  return <p className="text-14 leading-[20px] tracking-[-0.28px] text-gray-500">{children}</p>
+  return <p className="typo-body-m text-gray-500">{children}</p>
 }
 
 export default function MyPage() {
@@ -29,7 +29,7 @@ export default function MyPage() {
       <div className="flex items-center justify-between px-4 py-[18px]">
         <div className="flex items-center gap-3">
           <ProfileAvatar />
-          <span className="text-16 leading-[24px] font-medium tracking-[-0.32px] text-gray-800">
+          <span className="typo-body-l font-medium text-gray-800">
             {account?.nickname}
           </span>
         </div>

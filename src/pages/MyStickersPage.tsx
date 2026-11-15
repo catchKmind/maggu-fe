@@ -97,7 +97,7 @@ export default function MyStickersPage() {
         />
       ) : (
         <>
-          <p className="px-4 pt-4 pb-3 text-14 leading-[20px] tracking-[-0.28px] text-gray-500">
+          <p className="px-4 pt-4 pb-3 typo-body-m text-gray-500">
             {isEditing
               ? selectedCount > 0
                 ? t('myPage.selectedCount', { count: selectedCount })
@@ -113,7 +113,7 @@ export default function MyStickersPage() {
                 className={`${TILE_CLASS} flex flex-col items-center justify-center gap-[6px]`}
               >
                 <img src={plusIcon} alt="" className="size-6" />
-                <span className="text-12 leading-[18px] tracking-[-0.24px] text-gray-500">{t('myPage.createNew')}</span>
+                <span className="typo-body-s text-gray-500">{t('myPage.createNew')}</span>
               </button>
             )}
             {stickers.map((sticker) => {
