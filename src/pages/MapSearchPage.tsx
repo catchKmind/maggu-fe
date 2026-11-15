@@ -6,8 +6,11 @@ import { useImeAwareInput } from '../shared/hooks/useImeAwareInput'
 import { useMapSearchAutocomplete } from '../features/map/hooks/useMapSearchAutocomplete'
 import { useSearchMapSpots } from '../features/map/hooks/useSearchMapSpots'
 import { useSearchMapPosts } from '../features/map/hooks/useSearchMapPosts'
+import { PlaceDetailSheet } from '../features/map/components/PlaceDetailSheet'
 import { PlaceResultItem } from '../features/map/components/PlaceResultItem'
 import type { FeedSort } from '../features/map/api/mapSearch.types'
+import type { MapSpotDetail } from '../features/map/api/mapSpots.types'
+import type { PhotoSpot } from '../features/map/types'
 
 type SearchTab = 'place' | 'popular' | 'recent'
 
@@ -16,6 +19,21 @@ const TABS: { key: SearchTab; labelKey: string }[] = [
   { key: 'popular', labelKey: 'searchPage.tabs.popular' },
   { key: 'recent', labelKey: 'searchPage.tabs.recent' },
 ]
+
+function toPhotoSpot(place: MapSpotDetail, categoryLabel: string): PhotoSpot {
+  return {
+    id: place.contentId,
+    lng: place.lng,
+    lat: place.lat,
+    name: place.title,
+    photos: place.images,
+    category: categoryLabel,
+    address: place.addr ?? undefined,
+    hours: place.businessHours ?? undefined,
+    phone: place.tel ?? undefined,
+    tourismContentId: place.contentId,
+  }
+}
 
 function BackIcon() {
   return (
@@ -40,6 +58,7 @@ export default function MapSearchPage() {
     useImeAwareInput()
   const [submittedKeyword, setSubmittedKeyword] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<SearchTab>('place')
+  const [selectedSpot, setSelectedSpot] = useState<PhotoSpot | null>(null)
 
   const { data: candidates } = useMapSearchAutocomplete(committedValue)
   const { data: places, isError: isPlaceError } = useSearchMapSpots(
@@ -153,7 +172,11 @@ export default function MapSearchPage() {
                   <p className="px-5 py-8 text-center text-14 text-gray-400">{t('searchPage.empty')}</p>
                 )}
                 {places?.map((place) => (
-                  <PlaceResultItem key={place.contentId} place={place} />
+                  <PlaceResultItem
+                    key={place.contentId}
+                    place={place}
+                    onClick={() => setSelectedSpot(toPhotoSpot(place, t(`placeDetail.contentType.${place.contentType}`)))}
+                  />
                 ))}
               </div>
             )}
@@ -168,6 +191,7 @@ export default function MapSearchPage() {
           </div>
         </>
       )}
+      <PlaceDetailSheet spot={selectedSpot} onClose={() => setSelectedSpot(null)} />
     </div>
   )
 }
