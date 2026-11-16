@@ -122,10 +122,9 @@ export function PostCard({ post }: PostCardProps) {
 
       <div className="mt-[18px] flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Stat icon={<Avatar name={post.author.name} avatarUrl={post.author.avatarUrl} size={16} />} count={post.participantCount} />
           <StickerReactionPicker postId={postId} />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="mr-[9px] flex items-center gap-2">
           <Stat icon={<CommentIcon />} count={post.commentCount} />
           <button
             type="button"

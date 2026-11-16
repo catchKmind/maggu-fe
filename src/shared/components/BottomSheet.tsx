@@ -95,7 +95,7 @@ export function BottomSheet({
         />
 
         <div
-          className={`relative flex h-[70vh] w-full max-w-[430px] flex-col rounded-t-[24px] bg-white transition-transform duration-300 ease-out ${
+          className={`relative flex h-[70vh] w-full max-w-[375px] flex-col rounded-t-[24px] bg-white transition-transform duration-300 ease-out ${
             isVisible ? 'translate-y-0' : 'translate-y-full'
           }`}
         >

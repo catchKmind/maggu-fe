@@ -63,7 +63,7 @@ export default function MyProfileEditPage() {
   }
 
   return (
-    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)]">
+    <div className="flex flex-1 flex-col pt-[max(var(--safe-top,0px),44px)]">
       <MyPageHeader title={t('myPage.editProfile')} action={<HeaderTextButton onClick={handleSave}>{t('myPage.save')}</HeaderTextButton>} />
 
       <section className="flex flex-col items-center gap-3 pt-8 pb-7">

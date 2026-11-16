@@ -24,10 +24,10 @@ export default function CommunityPage() {
   const posts = data?.content.map(toCommunityPost) ?? []
 
   return (
-    <div className="relative flex flex-1 flex-col">
+    <div className="relative flex flex-1 flex-col pt-[max(var(--safe-top,0px),54px)]">
       <CommunityHeader nickname={account?.nickname} onCompose={() => navigate('/community/write')} />
 
-      <div className="flex items-center justify-between px-4 pb-3">
+      <div className="flex items-center justify-between px-4 pt-4 pb-1">
         <FeedTabs activeTab={activeTab} onChange={setActiveTab} />
         <div className="flex items-center gap-[14px]">
           <SortButton onClick={() => setIsSortSheetOpen(true)} />
@@ -46,9 +46,9 @@ export default function CommunityPage() {
         ))}
       </div>
 
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-10 mx-auto h-[107px] w-full max-w-[430px] bg-gradient-to-t from-white to-transparent" />
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-10 mx-auto h-[107px] w-full max-w-[375px] bg-gradient-to-t from-white to-transparent" />
 
-      <div className="fixed inset-x-0 bottom-[35px] z-20 mx-auto flex w-full max-w-[430px] justify-center">
+      <div className="fixed inset-x-0 bottom-[35px] z-20 mx-auto flex w-full max-w-[375px] justify-center">
         <BottomNavigation />
       </div>
 

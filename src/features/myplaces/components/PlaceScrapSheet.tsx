@@ -126,7 +126,7 @@ export function PlaceScrapSheet({
       <div className="fixed inset-0 z-[70] flex items-end justify-center">
         <button type="button" aria-label={t('placeDetail.close')} onClick={onClose} className="absolute inset-0 bg-black/40" />
 
-        <div className="relative flex max-h-[85vh] w-full max-w-[430px] flex-col overflow-hidden rounded-t-[24px] bg-white">
+        <div className="relative flex max-h-[85vh] w-full max-w-[375px] flex-col overflow-hidden rounded-t-[24px] bg-white">
           <div className="flex justify-center pt-3 pb-3">
             <div className="h-1 w-10 rounded-full bg-gray-200" />
           </div>
@@ -200,7 +200,7 @@ export function PlaceScrapSheet({
       <div className="fixed inset-0 z-[70] flex items-end justify-center">
         <button type="button" aria-label={t('placeDetail.close')} onClick={onClose} className="absolute inset-0 bg-black/40" />
 
-        <div className="relative flex max-h-[85vh] w-full max-w-[430px] flex-col overflow-hidden rounded-t-[24px] bg-white">
+        <div className="relative flex max-h-[85vh] w-full max-w-[375px] flex-col overflow-hidden rounded-t-[24px] bg-white">
           <div className="flex justify-center pt-3 pb-3">
             <div className="h-1 w-10 rounded-full bg-gray-200" />
           </div>

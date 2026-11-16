@@ -22,9 +22,42 @@
   font-display: swap;
 }
 
+/* 한글: IBM Plex Sans에는 한글 글자가 없어서, 한글은 이 폰트로 나온다 (쓰는 굵기만 등록) */
+@font-face {
+  font-family: 'IBM Plex Sans KR';
+  src: url('./IBM_Plex_Sans_KR/IBMPlexSansKR-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans KR';
+  src: url('./IBM_Plex_Sans_KR/IBMPlexSansKR-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans KR';
+  src: url('./IBM_Plex_Sans_KR/IBMPlexSansKR-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans KR';
+  src: url('./IBM_Plex_Sans_KR/IBMPlexSansKR-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --font-sans: 'IBM Plex Sans', sans-serif;
-  --font-condensed: 'IBM Plex Sans Condensed', 'IBM Plex Sans', sans-serif;
+  --font-sans: 'IBM Plex Sans', 'IBM Plex Sans KR', sans-serif;
+  --font-condensed: 'IBM Plex Sans Condensed', 'IBM Plex Sans', 'IBM Plex Sans KR', sans-serif;
 
   /* Primitive / Font Weight */
   --font-weight-regular: 400;
