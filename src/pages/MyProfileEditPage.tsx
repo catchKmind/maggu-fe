@@ -73,7 +73,7 @@ export default function MyProfileEditPage() {
             type="button"
             onClick={handlePickPhoto}
             aria-label={t('myPage.changePhoto')}
-            className="absolute top-[58px] left-[58px] rounded-full border-2 border-white bg-gray-50 p-2"
+            className="absolute top-[58px] left-[58px] rounded-full border-2 border-white bg-gray-50 p-[6px]"
           >
             <img src={cameraIcon} alt="" className="size-4" />
           </button>
@@ -92,7 +92,7 @@ export default function MyProfileEditPage() {
           {t('myPage.nickname')}
         </label>
         <div className="px-4">
-          <div className="flex items-center gap-2 rounded-lg bg-gray-100 px-[10px] py-3">
+          <div className="flex items-center gap-2 h-10 rounded-lg bg-gray-100 px-[10px]">
             <input
               id="nickname"
               value={nickname}

@@ -76,7 +76,7 @@ export default function MyListEditPage() {
         }
       />
 
-      <section className="flex justify-center pt-6 pb-8">
+      <section className="flex justify-center pt-6 pb-6">
         <button
           type="button"
           onClick={() => setIsPickingIcon(true)}
@@ -95,7 +95,7 @@ export default function MyListEditPage() {
           {t('myPage.listName')}
         </label>
         <div className="px-4">
-          <div className="flex items-center gap-2 rounded-lg bg-gray-100 px-[10px] py-3">
+          <div className="flex items-center gap-2 h-10 rounded-lg bg-gray-100 px-[10px]">
             <input
               id="list-name"
               value={name}

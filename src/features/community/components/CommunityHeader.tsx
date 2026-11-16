@@ -3,8 +3,8 @@ import { Avatar } from '../../../shared/components/Avatar'
 
 function PlusIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <path d="M9 3v12M3 9h12" stroke="var(--color-icon-default)" strokeWidth="1.5" strokeLinecap="round" />
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 5v14M5 12h14" stroke="var(--color-icon-default)" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }
@@ -19,19 +19,19 @@ export function CommunityHeader({ nickname = '', onCompose }: CommunityHeaderPro
   const { t } = useTranslation('community')
 
   return (
-    <div className="flex items-center justify-between px-5 py-4">
-      <div className="flex items-center gap-3">
-        <Avatar name={nickname} size={40} />
-        <div className="flex flex-col">
-          <span className="text-16 font-semibold text-gray-900">{nickname}</span>
-          <span className="text-13 text-gray-400">{t('composePrompt')}</span>
+    <div className="flex items-center justify-between h-[57px] px-4">
+      <div className="flex items-center gap-2">
+        <Avatar name={nickname} size={32} />
+        <div className="flex flex-col gap-1">
+          <span className="h-5 text-14 leading-[19px] font-medium tracking-[-0.48px] text-gray-900">{nickname}</span>
+          <span className="h-5 text-14 leading-[19px] tracking-[-0.48px] text-gray-400">{t('composePrompt')}</span>
         </div>
       </div>
       <button
         type="button"
         onClick={onCompose}
         aria-label={t('write')}
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+        className="flex h-[45px] w-[45px] shrink-0 items-center justify-center rounded-full bg-white"
       >
         <PlusIcon />
       </button>

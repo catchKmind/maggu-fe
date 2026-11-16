@@ -34,7 +34,7 @@ function CommentIcon() {
 function ReplyConnectorIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
-      <path d="M4 2v6a2 2 0 0 0 2 2h8" stroke="var(--color-gray-300)" strokeWidth="1.3" strokeLinecap="round" />
+      <path d="M4 2v6a2 2 0 0 0 2 2h8" stroke="#D4D4D4" strokeWidth="1.3" strokeLinecap="round" />
     </svg>
   )
 }

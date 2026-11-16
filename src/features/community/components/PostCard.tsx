@@ -10,7 +10,7 @@ import { StickerReactionPicker } from './StickerReactionPicker'
 
 function CommentIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
         d="M2.5 8.2a5.5 5.5 0 1 1 2.3 4.4L2.5 13.5l.9-2.8a5.4 5.4 0 0 1-.9-2.5Z"
         stroke="var(--color-icon-muted)"
@@ -23,13 +23,13 @@ function CommentIcon() {
 
 function BookmarkIcon({ filled }: { filled: boolean }) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
         d="M4 2.5h8v11l-4-2.8-4 2.8v-11Z"
-        stroke={filled ? 'var(--color-primary)' : 'var(--color-icon-muted)'}
+        stroke={filled ? 'var(--color-gray-800)' : 'var(--color-icon-muted)'}
         strokeWidth="1.3"
         strokeLinejoin="round"
-        fill={filled ? 'var(--color-primary)' : 'none'}
+        fill={filled ? 'var(--color-gray-800)' : 'none'}
       />
     </svg>
   )
@@ -42,9 +42,9 @@ interface StatProps {
 
 function Stat({ icon, count }: StatProps) {
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-[2px]">
       {icon}
-      <span className="text-13 text-gray-400">{count}</span>
+      <span className="typo-body-s text-gray-400">{count}</span>
     </div>
   )
 }
@@ -81,20 +81,22 @@ export function PostCard({ post }: PostCardProps) {
   const goToDetail = () => navigate(`/community/posts/${postId}`)
 
   return (
-    <article className="flex flex-col gap-3 border-b border-gray-100 px-5 py-4">
+    <article className="flex flex-col border-b border-gray-200 px-4 pt-[18px] pb-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Avatar name={post.author.name} avatarUrl={post.author.avatarUrl} size={32} />
-          <span className="text-14 font-semibold text-gray-900">{post.author.name}</span>
-          <span className="text-13 text-gray-400">{post.createdAgo}</span>
+          <div className="flex items-center gap-[6px]">
+            <span className="text-12 leading-[19px] font-medium tracking-[-0.48px] text-gray-900">{post.author.name}</span>
+            <span className="text-14 leading-[19px] tracking-[-0.48px] text-gray-400">{post.createdAgo}</span>
+          </div>
         </div>
         <PostMenu postId={postId} />
       </div>
 
-      <div onClick={goToDetail} className="cursor-pointer">
+      <div onClick={goToDetail} className="mt-[6px] cursor-pointer">
         <p
           ref={contentRef}
-          className={`text-14 whitespace-pre-line wrap-anywhere text-gray-700 ${isExpanded ? '' : 'line-clamp-3'}`}
+          className={`text-14 leading-[1.4] tracking-[-0.48px] whitespace-pre-line wrap-anywhere text-gray-900 ${isExpanded ? '' : 'line-clamp-3'}`}
         >
           {post.content}
         </p>
@@ -105,23 +107,25 @@ export function PostCard({ post }: PostCardProps) {
               e.stopPropagation()
               setIsExpanded(true)
             }}
-            className="text-13 text-gray-400"
+            className="mt-1 text-14 leading-[1.4] tracking-[-0.48px] text-gray-400"
           >
             {t('readMore')}
           </button>
         )}
       </div>
 
-      <div onClick={goToDetail} className="cursor-pointer">
-        <PostPhotoGrid photos={post.photos} />
-      </div>
+      {post.photos.length > 0 && (
+        <div onClick={goToDetail} className="mt-[10px] cursor-pointer">
+          <PostPhotoGrid photos={post.photos} />
+        </div>
+      )}
 
-      <div className="flex items-center justify-between">
+      <div className="mt-[18px] flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Stat icon={<Avatar name={post.author.name} avatarUrl={post.author.avatarUrl} size={16} />} count={post.participantCount} />
           <StickerReactionPicker postId={postId} />
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <Stat icon={<CommentIcon />} count={post.commentCount} />
           <button
             type="button"
@@ -131,7 +135,7 @@ export function PostCard({ post }: PostCardProps) {
             className="flex items-center gap-1 disabled:opacity-50"
           >
             <BookmarkIcon filled={post.scrappedByMe} />
-            <span className="text-13 text-gray-400">{post.scrapCount}</span>
+            <span className={`typo-body-s ${post.scrappedByMe ? 'text-gray-800' : 'text-gray-400'}`}>{post.scrapCount}</span>
           </button>
         </div>
       </div>

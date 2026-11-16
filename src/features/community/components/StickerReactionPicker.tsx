@@ -38,10 +38,10 @@ export function StickerReactionPicker({ postId }: StickerReactionPickerProps) {
         type="button"
         onClick={() => setIsOpen(true)}
         aria-label={t('reaction.label')}
-        className="flex items-center gap-1 rounded-xl bg-gray-50 px-[10px] py-[6px]"
+        className="flex h-6 items-center gap-1 rounded-lg bg-gray-50 px-[6px] py-[2px]"
       >
         <img src={stickerIcon} alt="" className="size-4" />
-        <span className="text-14 leading-none text-purple-400">+</span>
+        <span className="typo-body-xs text-purple-400">+</span>
       </button>
 
       <BottomSheet

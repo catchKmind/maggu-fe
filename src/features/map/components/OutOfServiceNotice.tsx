@@ -21,7 +21,7 @@ export function OutOfServiceNotice() {
   return (
     <div
       role="status"
-      className="flex items-center gap-2 rounded-[20px] bg-gray-500/75 px-5 py-3 text-14 text-white backdrop-blur-sm"
+      className="flex w-full items-center gap-[3px] rounded-xl border border-gray-50 bg-gray-800/50 px-[14px] py-3 typo-body-m text-gray-50 backdrop-blur-[20px]"
     >
       <WarningIcon />
       <span>{t('outOfService')}</span>

@@ -27,9 +27,9 @@ export default function CommunityPage() {
     <div className="relative flex flex-1 flex-col">
       <CommunityHeader nickname={account?.nickname} onCompose={() => navigate('/community/write')} />
 
-      <div className="flex items-center justify-between px-5 pb-3">
+      <div className="flex items-center justify-between px-4 pb-3">
         <FeedTabs activeTab={activeTab} onChange={setActiveTab} />
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-[14px]">
           <SortButton onClick={() => setIsSortSheetOpen(true)} />
           <SearchIconButton onClick={() => navigate('/community/search')} />
         </div>
@@ -45,6 +45,8 @@ export default function CommunityPage() {
           <PostCard key={post.id} post={post} />
         ))}
       </div>
+
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-10 mx-auto h-[107px] w-full max-w-[430px] bg-gradient-to-t from-white to-transparent" />
 
       <div className="fixed inset-x-0 bottom-[35px] z-20 mx-auto flex w-full max-w-[430px] justify-center">
         <BottomNavigation />

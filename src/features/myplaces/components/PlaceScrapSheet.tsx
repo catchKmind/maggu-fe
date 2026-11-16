@@ -127,8 +127,8 @@ export function PlaceScrapSheet({
         <button type="button" aria-label={t('placeDetail.close')} onClick={onClose} className="absolute inset-0 bg-black/40" />
 
         <div className="relative flex max-h-[85vh] w-full max-w-[430px] flex-col overflow-hidden rounded-t-[24px] bg-white">
-          <div className="flex justify-center pt-3 pb-2">
-            <div className="h-1 w-9 rounded-full bg-gray-200" />
+          <div className="flex justify-center pt-3 pb-3">
+            <div className="h-1 w-10 rounded-full bg-gray-200" />
           </div>
 
           <div className="flex items-center justify-between px-5 pb-4">
@@ -185,7 +185,7 @@ export function PlaceScrapSheet({
               type="button"
               disabled={selectedFolderId === null}
               onClick={() => setStep('sticker')}
-              className="w-full rounded-2xl bg-purple-500 py-3.5 text-16 font-semibold text-white disabled:opacity-40"
+              className="h-12 w-full rounded-3xl bg-purple-500 text-16 leading-6 font-medium text-purple-50 disabled:opacity-40"
             >
               {t('placeScrap.next')}
             </button>
@@ -201,8 +201,8 @@ export function PlaceScrapSheet({
         <button type="button" aria-label={t('placeDetail.close')} onClick={onClose} className="absolute inset-0 bg-black/40" />
 
         <div className="relative flex max-h-[85vh] w-full max-w-[430px] flex-col overflow-hidden rounded-t-[24px] bg-white">
-          <div className="flex justify-center pt-3 pb-2">
-            <div className="h-1 w-9 rounded-full bg-gray-200" />
+          <div className="flex justify-center pt-3 pb-3">
+            <div className="h-1 w-10 rounded-full bg-gray-200" />
           </div>
 
           <div className="flex items-center justify-between border-b border-gray-100 px-5 pb-4">
@@ -221,10 +221,10 @@ export function PlaceScrapSheet({
             <button
               type="button"
               onClick={() => setIsIconPickerOpen(true)}
-              className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-50 text-26"
+              className="relative mx-auto flex size-[76px] items-center justify-center rounded-[22px] bg-gray-100 text-40"
             >
               {newFolderIcon}
-              <span className="absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-full border border-white bg-gray-200 text-11">
+              <span className="absolute top-[54px] left-[54px] flex size-8 items-center justify-center rounded-2xl border-2 border-gray-100 bg-white text-14">
                 ✎
               </span>
             </button>
@@ -252,14 +252,14 @@ export function PlaceScrapSheet({
               </div>
             )}
 
-            <p className="mt-6 mb-2 text-13 font-semibold text-gray-500">{t('placeScrap.folderNameLabel')}</p>
+            <p className="mt-6 mb-3 typo-body-s text-gray-700">{t('placeScrap.folderNameLabel')}</p>
             <input
               value={newFolderName}
               onChange={(e) => setNewFolderName(e.target.value)}
               placeholder={t('placeScrap.folderNamePlaceholder')}
               maxLength={50}
               autoFocus
-              className="h-11 w-full rounded-2xl bg-gray-50 px-4 text-14 text-gray-900 outline-none placeholder:text-gray-400"
+              className="h-12 w-full rounded-lg bg-gray-100 px-2 typo-body-m text-gray-900 outline-none placeholder:text-gray-400"
             />
           </div>
 
@@ -268,7 +268,7 @@ export function PlaceScrapSheet({
               type="button"
               onClick={handleCreateFolder}
               disabled={!newFolderName.trim() || createFolder.isPending}
-              className="w-full rounded-2xl bg-purple-500 py-3.5 text-16 font-semibold text-white disabled:opacity-40"
+              className="h-12 w-full rounded-3xl bg-purple-500 text-16 leading-6 font-medium text-purple-50 disabled:opacity-40"
             >
               {t('placeScrap.save')}
             </button>
@@ -286,18 +286,18 @@ export function PlaceScrapSheet({
             type="button"
             onClick={() => setStep('folder')}
             aria-label={t('stickerCreate.back')}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white"
+            className="flex size-[42px] shrink-0 items-center justify-center rounded-xl bg-gray-100"
           >
             <BackIcon />
           </button>
-          <span className="flex-1 rounded-full bg-white py-2.5 text-center text-14 font-medium text-gray-900">
+          <span className="mx-auto rounded-lg bg-gray-50/80 p-3 text-center typo-body-s text-gray-800">
             {t('placeScrap.stickerPrompt')}
           </span>
           <button
             type="button"
             onClick={onClose}
             aria-label={t('placeDetail.close')}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white"
+            className="flex size-[42px] shrink-0 items-center justify-center rounded-xl bg-gray-100"
           >
             <CloseIcon />
           </button>
@@ -311,8 +311,8 @@ export function PlaceScrapSheet({
         </div>
 
         <div className="flex flex-col rounded-t-[24px] bg-white">
-          <div className="flex justify-center pt-3 pb-2">
-            <div className="h-1 w-9 rounded-full bg-gray-200" />
+          <div className="flex justify-center pt-3 pb-3">
+            <div className="h-1 w-10 rounded-full bg-gray-200" />
           </div>
 
           <div className="grid grid-cols-4 gap-3 px-5 py-4">
@@ -373,18 +373,18 @@ export function PlaceScrapSheet({
           type="button"
           onClick={() => setStep('sticker')}
           aria-label={t('stickerCreate.back')}
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white"
+          className="flex size-[42px] shrink-0 items-center justify-center rounded-xl bg-gray-100"
         >
           <BackIcon />
         </button>
-        <span className="flex-1 rounded-full bg-white py-2.5 text-center text-14 font-medium text-gray-900">
+        <span className="mx-auto rounded-lg bg-gray-50/80 p-3 text-center typo-body-s text-gray-800">
           {t('placeScrap.confirmPrompt')}
         </span>
         <button
           type="button"
           onClick={onClose}
           aria-label={t('placeDetail.close')}
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white"
+          className="flex size-[42px] shrink-0 items-center justify-center rounded-xl bg-gray-100"
         >
           <CloseIcon />
         </button>
@@ -407,17 +407,17 @@ export function PlaceScrapSheet({
       </div>
 
       <div className="px-4 pb-[calc(var(--safe-bottom)+16px)]">
-        <div className="flex items-center gap-3 rounded-2xl bg-white p-3 shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
-          {placeImageUrl && <img src={placeImageUrl} alt="" className="h-12 w-12 shrink-0 rounded-xl object-cover" />}
+        <div className="flex h-[76px] items-center gap-2 rounded-xl bg-gray-50 px-4 py-2">
+          {placeImageUrl && <img src={placeImageUrl} alt="" className="size-[60px] shrink-0 rounded-full object-cover" />}
           <div className="min-w-0 flex-1">
-            <p className="truncate text-14 font-semibold text-gray-900">{placeName}</p>
-            {placeCategory && <p className="truncate text-13 text-gray-400">{placeCategory}</p>}
+            <p className="truncate typo-body-m text-gray-800">{placeName}</p>
+            {placeCategory && <p className="truncate typo-body-m text-gray-800">{placeCategory}</p>}
           </div>
           <button
             type="button"
             onClick={handleSubmit}
             disabled={createScrap.isPending}
-            className="shrink-0 rounded-full bg-purple-500 px-5 py-2.5 text-14 font-semibold text-white disabled:opacity-50"
+            className="shrink-0 rounded-xl bg-gray-900 px-3 py-2 typo-body-m text-gray-50 disabled:opacity-50"
           >
             {t('placeScrap.save')}
           </button>
