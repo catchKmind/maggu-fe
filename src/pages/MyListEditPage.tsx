@@ -66,7 +66,7 @@ export default function MyListEditPage() {
   }
 
   return (
-    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)]">
+    <div className="flex flex-1 flex-col pt-[max(var(--safe-top,0px),44px)]">
       <MyPageHeader
         title={isNew ? t('myPage.createList') : t('myPage.editList')}
         action={

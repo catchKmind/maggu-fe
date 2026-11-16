@@ -25,7 +25,7 @@ export default function MyPage() {
   const [dialog, setDialog] = useState<AccountDialog>(null)
 
   return (
-    <div className="relative flex flex-1 flex-col pt-[var(--safe-top,0px)] pb-[140px]">
+    <div className="relative flex flex-1 flex-col pt-[max(var(--safe-top,0px),44px)] pb-[140px]">
       <div className="flex items-center justify-between px-4 py-[18px]">
         <div className="flex items-center gap-3">
           <ProfileAvatar />

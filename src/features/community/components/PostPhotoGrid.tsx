@@ -5,7 +5,7 @@ interface PostPhotoGridProps {
 }
 
 /**
- * 게시글 사진 그리드 컴포넌트. 1장: 전체 채움 / 2장: 좌우 반반 / 3장 이상: 상단 2장 + 하단 1장(가로로 넓게),
+ * 게시글 사진 그리드 컴포넌트. 1장: 전체 채움 / 2장: 좌우 반반 / 3장 이상: 왼쪽 1장(세로 꽉) + 오른쪽 2장(위아래) — 모두 높이 162 (Figma: image format),
  * 4장 이상이면 마지막 칸에 "+N" 오버레이.
  */
 export function PostPhotoGrid({ photos }: PostPhotoGridProps) {
@@ -21,9 +21,9 @@ export function PostPhotoGrid({ photos }: PostPhotoGridProps) {
 
   if (photos.length === 2) {
     return (
-      <div className="grid grid-cols-2 gap-1 overflow-hidden rounded-lg">
+      <div className="grid h-[162px] grid-cols-2 gap-[1.5px] overflow-hidden rounded-lg">
         {photos.map((photo) => (
-          <img key={photo} src={photo} alt="" className="aspect-square w-full object-cover" />
+          <img key={photo} src={photo} alt="" className="size-full object-cover" />
         ))}
       </div>
     )
@@ -33,12 +33,11 @@ export function PostPhotoGrid({ photos }: PostPhotoGridProps) {
   const remaining = photos.length - MAX_VISIBLE
 
   return (
-    <div className="grid grid-cols-2 gap-1 overflow-hidden rounded-lg">
-      {visible.slice(0, 2).map((photo) => (
-        <img key={photo} src={photo} alt="" className="aspect-square w-full object-cover" />
-      ))}
-      <div className="relative col-span-2">
-        <img src={visible[2]} alt="" className="aspect-[2/1] w-full object-cover" />
+    <div className="grid h-[162px] grid-cols-2 grid-rows-2 gap-[1.5px] overflow-hidden rounded-lg">
+      <img src={visible[0]} alt="" className="row-span-2 size-full object-cover" />
+      <img src={visible[1]} alt="" className="size-full object-cover" />
+      <div className="relative size-full">
+        <img src={visible[2]} alt="" className="size-full object-cover" />
         {remaining > 0 && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-16 font-semibold text-white">
             +{remaining}

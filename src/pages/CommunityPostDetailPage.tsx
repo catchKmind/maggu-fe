@@ -198,7 +198,7 @@ export default function CommunityPostDetailPage() {
         </div>
       )}
 
-      <div className="fixed inset-x-0 bottom-0 mx-auto flex w-full max-w-[430px] flex-col border-t border-gray-100 bg-white px-4 py-3">
+      <div className="fixed inset-x-0 bottom-0 mx-auto flex w-full max-w-[375px] flex-col border-t border-gray-100 bg-white px-4 py-3">
         {replyTarget && (
           <div className="mb-2 flex items-center justify-between">
             <span className="text-13 text-gray-400">

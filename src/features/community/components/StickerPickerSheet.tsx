@@ -27,7 +27,7 @@ export function StickerPickerSheet({ isOpen, onSelect, onClose }: StickerPickerS
         }`}
       />
       <div
-        className={`absolute inset-x-0 bottom-0 mx-auto flex h-[70vh] w-full max-w-[430px] flex-col rounded-t-[24px] bg-white transition-transform duration-300 ease-out ${
+        className={`absolute inset-x-0 bottom-0 mx-auto flex h-[70vh] w-full max-w-[375px] flex-col rounded-t-[24px] bg-white transition-transform duration-300 ease-out ${
           isVisible ? 'translate-y-0' : 'translate-y-full'
         }`}
       >

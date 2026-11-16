@@ -28,7 +28,7 @@ export default function MyActivityPage() {
   const changeTab = (next: ActivityTab) => setSearchParams({ tab: next }, { replace: true })
 
   return (
-    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)]">
+    <div className="flex flex-1 flex-col pt-[max(var(--safe-top,0px),44px)]">
       <MyPageHeader title={t('myPage.activity')} />
 
       <SegmentTabs>
