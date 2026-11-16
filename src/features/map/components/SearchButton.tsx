@@ -9,7 +9,7 @@ export function SearchButton({ onClick }: SearchButtonProps) {
     <button
       type="button"
       onClick={onClick}
-      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[14px] bg-gray-50"
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-50"
     >
       <img src={searchIcon} alt="search" className="h-4 w-4" />
     </button>

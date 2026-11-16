@@ -80,18 +80,18 @@ export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }:
       className="relative flex flex-1 flex-col items-center bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="flex flex-1 flex-col items-center justify-center">
-        <h1 className="text-40 font-bold text-gray-900">{t('title')}</h1>
+      <div className="flex flex-1 flex-col items-center pt-[214px]">
+        <h1 className="text-[45px] leading-[150%] font-bold tracking-[-0.02em] text-gray-800">{t('title')}</h1>
       </div>
 
-      <div className="flex w-full flex-col gap-3 px-6 pb-[calc(var(--safe-bottom)+32px)]">
+      <div className="flex w-[220px] flex-col gap-[14px] pb-[calc(var(--safe-bottom)+162px)]">
         {appleLogin.isError && <p className="text-center text-13 text-error">{t('appleLoginError')}</p>}
         {guestLogin.isError && <p className="text-center text-13 text-error">{t('guestLoginError')}</p>}
         <button
           type="button"
           onClick={handleAppleLogin}
           disabled={appleLogin.isPending}
-          className="flex h-14 items-center justify-center gap-2 rounded-full bg-gray-1000 text-16 font-semibold text-white disabled:opacity-60"
+          className="flex h-[51px] items-center justify-center gap-2 rounded-full bg-gray-1000 text-16 leading-6 font-semibold tracking-[-0.1px] text-white disabled:opacity-60"
         >
           <AppleIcon />
           {appleLogin.isPending ? t('signingIn') : t('appleLogin')}
@@ -99,7 +99,7 @@ export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }:
         <button
           type="button"
           onClick={onGoogleLogin}
-          className="flex h-14 items-center justify-center gap-2 rounded-full bg-gray-50 text-16 font-semibold text-gray-900"
+          className="flex h-[51px] items-center justify-center gap-2 rounded-full bg-gray-100 text-16 leading-6 font-semibold tracking-[-0.1px] text-gray-900"
         >
           <GoogleIcon />
           {t('googleLogin')}
@@ -108,7 +108,7 @@ export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }:
           type="button"
           onClick={handleGuestLogin}
           disabled={guestLogin.isPending}
-          className="flex h-14 items-center justify-center rounded-full bg-white text-16 font-bold text-gray-900 disabled:opacity-60"
+          className="flex h-[51px] items-center justify-center rounded-full bg-white text-16 leading-6 font-semibold tracking-[-0.1px] text-gray-1000 disabled:opacity-60"
         >
           {guestLogin.isPending ? t('signingIn') : t('guestLogin')}
         </button>

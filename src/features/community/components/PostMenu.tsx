@@ -15,10 +15,10 @@ const ROW_CLASS = 'flex items-center justify-between rounded-2xl bg-gray-50 px-4
 
 function MoreIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <circle cx="4" cy="9" r="1.2" fill="var(--color-icon-muted)" />
-      <circle cx="9" cy="9" r="1.2" fill="var(--color-icon-muted)" />
-      <circle cx="14" cy="9" r="1.2" fill="var(--color-icon-muted)" />
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="4.5" cy="10.5" r="1.5" fill="var(--color-icon-muted)" />
+      <circle cx="10.5" cy="10.5" r="1.5" fill="var(--color-icon-muted)" />
+      <circle cx="15.5" cy="10.5" r="1.5" fill="var(--color-icon-muted)" />
     </svg>
   )
 }
@@ -104,7 +104,7 @@ export function PostMenu({ postId, onShare }: PostMenuProps) {
           setIsOpen(true)
         }}
         aria-label={t('postMenu')}
-        className="flex h-6 w-6 items-center justify-center"
+        className="mr-1 flex h-5 w-5 items-center justify-center"
       >
         <MoreIcon />
       </button>
@@ -125,8 +125,8 @@ export function PostMenu({ postId, onShare }: PostMenuProps) {
               isVisible ? 'translate-y-0' : 'translate-y-full'
             }`}
           >
-            <div className="flex justify-center pt-3 pb-2">
-              <div className="h-1 w-9 rounded-full bg-gray-200" />
+            <div className="flex justify-center pt-3 pb-3">
+              <div className="h-1 w-10 rounded-full bg-gray-200" />
             </div>
 
             <div className="flex flex-col gap-2 px-4 pt-2">

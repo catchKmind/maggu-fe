@@ -29,7 +29,7 @@ export default function MyPage() {
       <div className="flex items-center justify-between px-4 py-[18px]">
         <div className="flex items-center gap-3">
           <ProfileAvatar />
-          <span className="typo-body-l font-medium text-gray-800">
+          <span className="typo-body-l text-gray-800">
             {account?.nickname}
           </span>
         </div>
@@ -42,7 +42,7 @@ export default function MyPage() {
           <img src={pencilIcon} alt="" className="size-4" />
         </button>
       </div>
-      <div className="h-[1.5px] bg-gray-100" />
+      <div className="h-[2px] bg-gray-100" />
 
       <section className="flex flex-col gap-3 px-4 pt-7 pb-2">
         <SectionTitle>{t('myPage.activity')}</SectionTitle>
@@ -62,7 +62,7 @@ export default function MyPage() {
 
       <section className="flex flex-col gap-3 px-4 pt-[18px] pb-2">
         <SectionTitle>{t('myPage.account')}</SectionTitle>
-        <SettingRow label={t('myPage.linkedAccount')} value={account ? maskEmail(account.email) : ''} />
+        <SettingRow label={t('myPage.linkedAccount')} value={account ? maskEmail(account.email) : ''} radiusClassName="rounded-[18px]" />
       </section>
 
       <div className="flex items-center justify-center gap-3 pt-12 text-14 leading-[19px] tracking-[-0.48px] text-gray-400">

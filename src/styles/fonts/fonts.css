@@ -14,8 +14,17 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'IBM Plex Sans Condensed';
+  src: url('./IBM_Plex_Sans/static/IBMPlexSans_Condensed-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-sans: 'IBM Plex Sans', sans-serif;
+  --font-condensed: 'IBM Plex Sans Condensed', 'IBM Plex Sans', sans-serif;
 
   /* Primitive / Font Weight */
   --font-weight-regular: 400;

@@ -89,7 +89,7 @@ export function BottomSheet({
           type="button"
           aria-label={t('bottomSheet.close')}
           onClick={onClose}
-          className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${
+          className={`absolute inset-0 bg-black/10 transition-opacity duration-300 ${
             isVisible ? 'opacity-100' : 'opacity-0'
           }`}
         />
@@ -99,8 +99,8 @@ export function BottomSheet({
             isVisible ? 'translate-y-0' : 'translate-y-full'
           }`}
         >
-          <div className="flex justify-center pt-3 pb-2">
-            <div className="h-1 w-9 rounded-full bg-gray-200" />
+          <div className="flex justify-center pt-3 pb-3">
+            <div className="h-1 w-10 rounded-full bg-gray-200" />
           </div>
 
           <div className="relative flex border-b border-gray-100">

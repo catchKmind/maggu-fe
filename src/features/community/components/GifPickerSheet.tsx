@@ -29,8 +29,8 @@ export function GifPickerSheet({ isOpen, onSelect, onClose }: GifPickerSheetProp
           isVisible ? 'translate-y-0' : 'translate-y-full'
         }`}
       >
-        <div className="flex justify-center pt-3 pb-2">
-          <div className="h-1 w-9 rounded-full bg-gray-200" />
+        <div className="flex justify-center pt-3 pb-3">
+          <div className="h-1 w-10 rounded-full bg-gray-200" />
         </div>
         <GiphyPicker
           onSelect={(gif) => {

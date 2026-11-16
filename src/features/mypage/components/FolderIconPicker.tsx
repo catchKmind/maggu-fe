@@ -28,11 +28,21 @@ export function FolderIconPicker({ initialIcon, onBack, onSelect }: FolderIconPi
     <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)] pb-32">
       <MyPageHeader title={t('myPage.selectIcon')} onBack={onBack} />
       <SegmentTabs>
-        <SegmentTab label={t('myPage.iconTabBasic')} isActive={tab === 'basic'} onClick={() => setTab('basic')} />
-        <SegmentTab label={t('myPage.myStickers')} isActive={tab === 'sticker'} onClick={() => setTab('sticker')} />
+        <SegmentTab
+          label={t('myPage.iconTabBasic')}
+          isActive={tab === 'basic'}
+          onClick={() => setTab('basic')}
+          activeClassName="border-gray-700 font-semibold text-gray-700"
+        />
+        <SegmentTab
+          label={t('myPage.myStickers')}
+          isActive={tab === 'sticker'}
+          onClick={() => setTab('sticker')}
+          activeClassName="border-gray-700 font-semibold text-gray-700"
+        />
       </SegmentTabs>
 
-      <div className="grid grid-cols-6 gap-y-2 px-4 pt-4">
+      <div className="grid grid-cols-6 gap-x-[11px] gap-y-2 px-4 pt-4">
         {icons.map((icon) => (
           <button
             key={icon}
