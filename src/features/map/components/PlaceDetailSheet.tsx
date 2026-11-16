@@ -106,7 +106,6 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
   const { t } = useTranslation('map')
   const { shouldRender, isVisible } = useSlideSheet(spot !== null)
   const [activeTab, setActiveTab] = useState<FeedTab>('popular')
-  const activeTabIndex = FEED_TABS.findIndex((tab) => tab.key === activeTab)
   const feedSort: FeedSort = activeTab === 'popular' ? 'POPULAR' : 'LATEST'
   const { data: contentFeed } = useContentFeed(spot?.tourismContentId ?? null, feedSort)
   const feedItems = contentFeed?.content ?? []
@@ -175,8 +174,8 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
           onPointerCancel={handleSwipeEnd}
           className="touch-none border-b border-gray-100"
         >
-          <div className="flex justify-center pt-3 pb-2">
-            <div className="h-1 w-9 rounded-full bg-gray-200" />
+          <div className="flex justify-center pt-3 pb-3">
+            <div className="h-1 w-10 rounded-full bg-gray-200" />
           </div>
 
           <div className="flex items-center justify-between px-5 pb-4">
@@ -231,35 +230,30 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
 
           {spot.tourismContentId && (
             <>
-              <div className="sticky top-0 z-10 flex border-b border-gray-100 bg-white">
+              <div className="sticky top-0 z-10 flex border-t border-[#d9d9d9] bg-white px-4 py-2">
                 {FEED_TABS.map((tab) => (
                   <button
                     key={tab.key}
                     type="button"
                     onClick={() => setActiveTab(tab.key)}
-                    className={`flex-1 pt-3 pb-3 text-center text-14 transition-colors ${
-                      activeTab === tab.key ? 'font-semibold text-gray-800' : 'font-medium text-gray-500'
+                    className={`flex h-8 flex-1 items-center justify-center border-b-2 text-14 transition-colors ${
+                      activeTab === tab.key
+                        ? 'border-gray-800 font-semibold text-gray-800'
+                        : 'border-transparent font-regular text-gray-500'
                     }`}
                   >
                     {t(tab.labelKey)}
                   </button>
                 ))}
-                <span
-                  className="absolute bottom-0 h-0.5 bg-gray-800 transition-all duration-300 ease-out"
-                  style={{
-                    left: `calc(${activeTabIndex} * ${100 / FEED_TABS.length}% + 1rem)`,
-                    width: `calc(${100 / FEED_TABS.length}% - 2rem)`,
-                  }}
-                />
               </div>
 
-              <div className="grid grid-cols-2 gap-2 px-5 pt-4 pb-8">
+              <div className="grid grid-cols-2 gap-2 p-4">
                 {feedItems.map((item) => (
                   <img
                     key={item.postId}
                     src={item.imageUrl}
                     alt=""
-                    className="aspect-square w-full rounded-lg object-cover"
+                    className="h-[200px] w-full rounded-lg object-cover"
                   />
                 ))}
               </div>

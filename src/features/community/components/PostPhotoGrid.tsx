@@ -13,15 +13,15 @@ export function PostPhotoGrid({ photos }: PostPhotoGridProps) {
 
   if (photos.length === 1) {
     return (
-      <div className="overflow-hidden rounded-2xl">
-        <img src={photos[0]} alt="" className="aspect-[4/3] w-full object-cover" />
+      <div className="overflow-hidden rounded-lg">
+        <img src={photos[0]} alt="" className="h-[162px] w-full object-cover" />
       </div>
     )
   }
 
   if (photos.length === 2) {
     return (
-      <div className="grid grid-cols-2 gap-1 overflow-hidden rounded-2xl">
+      <div className="grid grid-cols-2 gap-1 overflow-hidden rounded-lg">
         {photos.map((photo) => (
           <img key={photo} src={photo} alt="" className="aspect-square w-full object-cover" />
         ))}
@@ -33,7 +33,7 @@ export function PostPhotoGrid({ photos }: PostPhotoGridProps) {
   const remaining = photos.length - MAX_VISIBLE
 
   return (
-    <div className="grid grid-cols-2 gap-1 overflow-hidden rounded-2xl">
+    <div className="grid grid-cols-2 gap-1 overflow-hidden rounded-lg">
       {visible.slice(0, 2).map((photo) => (
         <img key={photo} src={photo} alt="" className="aspect-square w-full object-cover" />
       ))}

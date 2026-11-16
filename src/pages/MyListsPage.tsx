@@ -92,7 +92,7 @@ export default function MyListsPage() {
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-white">
                   <img src={plusIcon} alt="" className="size-5" />
                 </span>
-                <span className="typo-body-m text-gray-800">{t('myPage.createList')}</span>
+                <span className="typo-body-m text-gray-600">{t('myPage.createList')}</span>
               </button>
             )}
 

@@ -46,7 +46,7 @@ export function MapView({ onSpotClick, category }: MapViewProps) {
     <div className="relative flex flex-1 flex-col">
       <div ref={containerRef} className="flex-1" />
       {isOutOfServiceArea(bounds) && (
-        <div className="pointer-events-none absolute inset-x-4 top-28 z-10">
+        <div className="pointer-events-none absolute inset-x-4 top-[106px] z-10">
           <OutOfServiceNotice />
         </div>
       )}

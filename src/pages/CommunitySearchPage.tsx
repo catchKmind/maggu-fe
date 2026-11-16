@@ -53,13 +53,13 @@ export default function CommunitySearchPage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <form onSubmit={handleSubmit} className="px-4 py-3">
-        <div className="flex h-11 items-center rounded-full bg-gray-50 pr-4 pl-1">
+      <form onSubmit={handleSubmit} className="px-4 pt-[54px] pb-[10px]">
+        <div className="flex h-9 items-center gap-2 rounded-lg bg-gray-100 p-2">
           <button
             type="button"
             onClick={() => navigate(-1)}
             aria-label={t('searchPage.back')}
-            className="flex h-9 w-9 shrink-0 items-center justify-center"
+            className="flex size-5 shrink-0 items-center justify-center"
           >
             <BackIcon />
           </button>
@@ -70,7 +70,7 @@ export default function CommunitySearchPage() {
             onCompositionEnd={onCompositionEnd}
             placeholder={t('searchPage.placeholder')}
             autoFocus
-            className="h-full flex-1 bg-transparent text-14 text-gray-900 outline-none placeholder:text-gray-400"
+            className="h-full flex-1 bg-transparent typo-body-m text-gray-900 outline-none placeholder:text-gray-400"
           />
           {keyword && (
             <button

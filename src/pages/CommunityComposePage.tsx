@@ -149,12 +149,12 @@ export default function CommunityComposePage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex items-center justify-between px-4 pt-[calc(var(--safe-top)+12px)] pb-3">
+      <div className="flex items-center justify-between border-b border-[#eeeeee] px-5 pt-[calc(var(--safe-top)+12px)] pb-3">
         <button
           type="button"
           onClick={() => navigate(-1)}
           aria-label={t('compose.cancel')}
-          className="flex h-9 w-9 shrink-0 items-center justify-center"
+          className="flex size-6 shrink-0 items-center justify-center"
         >
           <CloseIcon />
         </button>
@@ -162,7 +162,7 @@ export default function CommunityComposePage() {
           type="button"
           onClick={() => createMutation.mutate()}
           disabled={!canSubmit}
-          className="text-16 font-semibold text-purple-500 disabled:text-gray-300"
+          className="text-16 leading-6 font-semibold tracking-[-0.1px] text-purple-500 disabled:text-gray-400"
         >
           {createMutation.isPending ? t('compose.posting') : t('compose.submit')}
         </button>
@@ -174,7 +174,7 @@ export default function CommunityComposePage() {
         maxLength={CONTENT_MAX_LENGTH}
         placeholder={t('compose.placeholder')}
         autoFocus
-        className="flex-1 resize-none px-5 py-3 text-14 text-gray-900 outline-none placeholder:text-gray-400"
+        className="flex-1 resize-none px-4 py-[14px] text-14 text-gray-900 outline-none placeholder:text-gray-400"
       />
 
       {photos.length > 0 && (
@@ -201,24 +201,24 @@ export default function CommunityComposePage() {
         <button
           type="button"
           onClick={() => setIsLocationSheetOpen(true)}
-          className="flex items-center gap-1.5 px-5 pb-3 text-14 text-gray-500"
+          className="flex h-[52px] items-center gap-1 border-t border-gray-200 px-4 typo-body-m text-gray-800"
         >
           <PinIcon />
           {location ? location.placeName : t('compose.location')}
         </button>
       )}
 
-      <div className="flex items-center gap-5 border-t border-gray-100 px-5 py-3 pb-[calc(var(--safe-bottom)+12px)]">
-        <button type="button" onClick={handlePickFromGallery} disabled={!canAddPhoto} aria-label={t('compose.gallery')} className="disabled:opacity-40">
+      <div className="flex items-center border-t border-gray-200 pb-[var(--safe-bottom)]">
+        <button type="button" onClick={handlePickFromGallery} disabled={!canAddPhoto} aria-label={t('compose.gallery')} className="px-4 pt-[10px] pb-[11px] disabled:opacity-40">
           <img src={galleryIcon} alt="" className="h-6 w-6" />
         </button>
-        <button type="button" onClick={() => setIsStickerSheetOpen(true)} disabled={photos.length >= MAX_PHOTOS} aria-label={t('compose.sticker')} className="disabled:opacity-40">
+        <button type="button" onClick={() => setIsStickerSheetOpen(true)} disabled={photos.length >= MAX_PHOTOS} aria-label={t('compose.sticker')} className="px-4 pt-[10px] pb-[11px] disabled:opacity-40">
           <img src={stickerIcon} alt="" className="h-6 w-6" />
         </button>
-        <button type="button" onClick={handleTakePhoto} disabled={!canAddPhoto} aria-label={t('compose.camera')} className="disabled:opacity-40">
+        <button type="button" onClick={handleTakePhoto} disabled={!canAddPhoto} aria-label={t('compose.camera')} className="px-4 pt-[10px] pb-[11px] disabled:opacity-40">
           <img src={cameraIcon} alt="" className="h-6 w-6" />
         </button>
-        <button type="button" onClick={() => setIsGifSheetOpen(true)} disabled={photos.length >= MAX_PHOTOS} aria-label={t('compose.gif')} className="disabled:opacity-40">
+        <button type="button" onClick={() => setIsGifSheetOpen(true)} disabled={photos.length >= MAX_PHOTOS} aria-label={t('compose.gif')} className="px-4 pt-[10px] pb-[11px] disabled:opacity-40">
           <img src={gifIcon} alt="" className="h-6 w-6" />
         </button>
       </div>

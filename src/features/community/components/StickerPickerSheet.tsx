@@ -31,8 +31,8 @@ export function StickerPickerSheet({ isOpen, onSelect, onClose }: StickerPickerS
           isVisible ? 'translate-y-0' : 'translate-y-full'
         }`}
       >
-        <div className="flex justify-center pt-3 pb-2">
-          <div className="h-1 w-9 rounded-full bg-gray-200" />
+        <div className="flex justify-center pt-3 pb-3">
+          <div className="h-1 w-10 rounded-full bg-gray-200" />
         </div>
         <div className="border-b border-gray-100 pb-3 text-center text-14 font-semibold text-gray-800">
           {t('bottomSheet.mySticker')}
