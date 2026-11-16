@@ -1,37 +1,15 @@
+import { ProfileAvatar } from '../../features/mypage/components/ProfileAvatar'
+
 interface AvatarProps {
   name: string
   avatarUrl?: string
   size?: number
-  className?: string
 }
 
 /**
- * 실제 API 데이터엔 프로필 이미지 필드가 없어서(AppUser/MyAccountResponse 둘 다 없음),
- * avatarUrl이 없으면 이름 첫 글자로 대체 아바타를 그림.
+ * 프로필 이미지. 프로필 사진이 없으면 마이페이지와 같은 기본 이미지(실루엣)를 보여준다.
+ * (실제 API 데이터엔 프로필 이미지 필드가 아직 없어서 대부분 기본 이미지로 나온다)
  */
-export function Avatar({ name, avatarUrl, size = 32, className = '' }: AvatarProps) {
-  const dimension = `${size}px`
-
-  if (avatarUrl) {
-    return (
-      <img
-        src={avatarUrl}
-        alt=""
-        className={`rounded-full object-cover ${className}`}
-        style={{ width: dimension, height: dimension }}
-      />
-    )
-  }
-
-  const initial = name.trim().charAt(0).toUpperCase() || '?'
-
-  return (
-    <span
-      aria-hidden="true"
-      className={`flex shrink-0 items-center justify-center rounded-full bg-purple-100 font-semibold text-purple-500 ${className}`}
-      style={{ width: dimension, height: dimension, fontSize: size * 0.42 }}
-    >
-      {initial}
-    </span>
-  )
+export function Avatar({ avatarUrl, size = 32 }: AvatarProps) {
+  return <ProfileAvatar size={size} src={avatarUrl} />
 }

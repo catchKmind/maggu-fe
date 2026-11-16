@@ -46,10 +46,10 @@ function BookmarkIcon({ filled }: { filled: boolean }) {
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
         d="M4 2.5h8v11l-4-2.8-4 2.8v-11Z"
-        stroke={filled ? 'var(--color-primary)' : 'var(--color-icon-muted)'}
+        stroke={filled ? 'var(--color-gray-800)' : 'var(--color-icon-muted)'}
         strokeWidth="1.3"
         strokeLinejoin="round"
-        fill={filled ? 'var(--color-primary)' : 'none'}
+        fill={filled ? 'var(--color-gray-800)' : 'none'}
       />
     </svg>
   )
@@ -176,7 +176,7 @@ export default function CommunityPostDetailPage() {
                   className="flex items-center gap-1 disabled:opacity-50"
                 >
                   <BookmarkIcon filled={post.scrappedByMe} />
-                  <span className="text-13 text-gray-500">{post.scrapCount}</span>
+                  <span className={`text-13 ${post.scrappedByMe ? 'text-gray-800' : 'text-gray-500'}`}>{post.scrapCount}</span>
                 </button>
               </div>
             </div>
