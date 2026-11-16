@@ -13,7 +13,7 @@ import type { PostLocation } from '../features/community/types'
 import galleryIcon from '../assets/community/icon_community_gallery.svg'
 import cameraIcon from '../assets/community/icon_community_camera.svg'
 import gifIcon from '../assets/community/icon_community_gif.svg'
-import stickerIcon from '../assets/community/icon_community_stiker.svg'
+import stickerIcon from '../assets/community/icon_community_compose_sticker.svg'
 
 const CONTENT_MAX_LENGTH = 500
 const MAX_PHOTOS = 4
