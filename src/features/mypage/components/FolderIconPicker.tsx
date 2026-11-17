@@ -25,7 +25,7 @@ export function FolderIconPicker({ initialIcon, onBack, onSelect }: FolderIconPi
   const icons = tab === 'basic' ? FOLDER_ICON_OPTIONS : stickers.map((sticker) => sticker.imageUrl)
 
   return (
-    <div className="flex flex-1 flex-col pt-[max(var(--safe-top,0px),44px)] pb-32">
+    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)] pb-32">
       <MyPageHeader title={t('myPage.selectIcon')} onBack={onBack} />
       <SegmentTabs>
         <SegmentTab

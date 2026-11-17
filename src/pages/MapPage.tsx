@@ -38,7 +38,7 @@ export default function MapPage() {
       <MapView onSpotClick={setSelectedSpot} category={category} />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[168px] bg-gradient-to-b from-[#d6d6d6] to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[95px] bg-gradient-to-t from-[#d6d6d6] to-transparent" />
-      <div className="absolute inset-x-0 top-[54px] flex flex-col gap-3">
+      <div className="absolute inset-x-0 top-[var(--safe-top,0px)] flex flex-col gap-3">
         <div className="flex gap-2 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <SearchButton onClick={() => navigate('/search')} />
           {CATEGORY_TAGS.map(({ labelKey, category: tagCategory }) => (

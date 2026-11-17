@@ -48,7 +48,7 @@ function RemovePhotoIcon() {
 
 function PinIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg width="24" height="24" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path
         d="M8 14.5s5-4.2 5-8.2a5 5 0 1 0-10 0c0 4 5 8.2 5 8.2Z"
         stroke="var(--color-icon-muted)"
@@ -149,7 +149,7 @@ export default function CommunityComposePage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex items-center justify-between border-b border-[#eeeeee] px-5 pt-[calc(var(--safe-top)+12px)] pb-3">
+      <div className="flex items-center justify-between border-b border-[#eeeeee] px-5 pt-[calc(var(--safe-top)+12px)] pb-[11px]">
         <button
           type="button"
           onClick={() => navigate(-1)}
@@ -162,7 +162,7 @@ export default function CommunityComposePage() {
           type="button"
           onClick={() => createMutation.mutate()}
           disabled={!canSubmit}
-          className="text-16 leading-6 font-semibold tracking-[-0.1px] text-purple-500 disabled:text-gray-400"
+          className="typo-body-l-bold text-purple-500 disabled:text-gray-400"
         >
           {createMutation.isPending ? t('compose.posting') : t('compose.submit')}
         </button>
@@ -197,16 +197,14 @@ export default function CommunityComposePage() {
 
       {photoError && <p className="px-5 pb-2 text-13 text-error">{t('compose.photoError')}</p>}
 
-      {photos.length > 0 && (
-        <button
-          type="button"
-          onClick={() => setIsLocationSheetOpen(true)}
-          className="flex h-[52px] items-center gap-1 border-t border-gray-200 px-4 typo-body-m text-gray-800"
-        >
-          <PinIcon />
-          {location ? location.placeName : t('compose.location')}
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={() => setIsLocationSheetOpen(true)}
+        className="flex h-[52px] items-center gap-1 border-t border-gray-200 px-4 typo-body-m text-gray-800"
+      >
+        <PinIcon />
+        {location ? location.placeName : t('compose.location')}
+      </button>
 
       <div className="flex items-center border-t border-gray-200 pb-[var(--safe-bottom)]">
         <button type="button" onClick={handlePickFromGallery} disabled={!canAddPhoto} aria-label={t('compose.gallery')} className="px-4 pt-[10px] pb-[11px] disabled:opacity-40">

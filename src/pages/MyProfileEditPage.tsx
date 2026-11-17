@@ -63,19 +63,19 @@ export default function MyProfileEditPage() {
   }
 
   return (
-    <div className="flex flex-1 flex-col pt-[max(var(--safe-top,0px),44px)]">
+    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)]">
       <MyPageHeader title={t('myPage.editProfile')} action={<HeaderTextButton onClick={handleSave}>{t('myPage.save')}</HeaderTextButton>} />
 
-      <section className="flex flex-col items-center gap-3 pt-8 pb-7">
+      <section className="flex flex-col items-center gap-3 pt-8 pb-[34px]">
         <div className="relative size-[88px]">
           <ProfileAvatar size={88} src={photoUrl} />
           <button
             type="button"
             onClick={handlePickPhoto}
             aria-label={t('myPage.changePhoto')}
-            className="absolute top-[58px] left-[58px] rounded-full border-2 border-white bg-gray-50 p-[6px]"
+            className="absolute top-[58px] left-[58px] flex size-8 items-center justify-center rounded-full border-2 border-white bg-gray-50"
           >
-            <img src={cameraIcon} alt="" className="size-4" />
+            <img src={cameraIcon} alt="" className="size-4 shrink-0" />
           </button>
         </div>
         <button

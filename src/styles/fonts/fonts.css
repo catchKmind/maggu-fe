@@ -97,6 +97,9 @@
 @utility typo-body-l {
   :where(&) { font-size: var(--text-16); line-height: 24px; letter-spacing: -0.02em; font-weight: var(--font-weight-medium); }
 }
+@utility typo-body-l-bold {
+  :where(&) { font-size: var(--text-16); line-height: 24px; letter-spacing: -0.1px; font-weight: var(--font-weight-medium); }
+}
 @utility typo-body-m {
   :where(&) { font-size: var(--text-14); line-height: 20px; letter-spacing: -0.02em; font-weight: var(--font-weight-regular); }
 }

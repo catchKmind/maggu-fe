@@ -92,7 +92,7 @@ function InfoRow({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
     <div className="flex items-center gap-2">
       {icon}
-      <span className="text-14 text-gray-500">{text}</span>
+      <span className="typo-body-m text-gray-700">{text}</span>
     </div>
   )
 }
@@ -172,14 +172,14 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
           onPointerDown={handleSwipeStart}
           onPointerUp={handleSwipeEnd}
           onPointerCancel={handleSwipeEnd}
-          className="touch-none border-b border-gray-100"
+          className="touch-none"
         >
           <div className="flex justify-center pt-3 pb-3">
             <div className="h-1 w-10 rounded-full bg-gray-200" />
           </div>
 
-          <div className="flex items-center justify-between px-5 pb-4">
-            <h2 className="text-24 font-bold text-gray-900">{spot.name}</h2>
+          <div className="flex items-center justify-between px-4">
+            <h2 className="text-20 leading-[30px] font-medium text-gray-900">{spot.name}</h2>
             <div className="flex items-center gap-2">
               {spot.tourismContentId && (
                 <>
@@ -187,7 +187,7 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
                     type="button"
                     onClick={() => setIsScrapSheetOpen(true)}
                     aria-label={t('placeScrap.listButton')}
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gray-100"
+                    className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gray-100"
                   >
                     <ListAddIcon />
                   </button>
@@ -195,7 +195,7 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
                     type="button"
                     onClick={() => setIsScrapSheetOpen(true)}
                     aria-label={t('placeScrap.button')}
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gray-100"
+                    className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gray-100"
                   >
                     <StickerAddIcon />
                   </button>
@@ -205,7 +205,7 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
                 type="button"
                 onClick={onClose}
                 aria-label={t('placeDetail.close')}
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gray-100"
+                className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gray-100"
               >
                 <XIcon />
               </button>
@@ -214,11 +214,11 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
         </div>
 
         <div className="flex-1 overflow-y-auto">
-          <div className="px-5 pt-4">
-            {spot.category && <p className="text-16 text-gray-500">{spot.category}</p>}
+          <div className="px-4 pt-px">
+            {spot.category && <p className="typo-body-m-medium text-gray-700">{spot.category}</p>}
 
             {(address || hours || phone) && (
-              <div className="mt-3 flex flex-col gap-2">
+              <div className="mt-1 flex flex-col gap-1">
                 {address && <InfoRow icon={<PinIcon />} text={address} />}
                 {hours && <InfoRow icon={<ClockIcon />} text={hours} />}
                 {phone && <InfoRow icon={<PhoneIcon />} text={phone} />}
