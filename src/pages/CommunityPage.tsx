@@ -24,7 +24,7 @@ export default function CommunityPage() {
   const posts = data?.content.map(toCommunityPost) ?? []
 
   return (
-    <div className="relative flex flex-1 flex-col pt-[max(var(--safe-top,0px),54px)]">
+    <div className="relative flex flex-1 flex-col pt-[var(--safe-top,0px)]">
       <CommunityHeader nickname={account?.nickname} onCompose={() => navigate('/community/write')} />
 
       <div className="flex items-center justify-between px-4 pt-4 pb-1">

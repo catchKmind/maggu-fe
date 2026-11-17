@@ -16,7 +16,7 @@ export function MyPageHeader({ title, action, onBack }: MyPageHeaderProps) {
   const { t } = useTranslation()
 
   return (
-    <div className="flex items-center justify-between border-b border-[#eeeeee] py-3 pr-5 pl-4">
+    <div className="flex h-14 items-center justify-between border-b border-[#eeeeee] pr-5 pl-4">
       <button
         type="button"
         onClick={onBack ?? (() => navigate(-1))}
@@ -24,7 +24,7 @@ export function MyPageHeader({ title, action, onBack }: MyPageHeaderProps) {
         className="flex items-center gap-1 py-1"
       >
         <img src={arrowLeftIcon} alt="" className="size-6" />
-        <span className="text-16 leading-[24px] font-semibold tracking-[-0.1px] text-gray-700">{title}</span>
+        <span className="typo-body-l-bold text-gray-700">{title}</span>
       </button>
       {action}
     </div>
@@ -43,7 +43,7 @@ export function HeaderTextButton({ children, onClick, disabled }: HeaderTextButt
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="text-16 leading-[24px] font-semibold tracking-[-0.1px] text-gray-700 disabled:text-gray-400"
+      className="typo-body-l-bold text-gray-700 disabled:text-gray-400"
     >
       {children}
     </button>

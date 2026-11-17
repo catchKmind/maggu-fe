@@ -52,7 +52,7 @@ export default function MyListDetailPage() {
   const selectedCount = selectedIds.size
 
   return (
-    <div className="flex flex-1 flex-col pt-[max(var(--safe-top,0px),44px)] pb-32">
+    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)] pb-32">
       <MyPageHeader
         title={folder?.name ?? ''}
         action={

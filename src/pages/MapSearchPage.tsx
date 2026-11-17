@@ -87,19 +87,18 @@ export default function MapSearchPage() {
     onChange(e)
   }
 
-  const activeTabIndex = TABS.findIndex((tab) => tab.key === activeTab)
   const posts = postFeed?.content ?? []
   const isError = activeTab === 'place' ? isPlaceError : isPostError
 
   return (
-    <div className="flex flex-1 flex-col">
-      <form onSubmit={handleSubmit} className="px-4 py-3">
+    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)]">
+      <form onSubmit={handleSubmit} className="px-4 pb-[10px]">
         <div className="relative">
           <button
             type="button"
             onClick={() => navigate(-1)}
             aria-label={t('searchPage.back')}
-            className="absolute top-1/2 left-1 flex h-9 w-9 -translate-y-1/2 items-center justify-center"
+            className="absolute top-1/2 left-2 flex size-5 -translate-y-1/2 items-center justify-center"
           >
             <BackIcon />
           </button>
@@ -110,7 +109,7 @@ export default function MapSearchPage() {
             onCompositionEnd={onCompositionEnd}
             placeholder={t('searchPage.placeholder')}
             autoFocus
-            className="h-11 w-full rounded-xl bg-gray-50 pr-10 pl-10 text-14 text-gray-900 outline-none placeholder:text-gray-400"
+            className="h-9 w-full rounded-lg bg-gray-100 pr-9 pl-[37px] typo-body-m text-gray-900 outline-none placeholder:text-gray-400"
           />
           {keyword && (
             <button
@@ -120,7 +119,7 @@ export default function MapSearchPage() {
                 setSubmittedKeyword(null)
               }}
               aria-label={t('searchPage.clear')}
-              className="absolute top-1/2 right-3 flex h-5 w-5 -translate-y-1/2 items-center justify-center"
+              className="absolute top-1/2 right-2 flex size-5 -translate-y-1/2 items-center justify-center"
             >
               <ClearIcon />
             </button>
@@ -141,26 +140,19 @@ export default function MapSearchPage() {
         </div>
       ) : (
         <>
-          <div className="relative flex border-b border-gray-100">
+          <div className="flex px-4">
             {TABS.map((tab) => (
               <button
                 key={tab.key}
                 type="button"
                 onClick={() => setActiveTab(tab.key)}
-                className={`flex-1 py-3 text-center text-14 transition-colors ${
-                  activeTab === tab.key ? 'font-semibold text-gray-900' : 'font-medium text-gray-400'
+                className={`flex h-12 flex-1 items-center justify-center border-b-2 typo-body-m transition-colors ${
+                  activeTab === tab.key ? 'border-gray-800 font-medium text-gray-800' : 'border-transparent text-gray-500'
                 }`}
               >
                 {t(tab.labelKey)}
               </button>
             ))}
-            <span
-              className="absolute bottom-0 h-0.5 bg-gray-900 transition-all duration-300 ease-out"
-              style={{
-                left: `calc(${activeTabIndex} * ${100 / TABS.length}% + 1rem)`,
-                width: `calc(${100 / TABS.length}% - 2rem)`,
-              }}
-            />
           </div>
 
           <div className="flex-1 overflow-y-auto">
@@ -182,9 +174,9 @@ export default function MapSearchPage() {
             )}
 
             {!isError && activeTab !== 'place' && (
-              <div className="grid grid-cols-2 gap-1 p-1">
+              <div className="grid grid-cols-2 gap-2 px-4 py-7">
                 {posts.map((post) => (
-                  <img key={post.postId} src={post.imageUrl} alt="" className="aspect-square w-full object-cover" />
+                  <img key={post.postId} src={post.imageUrl} alt="" className="h-[197px] w-full rounded-lg object-cover" />
                 ))}
               </div>
             )}

@@ -53,7 +53,7 @@ export default function CommunitySearchPage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <form onSubmit={handleSubmit} className="px-4 pt-[54px] pb-[10px]">
+      <form onSubmit={handleSubmit} className="px-4 pt-[var(--safe-top,0px)] pb-[10px]">
         <div className="flex h-9 items-center gap-2 rounded-lg bg-gray-100 p-2">
           <button
             type="button"

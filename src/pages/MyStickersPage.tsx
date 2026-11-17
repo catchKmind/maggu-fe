@@ -75,7 +75,7 @@ export default function MyStickersPage() {
   const selectedCount = selectedIds.size
 
   return (
-    <div className="flex flex-1 flex-col pt-[max(var(--safe-top,0px),44px)] pb-32">
+    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)] pb-32">
       <MyPageHeader
         // Figma: 편집 모드에서는 제목이 '편집'으로 바뀐다
         title={isEditing ? t('myPage.edit') : t('myPage.myStickers')}
