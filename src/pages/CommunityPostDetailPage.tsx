@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import sendIcon from '../assets/community/icon_community_send.svg'
+import { PhotoViewer } from '../shared/components/PhotoViewer'
 import { Avatar } from '../shared/components/Avatar'
 import { formatRelativeTime } from '../shared/lib/formatRelativeTime'
 import { PostPhotoGrid } from '../features/community/components/PostPhotoGrid'
@@ -58,6 +59,8 @@ function BookmarkIcon({ filled }: { filled: boolean }) {
 export default function CommunityPostDetailPage() {
   const { t } = useTranslation('community')
   const navigate = useNavigate()
+  // 사진을 눌러 크게 볼 때 누른 사진 번호 (null이면 닫힘)
+  const [viewerIndex, setViewerIndex] = useState<number | null>(null)
   const { postId: postIdParam } = useParams<{ postId: string }>()
   const postId = Number(postIdParam)
 
@@ -106,7 +109,7 @@ export default function CommunityPostDetailPage() {
   const totalComments = comments ? countComments(comments) : 0
 
   return (
-    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)]">
+    <div className="flex flex-1 flex-col pt-[calc(var(--safe-top,0px)+7px)]">
       <div className="flex h-14 items-center gap-1 border-b border-[#eeeeee] px-5">
         <button
           type="button"
@@ -144,7 +147,7 @@ export default function CommunityPostDetailPage() {
 
               {post.imageUrls.length > 0 && (
                 <div className="mt-[10px]">
-                  <PostPhotoGrid photos={post.imageUrls} />
+                  <PostPhotoGrid photos={post.imageUrls} onPhotoClick={setViewerIndex} />
                 </div>
               )}
 
@@ -193,7 +196,7 @@ export default function CommunityPostDetailPage() {
         </div>
       )}
 
-      <div className="fixed inset-x-0 bottom-0 mx-auto flex w-full max-w-[375px] flex-col bg-white px-4 py-[18px]">
+      <div className="fixed inset-x-0 bottom-0 mx-auto flex w-full max-w-[430px] flex-col bg-white px-4 py-[18px]">
         {replyTarget && (
           <div className="mb-2 flex items-center justify-between">
             <span className="text-13 text-gray-400">
@@ -224,6 +227,10 @@ export default function CommunityPostDetailPage() {
           )}
         </div>
       </div>
+
+      {post && viewerIndex !== null && (
+        <PhotoViewer photos={post.imageUrls} startIndex={viewerIndex} onClose={() => setViewerIndex(null)} />
+      )}
     </div>
   )
 }

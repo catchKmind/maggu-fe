@@ -99,5 +99,11 @@
     "deletePlacesDescription": "리스트에서 장소가 삭제되며 복구할 수 없습니다.",
     "listNameDuplicated": "이미 사용 중인 리스트 이름이에요.",
     "listCreateFailed": "리스트를 만들지 못했어요. 다시 시도해 주세요."
+  },
+  "guestNotice": {
+    "title": "게스트는 둘러보기만 할 수 있어요",
+    "description": "글쓰기, 댓글, 스크랩 같은 기능은\n로그인하면 이용할 수 있어요.",
+    "close": "닫기",
+    "login": "로그인하기"
   }
 }

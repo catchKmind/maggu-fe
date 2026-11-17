@@ -91,7 +91,7 @@ export default function MapSearchPage() {
   const isError = activeTab === 'place' ? isPlaceError : isPostError
 
   return (
-    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)]">
+    <div className="flex flex-1 flex-col pt-[calc(var(--safe-top,0px)+7px)]">
       <form onSubmit={handleSubmit} className="px-4 pb-[10px]">
         <div className="relative">
           <button

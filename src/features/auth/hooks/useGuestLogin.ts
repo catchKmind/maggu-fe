@@ -4,7 +4,7 @@ import { useAppStore } from '../../../stores/useAppStore'
 import { testLogin } from '../api/auth'
 
 /**
- * "게스트로 시작하기" 버튼용. 실제 게스트 개념(무계정) API가 따로 없어서,
+ * "게스트로 시작하기" 버튼용(둘러보기 전용). 실제 게스트 개념(무계정) API가 따로 없어서,
  * 매번 새 이메일/닉네임을 만들어 백엔드의 테스트 로그인(test-login)으로 대신 로그인시킨다.
  */
 export function useGuestLogin() {
@@ -13,6 +13,8 @@ export function useGuestLogin() {
       const id = crypto.randomUUID().slice(0, 8)
       const token = await testLogin({ email: `guest-${id}@maggu.co.kr`, nickname: `게스트${id}` })
       setAuthToken(token.accessToken)
+      // 게스트는 둘러보기만 가능 — 쓰기 요청은 shared/lib/api.ts에서 막는다
+      useAppStore.getState().setGuest(true)
       useAppStore.getState().setLoggedIn(true)
       return token
     },

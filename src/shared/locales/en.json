@@ -99,5 +99,11 @@
     "deletePlacesDescription": "The places will be removed from this list permanently.",
     "listNameDuplicated": "This list name is already in use.",
     "listCreateFailed": "Couldn't create the list. Please try again."
+  },
+  "guestNotice": {
+    "title": "Guests can only browse",
+    "description": "Posting, commenting and saving\nare available after you sign in.",
+    "close": "Close",
+    "login": "Sign in"
   }
 }

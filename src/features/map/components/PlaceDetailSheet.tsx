@@ -164,7 +164,7 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
 
       <div
         style={{ top: sheetTop }}
-        className={`absolute inset-x-0 bottom-0 mx-auto flex w-full max-w-[375px] flex-col overflow-hidden bg-white transition-[top,transform,border-radius] duration-300 ease-out ${
+        className={`absolute inset-x-0 bottom-0 mx-auto flex w-full max-w-[430px] flex-col overflow-hidden bg-white transition-[top,transform,border-radius] duration-300 ease-out ${
           sheetTop === FULL_TOP ? 'rounded-t-none' : 'rounded-t-[24px]'
         } ${isVisible ? 'translate-y-0' : 'translate-y-full'}`}
       >

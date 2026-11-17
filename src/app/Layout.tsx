@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom'
+import { GuestNotice } from './GuestNotice'
 
 /**
  * 공통 레이아웃. 화면(지도 등)은 세이프에어리어까지 꽉 채우고,
@@ -8,8 +9,9 @@ import { Outlet } from 'react-router-dom'
 export default function Layout() {
   return (
     <div className="flex justify-center bg-gray-200">
-      <div className="flex min-h-dvh w-full max-w-[375px] flex-col bg-white">
+      <div className="flex min-h-dvh w-full max-w-[430px] flex-col bg-white">
         <Outlet />
+        <GuestNotice />
       </div>
     </div>
   )

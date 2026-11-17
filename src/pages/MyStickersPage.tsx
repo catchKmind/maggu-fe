@@ -10,6 +10,7 @@ import { useMyStickers } from '../features/sticker/hooks/useMyStickers'
 import { useCreateSticker } from '../features/sticker/hooks/useCreateSticker'
 import { useDeleteSticker } from '../features/sticker/hooks/useDeleteSticker'
 import { StickerCreateScreen } from '../shared/sticker/StickerCreateScreen'
+import { useGuestGuard } from '../shared/hooks/useGuestGuard'
 import plusIcon from '../assets/mypage/icon_plus.svg'
 import smileIcon from '../assets/mypage/icon_smile.svg'
 
@@ -41,7 +42,8 @@ export default function MyStickersPage() {
   }
 
   // 지도 탭의 스티커 만들기와 같은 흐름: 갤러리 선택 → 누끼/테두리 → 업로드
-  const handlePickPhoto = async () => {
+  const guard = useGuestGuard()
+  const handlePickPhoto = guard(async () => {
     try {
       const { results } = await Camera.chooseFromGallery({ quality: 90 })
       const source = results[0]?.webPath ?? results[0]?.uri
@@ -49,7 +51,7 @@ export default function MyStickersPage() {
     } catch {
       // 사용자가 선택을 취소한 경우
     }
-  }
+  })
 
   const handleDelete = async () => {
     // 일괄 삭제 API가 없어서 선택한 스티커를 하나씩 지운다.

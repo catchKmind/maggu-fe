@@ -133,7 +133,7 @@ export function ProfilePhotoCropScreen({ source, onCancel, onConfirm }: ProfileP
   const layout = getLayout()
 
   return (
-    <div className="fixed inset-0 z-[60] mx-auto flex max-w-[375px] flex-col bg-gray-900">
+    <div className="fixed inset-0 z-[60] mx-auto flex max-w-[430px] flex-col bg-gray-900">
       <div className="bg-gray-800 pt-[var(--safe-top)] pb-2">
         <div className="flex items-center justify-between px-4 pt-2">
           <button
