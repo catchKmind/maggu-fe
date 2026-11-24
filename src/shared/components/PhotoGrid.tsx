@@ -14,7 +14,7 @@ interface PhotoGridProps {
  * 1장: 전체 채움 / 2장: 좌우 반반 / 3장: 좌측 1장 + 우측 2단 / 4장: 2x2.
  * 5장 이상이면 마지막 칸에 "+N" 오버레이를 보여줌.
  */
-export function PhotoGrid({ photos, className = '', radiusClassName = 'rounded-2xl', gapClassName = 'gap-1' }: PhotoGridProps) {
+export function PhotoGrid({ photos, className = '', radiusClassName = 'rounded-xl', gapClassName = 'gap-1' }: PhotoGridProps) {
   const visible = photos.slice(0, MAX_VISIBLE)
   const remaining = photos.length - MAX_VISIBLE
 

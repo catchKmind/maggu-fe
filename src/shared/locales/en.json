@@ -99,7 +99,8 @@
     "deletePlacesDescription": "The places will be removed from this list permanently.",
     "listNameDuplicated": "This list name is already in use.",
     "listCreateFailed": "Couldn't create the list. Please try again.",
-    "activityError": "Could not load your activity"
+    "activityError": "Could not load your activity",
+    "listError": "Could not load this list"
   },
   "guestNotice": {
     "title": "Guests can only browse",
