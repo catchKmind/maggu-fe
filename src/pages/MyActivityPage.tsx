@@ -3,13 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { MyPageHeader } from '../features/mypage/components/MyPageHeader'
 import { EmptyState } from '../features/mypage/components/EmptyState'
 import { SegmentTab, SegmentTabs } from '../features/mypage/components/SegmentTab'
+import { useMyComments, useMyPosts } from '../features/mypage/hooks/useMyActivity'
+import { useLoadMoreOnVisible } from '../shared/hooks/useLoadMoreOnVisible'
+import { toImageUrl } from '../shared/lib/imageUrl'
 import documentIcon from '../assets/mypage/icon_document.svg'
 import chatBubbleIcon from '../assets/mypage/icon_chat_bubble.svg'
-import { MOCK_MY_COMMENTS, MOCK_MY_POSTS } from '../features/mypage/mocks/myActivity'
-
-// TODO: 조회 API가 생기면 목업 대신 useQuery 결과를 쓴다.
-const MY_POSTS = MOCK_MY_POSTS
-const MY_COMMENTS = MOCK_MY_COMMENTS
 
 export type ActivityTab = 'posts' | 'comments'
 
@@ -27,22 +25,41 @@ export default function MyActivityPage() {
 
   const changeTab = (next: ActivityTab) => setSearchParams({ tab: next }, { replace: true })
 
+  // 두 탭의 글 수/댓글 수를 한꺼번에 보여줘야 해서 둘 다 불러온다 (응답에 두 개수가 모두 들어 있다)
+  const postsQuery = useMyPosts()
+  const commentsQuery = useMyComments()
+  const posts = postsQuery.data?.pages.flatMap((page) => page.posts.content) ?? []
+  const comments = commentsQuery.data?.pages.flatMap((page) => page.comments.content) ?? []
+  const counts = postsQuery.data?.pages[0] ?? commentsQuery.data?.pages[0]
+
+  const activeQuery = tab === 'posts' ? postsQuery : commentsQuery
+  const loadMoreRef = useLoadMoreOnVisible(
+    () => void activeQuery.fetchNextPage(),
+    activeQuery.hasNextPage && !activeQuery.isFetchingNextPage,
+  )
+
   return (
     <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)]">
       <MyPageHeader title={t('myPage.activity')} />
 
       <SegmentTabs>
-        <SegmentTab label={t('myPage.tabPosts')} count={MY_POSTS.length} isActive={tab === 'posts'} onClick={() => changeTab('posts')} />
+        <SegmentTab label={t('myPage.tabPosts')} count={counts?.postCount} isActive={tab === 'posts'} onClick={() => changeTab('posts')} />
         <SegmentTab
           label={t('myPage.tabComments')}
-          count={MY_COMMENTS.length}
+          count={counts?.commentCount}
           isActive={tab === 'comments'}
           onClick={() => changeTab('comments')}
         />
       </SegmentTabs>
 
+      {activeQuery.isLoading && <p className="px-5 py-8 text-center typo-body-m text-gray-400">{t('myPage.loading')}</p>}
+      {activeQuery.isError && (
+        <p className="px-5 py-8 text-center typo-body-m text-gray-400">{t('myPage.activityError')}</p>
+      )}
+
       {tab === 'posts' &&
-        (MY_POSTS.length === 0 ? (
+        postsQuery.isSuccess &&
+        (posts.length === 0 ? (
           <EmptyState
             icon={documentIcon}
             title={t('myPage.emptyPostsTitle')}
@@ -52,18 +69,21 @@ export default function MyActivityPage() {
           />
         ) : (
           <div className="grid grid-cols-2 gap-2 p-4">
-            {MY_POSTS.map((post) => (
+            {posts.map((post) => (
               <button
                 key={post.postId}
                 type="button"
                 onClick={() => navigate(`/community/posts/${post.postId}`)}
                 className="h-[200px] overflow-hidden rounded-lg"
               >
-                {post.thumbnailUrl ? (
-                  <img src={post.thumbnailUrl} alt="" className="size-full object-cover" />
+                {post.imageUrl ? (
+                  <img src={toImageUrl(post.imageUrl)} alt="" className="size-full object-cover" />
                 ) : (
-                  <span className="flex size-full items-center bg-purple-50 p-4 text-center text-14 leading-[1.4] font-semibold tracking-[-0.28px] text-purple-500">
-                    {post.title}
+                  // 사진 없는 글은 본문을 2줄까지만 잘라서 보여준다
+                  <span className="flex size-full items-center justify-center bg-purple-50 p-4">
+                    <span className="line-clamp-2 text-center text-14 leading-[1.4] font-semibold tracking-[-0.28px] wrap-anywhere text-purple-500">
+                      {post.content}
+                    </span>
                   </span>
                 )}
               </button>
@@ -72,11 +92,12 @@ export default function MyActivityPage() {
         ))}
 
       {tab === 'comments' &&
-        (MY_COMMENTS.length === 0 ? (
+        commentsQuery.isSuccess &&
+        (comments.length === 0 ? (
           <EmptyState icon={chatBubbleIcon} title={t('myPage.emptyCommentsTitle')} description={t('myPage.emptyCommentsDescription')} />
         ) : (
           <div className="flex flex-col">
-            {MY_COMMENTS.map((comment) => (
+            {comments.map((comment) => (
               <button
                 key={comment.commentId}
                 type="button"
@@ -95,7 +116,7 @@ export default function MyActivityPage() {
                 </span>
                 <span className="flex items-center gap-[6px] typo-body-s">
                   <span className="truncate text-gray-500">
-                    {t('myPage.commentOnPost', { nickname: comment.postAuthorNickname })}
+                    {t('myPage.commentOnPost', { nickname: comment.postWriterNickname })}
                   </span>
                   <span className="text-gray-400">·</span>
                   <span className="text-gray-400">{formatDate(comment.createdAt)}</span>
@@ -104,6 +125,12 @@ export default function MyActivityPage() {
             ))}
           </div>
         ))}
+
+      {/* 맨 아래에 닿으면 다음 페이지를 불러온다 */}
+      <div ref={loadMoreRef} className="h-px" />
+      {activeQuery.isFetchingNextPage && (
+        <p className="px-5 py-4 text-center typo-body-s text-gray-400">{t('myPage.loading')}</p>
+      )}
     </div>
   )
 }

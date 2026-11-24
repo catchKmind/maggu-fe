@@ -1,4 +1,4 @@
-export type PostCategory = 'CURATION' | 'INFO' | 'RECOMMEND'
+export type PostCategory = 'CURATION' | 'INFO' | 'RECOMMEND' | 'QUESTION'
 export type LocationSource = 'AUTO' | 'MANUAL'
 
 export interface PageResponse<T> {
@@ -8,6 +8,14 @@ export interface PageResponse<T> {
   totalElements: number
   totalPages: number
   hasNext: boolean
+}
+
+/** 게시글에 달린 스티커 반응 하나 (같은 스티커로 공감한 수) */
+export interface StickerReactionItem {
+  stickerId: number
+  imageUrl: string
+  count: number
+  reactedByMe: boolean
 }
 
 export interface PostSummaryResponse {
@@ -20,6 +28,7 @@ export interface PostSummaryResponse {
   category: PostCategory
   reactionCount: number
   reactedByMe: boolean
+  stickerReactions: StickerReactionItem[]
   scrapCount: number
   commentCount: number
   scrappedByMe: boolean
@@ -41,6 +50,8 @@ export interface PostDetailResponse {
   scrappedByMe: boolean
   stickerReactionCounts: Record<string, number>
   myReactionSticker: string
+  myReactionStickerId: number | null
+  stickerReactions: StickerReactionItem[]
   createdAt: string
   updatedAt: string
 }

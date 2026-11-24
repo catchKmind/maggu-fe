@@ -11,6 +11,7 @@ import { useCommunityFeed } from '../features/community/hooks/useCommunityFeed'
 import { useMyAccount } from '../features/mypage/hooks/useMyAccount'
 import { toCommunityPost } from '../features/community/mappers/toCommunityPost'
 import type { CommunityFeedTab, CommunitySortOrder } from '../features/community/types'
+import type { PostCategory } from '../features/community/api/posts.types'
 import { BottomNavigation } from '../shared/components/BottomNavigation'
 import { useGuestGuard } from '../shared/hooks/useGuestGuard'
 
@@ -21,7 +22,9 @@ export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState<CommunityFeedTab>('recommended')
   const [sortOrder, setSortOrder] = useState<CommunitySortOrder>('latest')
   const [isSortSheetOpen, setIsSortSheetOpen] = useState(false)
-  const { data, isLoading, isError } = useCommunityFeed({ sort: sortOrder })
+  // 질문방 탭은 QUESTION 글만, 추천 탭은 분류 제한 없이 전체를 보여준다
+  const category: PostCategory | undefined = activeTab === 'question' ? 'QUESTION' : undefined
+  const { data, isLoading, isError } = useCommunityFeed({ sort: sortOrder, category })
   const { data: account } = useMyAccount()
   const posts = data?.content.map(toCommunityPost) ?? []
 

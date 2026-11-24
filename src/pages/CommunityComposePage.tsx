@@ -148,6 +148,8 @@ export default function CommunityComposePage() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['communityFeed'] })
+      // 내 활동의 글 목록과 개수도 바뀐다
+      queryClient.invalidateQueries({ queryKey: ['myPosts'] })
       navigate('/community')
     },
   })

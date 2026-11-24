@@ -13,6 +13,8 @@ export function useDeletePost() {
       queryClient.invalidateQueries({ queryKey: ['searchPosts'] })
       queryClient.invalidateQueries({ queryKey: ['contentFeed'] })
       queryClient.invalidateQueries({ queryKey: ['mapPosts'] })
+      queryClient.invalidateQueries({ queryKey: ['myPosts'] })
+      queryClient.invalidateQueries({ queryKey: ['myComments'] })
     },
   })
 }

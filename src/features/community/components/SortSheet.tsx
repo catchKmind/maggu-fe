@@ -4,7 +4,7 @@ import type { CommunitySortOrder } from '../types'
 
 const SORT_OPTIONS: { key: CommunitySortOrder; labelKey: string }[] = [
   { key: 'latest', labelKey: 'sort.latest' },
-  { key: 'scrap', labelKey: 'sort.scrap' },
+  { key: 'most_scrapped', labelKey: 'sort.scrap' },
 ]
 
 function CheckIcon() {

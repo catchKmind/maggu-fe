@@ -9,6 +9,8 @@ export function useCreateComment(postId: number) {
     mutationFn: (body: CommentCreateRequest) => createComment(postId, body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comments', postId] })
+      // 내 활동의 댓글 목록과 개수도 바뀐다
+      queryClient.invalidateQueries({ queryKey: ['myComments'] })
     },
   })
 }

@@ -8,6 +8,7 @@ import { formatRelativeTime } from '../shared/lib/formatRelativeTime'
 import { PostPhotoGrid } from '../features/community/components/PostPhotoGrid'
 import { PostMenu } from '../features/community/components/PostMenu'
 import { StickerReactionPicker } from '../features/community/components/StickerReactionPicker'
+import { StickerReactionChips } from '../features/community/components/StickerReactionChips'
 import { CommentItem } from '../features/community/components/CommentItem'
 import { usePostDetail } from '../features/community/hooks/usePostDetail'
 import { useHiddenComments } from '../features/community/hooks/useHiddenComments'
@@ -93,7 +94,6 @@ export default function CommunityPostDetailPage() {
     )
   }
 
-  const totalReactions = post ? Object.values(post.stickerReactionCounts).reduce((sum, count) => sum + count, 0) : 0
   const totalComments = comments ? countComments(comments) : 0
 
   return (
@@ -139,13 +139,8 @@ export default function CommunityPostDetailPage() {
               )}
 
               <div className="mt-[18px] flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  {totalReactions > 0 && (
-                    <div className="flex h-6 items-center gap-1 rounded-lg bg-gray-50 px-[6px] py-[2px]">
-                      <span className="text-14">✨</span>
-                      <span className="typo-body-xs text-purple-400">{totalReactions}</span>
-                    </div>
-                  )}
+                <div className="flex flex-wrap items-center gap-2">
+                  <StickerReactionChips postId={postId} reactions={post.stickerReactions ?? []} />
                   <StickerReactionPicker postId={postId} />
                 </div>
                 <div className="mr-[11px] flex items-center gap-2">
