@@ -3,6 +3,10 @@ const MAX_VISIBLE = 4
 interface PhotoGridProps {
   photos: string[]
   className?: string
+  /** 바깥 모서리 둥글기 (기본 rounded-2xl) */
+  radiusClassName?: string
+  /** 사진 사이 간격 (기본 gap-1) */
+  gapClassName?: string
 }
 
 /**
@@ -10,7 +14,7 @@ interface PhotoGridProps {
  * 1장: 전체 채움 / 2장: 좌우 반반 / 3장: 좌측 1장 + 우측 2단 / 4장: 2x2.
  * 5장 이상이면 마지막 칸에 "+N" 오버레이를 보여줌.
  */
-export function PhotoGrid({ photos, className = '' }: PhotoGridProps) {
+export function PhotoGrid({ photos, className = '', radiusClassName = 'rounded-2xl', gapClassName = 'gap-1' }: PhotoGridProps) {
   const visible = photos.slice(0, MAX_VISIBLE)
   const remaining = photos.length - MAX_VISIBLE
 
@@ -18,7 +22,7 @@ export function PhotoGrid({ photos, className = '' }: PhotoGridProps) {
   const rowsClassName = visible.length >= 3 ? 'grid-rows-2' : ''
 
   return (
-    <div className={`grid gap-1 overflow-hidden rounded-2xl ${layoutClassName} ${rowsClassName} ${className}`}>
+    <div className={`grid ${gapClassName} overflow-hidden ${radiusClassName} ${layoutClassName} ${rowsClassName} ${className}`}>
       {visible.map((photo, index) => {
         const isLast = index === visible.length - 1
         const spansFullHeight = visible.length === 3 && index === 0

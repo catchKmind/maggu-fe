@@ -22,7 +22,11 @@
       "38": "Shopping",
       "39": "Restaurant"
     },
-    "noPhoto": "No photos yet"
+    "noPhoto": "No photos yet",
+    "feedLoading": "Loading...",
+    "feedEmpty": "No posts yet",
+    "feedError": "Could not load posts",
+    "closedDays": "Closed"
   },
   "searchPage": {
     "placeholder": "Search for a place or spot",
