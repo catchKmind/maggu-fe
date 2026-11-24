@@ -12,6 +12,7 @@ export function toCommunityPost(summary: PostSummaryResponse): CommunityPost {
     createdAgo: formatRelativeTime(summary.createdAt),
     content: summary.content,
     photos: summary.imageUrls,
+    stickerReactions: summary.stickerReactions ?? [],
     participantCount: summary.reactionCount,
     commentCount: summary.commentCount,
     scrapCount: summary.scrapCount,

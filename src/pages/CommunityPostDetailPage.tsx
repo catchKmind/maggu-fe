@@ -2,18 +2,21 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import sendIcon from '../assets/community/icon_community_send.svg'
+import { PhotoViewer } from '../shared/components/PhotoViewer'
 import { Avatar } from '../shared/components/Avatar'
 import { formatRelativeTime } from '../shared/lib/formatRelativeTime'
 import { PostPhotoGrid } from '../features/community/components/PostPhotoGrid'
 import { PostMenu } from '../features/community/components/PostMenu'
 import { StickerReactionPicker } from '../features/community/components/StickerReactionPicker'
+import { StickerReactionChips } from '../features/community/components/StickerReactionChips'
 import { CommentItem } from '../features/community/components/CommentItem'
 import { usePostDetail } from '../features/community/hooks/usePostDetail'
+import { useHiddenComments } from '../features/community/hooks/useHiddenComments'
+import { useMyAccount } from '../features/mypage/hooks/useMyAccount'
 import { useComments } from '../features/community/hooks/useComments'
 import { useCreateComment } from '../features/community/hooks/useCreateComment'
 import { useToggleCommentLike } from '../features/community/hooks/useToggleCommentLike'
 import { useToggleScrap } from '../features/community/hooks/useToggleScrap'
-import { useSharePost } from '../features/community/hooks/useSharePost'
 import type { CommentResponse } from '../features/community/api/comments.types'
 
 function countComments(comments: CommentResponse[]): number {
@@ -58,34 +61,23 @@ function BookmarkIcon({ filled }: { filled: boolean }) {
 export default function CommunityPostDetailPage() {
   const { t } = useTranslation('community')
   const navigate = useNavigate()
+  // 사진을 눌러 크게 볼 때 누른 사진 번호 (null이면 닫힘)
+  const [viewerIndex, setViewerIndex] = useState<number | null>(null)
   const { postId: postIdParam } = useParams<{ postId: string }>()
   const postId = Number(postIdParam)
 
   const { data: post, isLoading, isError } = usePostDetail(postId)
+  const { data: account } = useMyAccount()
+  const { hiddenIds, toggleHidden } = useHiddenComments(postId)
+  // 내 게시글에서만 댓글을 숨길 수 있다
+  const isMyPost = Boolean(account?.nickname && post && account.nickname === post.writerNickname)
   const { data: comments } = useComments(postId)
   const createComment = useCreateComment(postId)
   const toggleLike = useToggleCommentLike(postId)
   const toggleScrap = useToggleScrap()
-  const sharePost = useSharePost()
 
   const [commentText, setCommentText] = useState('')
   const [replyTarget, setReplyTarget] = useState<CommentResponse | null>(null)
-  const [isLinkCopied, setIsLinkCopied] = useState(false)
-
-  const handleShare = async () => {
-    const result = await sharePost.mutateAsync(postId)
-    if (navigator.share) {
-      try {
-        await navigator.share({ url: result.url })
-      } catch {
-        // 사용자가 공유 취소 - 별도 처리 없음
-      }
-      return
-    }
-    await navigator.clipboard.writeText(result.url)
-    setIsLinkCopied(true)
-    setTimeout(() => setIsLinkCopied(false), 2000)
-  }
 
   const handleSubmitComment = () => {
     const content = commentText.trim()
@@ -102,11 +94,10 @@ export default function CommunityPostDetailPage() {
     )
   }
 
-  const totalReactions = post ? Object.values(post.stickerReactionCounts).reduce((sum, count) => sum + count, 0) : 0
   const totalComments = comments ? countComments(comments) : 0
 
   return (
-    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)]">
+    <div className="flex flex-1 flex-col pt-[calc(var(--safe-top,0px)+7px)]">
       <div className="flex h-14 items-center gap-1 border-b border-[#eeeeee] px-5">
         <button
           type="button"
@@ -117,7 +108,6 @@ export default function CommunityPostDetailPage() {
           <BackIcon />
         </button>
         <span className="typo-body-l-bold text-gray-700">{t('postDetail.pageTitle')}</span>
-        {isLinkCopied && <span className="ml-auto text-13 text-gray-400">{t('postDetail.linkCopied')}</span>}
       </div>
 
       {isLoading && <p className="px-5 py-8 text-center text-14 text-gray-400">{t('feed.loading')}</p>}
@@ -135,7 +125,7 @@ export default function CommunityPostDetailPage() {
                     <span className="text-14 leading-[19px] tracking-[-0.48px] text-gray-400">{formatRelativeTime(post.createdAt)}</span>
                   </div>
                 </div>
-                <PostMenu postId={postId} onShare={handleShare} />
+                <PostMenu postId={postId} writerNickname={post.writerNickname} />
               </div>
 
               <p className="mt-[6px] text-14 leading-[1.4] tracking-[-0.48px] whitespace-pre-line wrap-anywhere text-gray-900">
@@ -144,18 +134,13 @@ export default function CommunityPostDetailPage() {
 
               {post.imageUrls.length > 0 && (
                 <div className="mt-[10px]">
-                  <PostPhotoGrid photos={post.imageUrls} />
+                  <PostPhotoGrid photos={post.imageUrls} onPhotoClick={setViewerIndex} />
                 </div>
               )}
 
               <div className="mt-[18px] flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  {totalReactions > 0 && (
-                    <div className="flex h-6 items-center gap-1 rounded-lg bg-gray-50 px-[6px] py-[2px]">
-                      <span className="text-14">✨</span>
-                      <span className="typo-body-xs text-purple-400">{totalReactions}</span>
-                    </div>
-                  )}
+                <div className="flex flex-wrap items-center gap-2">
+                  <StickerReactionChips postId={postId} reactions={post.stickerReactions ?? []} />
                   <StickerReactionPicker postId={postId} />
                 </div>
                 <div className="mr-[11px] flex items-center gap-2">
@@ -184,6 +169,9 @@ export default function CommunityPostDetailPage() {
                 comment={comment}
                 onReply={setReplyTarget}
                 onToggleLike={(commentId) => toggleLike.mutate(commentId)}
+                hiddenIds={hiddenIds}
+                canHide={isMyPost}
+                onToggleHide={toggleHidden}
               />
             ))}
             {comments && comments.length === 0 && (
@@ -193,7 +181,7 @@ export default function CommunityPostDetailPage() {
         </div>
       )}
 
-      <div className="fixed inset-x-0 bottom-0 mx-auto flex w-full max-w-[375px] flex-col bg-white px-4 py-[18px]">
+      <div className="fixed inset-x-0 bottom-0 mx-auto flex w-full max-w-[430px] flex-col bg-white px-4 py-[18px]">
         {replyTarget && (
           <div className="mb-2 flex items-center justify-between">
             <span className="text-13 text-gray-400">
@@ -224,6 +212,10 @@ export default function CommunityPostDetailPage() {
           )}
         </div>
       </div>
+
+      {post && viewerIndex !== null && (
+        <PhotoViewer photos={post.imageUrls} startIndex={viewerIndex} onClose={() => setViewerIndex(null)} />
+      )}
     </div>
   )
 }

@@ -31,6 +31,14 @@ export class ApiError extends Error {
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  // 게스트는 둘러보기만 가능하다. 서버로 보내기 전에 쓰기 요청(GET이 아닌 것)을 막고 안내 팝업을 띄운다.
+  if ((options?.method ?? 'GET') !== 'GET') {
+    const { isGuest, openGuestNotice } = useAppStore.getState()
+    if (isGuest) {
+      openGuestNotice()
+      throw new ApiError(403, 'GUEST_READ_ONLY')
+    }
+  }
   const token = getAuthToken()
   const res = await fetch(`${BASE_URL}${path}`, {
     headers: {

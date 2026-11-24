@@ -14,5 +14,6 @@ export function toPostSpot(feature: MapPostFeature): PhotoSpot {
     photos: [toImageUrl(representativeImageUrl)],
     tourismContentId,
     postCount: placePostCount ?? 1,
+    isPostPhoto: true,
   }
 }

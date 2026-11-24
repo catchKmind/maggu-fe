@@ -10,6 +10,7 @@ export function useAppleLogin() {
       const { identityToken, authorizationCode, fullName } = await signInWithApple()
       const token = await loginWithApple({ identityToken, authorizationCode, fullName })
       setAuthToken(token.accessToken)
+      useAppStore.getState().setGuest(false)
       useAppStore.getState().setLoggedIn(true)
       return token
     },

@@ -11,21 +11,26 @@ import { useCommunityFeed } from '../features/community/hooks/useCommunityFeed'
 import { useMyAccount } from '../features/mypage/hooks/useMyAccount'
 import { toCommunityPost } from '../features/community/mappers/toCommunityPost'
 import type { CommunityFeedTab, CommunitySortOrder } from '../features/community/types'
+import type { PostCategory } from '../features/community/api/posts.types'
 import { BottomNavigation } from '../shared/components/BottomNavigation'
+import { useGuestGuard } from '../shared/hooks/useGuestGuard'
 
 export default function CommunityPage() {
   const { t } = useTranslation('community')
   const navigate = useNavigate()
+  const guard = useGuestGuard()
   const [activeTab, setActiveTab] = useState<CommunityFeedTab>('recommended')
   const [sortOrder, setSortOrder] = useState<CommunitySortOrder>('latest')
   const [isSortSheetOpen, setIsSortSheetOpen] = useState(false)
-  const { data, isLoading, isError } = useCommunityFeed({ sort: sortOrder })
+  // 질문방 탭은 QUESTION 글만, 추천 탭은 분류 제한 없이 전체를 보여준다
+  const category: PostCategory | undefined = activeTab === 'question' ? 'QUESTION' : undefined
+  const { data, isLoading, isError } = useCommunityFeed({ sort: sortOrder, category })
   const { data: account } = useMyAccount()
   const posts = data?.content.map(toCommunityPost) ?? []
 
   return (
-    <div className="relative flex flex-1 flex-col pt-[var(--safe-top,0px)]">
-      <CommunityHeader nickname={account?.nickname} onCompose={() => navigate('/community/write')} />
+    <div className="relative flex flex-1 flex-col pt-[calc(var(--safe-top,0px)+7px)]">
+      <CommunityHeader nickname={account?.nickname} onCompose={guard(() => navigate('/community/write'))} />
 
       <div className="flex items-center justify-between px-4 pt-4 pb-1">
         <FeedTabs activeTab={activeTab} onChange={setActiveTab} />
@@ -46,9 +51,9 @@ export default function CommunityPage() {
         ))}
       </div>
 
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-10 mx-auto h-[107px] w-full max-w-[375px] bg-gradient-to-t from-white to-transparent" />
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-10 mx-auto h-[107px] w-full max-w-[430px] bg-gradient-to-t from-white to-transparent" />
 
-      <div className="fixed inset-x-0 bottom-[35px] z-20 mx-auto flex w-full max-w-[375px] justify-center">
+      <div className="fixed inset-x-0 bottom-[35px] z-20 mx-auto flex w-full max-w-[430px] justify-center">
         <BottomNavigation />
       </div>
 

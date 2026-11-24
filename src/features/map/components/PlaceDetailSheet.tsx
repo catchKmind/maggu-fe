@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useSlideSheet } from '../../../shared/hooks/useSlideSheet'
 import { PhotoGrid } from '../../../shared/components/PhotoGrid'
@@ -104,12 +105,13 @@ interface PlaceDetailSheetProps {
 
 export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
   const { t } = useTranslation('map')
+  const navigate = useNavigate()
   const { shouldRender, isVisible } = useSlideSheet(spot !== null)
   const [activeTab, setActiveTab] = useState<FeedTab>('popular')
   const feedSort: FeedSort = activeTab === 'popular' ? 'POPULAR' : 'LATEST'
   const { data: contentFeed } = useContentFeed(spot?.tourismContentId ?? null, feedSort)
   const feedItems = contentFeed?.content ?? []
-  const { data: spotDetail } = useMapSpot(spot?.tourismContentId ?? null)
+  const { data: spotDetail, isLoading: isSpotLoading } = useMapSpot(spot?.tourismContentId ?? null)
 
   const [sheetTop, setSheetTop] = useState(PEEK_TOP)
   const [isScrapSheetOpen, setIsScrapSheetOpen] = useState(false)
@@ -148,7 +150,9 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
   const address = spotDetail?.addr ?? spot.address
   const hours = spotDetail?.businessHours ?? spot.hours
   const phone = spotDetail?.tel ?? spot.phone
-  const photos = spotDetail?.images.length ? spotDetail.images : spot.photos
+  // 장소 사진은 장소 자신의 사진만 쓴다. 지도 마커의 photos는 "다른 게시글의 대표 사진"이라 대신 보여주면 안 된다.
+  const placePhotos = spot.isPostPhoto ? [] : spot.photos
+  const photos = spotDetail?.images.length ? spotDetail.images : placePhotos
 
   return (
     <div className="fixed inset-0 z-50">
@@ -164,7 +168,7 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
 
       <div
         style={{ top: sheetTop }}
-        className={`absolute inset-x-0 bottom-0 mx-auto flex w-full max-w-[375px] flex-col overflow-hidden bg-white transition-[top,transform,border-radius] duration-300 ease-out ${
+        className={`absolute inset-x-0 bottom-0 mx-auto flex w-full max-w-[430px] flex-col overflow-hidden bg-white transition-[top,transform,border-radius] duration-300 ease-out ${
           sheetTop === FULL_TOP ? 'rounded-t-none' : 'rounded-t-[24px]'
         } ${isVisible ? 'translate-y-0' : 'translate-y-full'}`}
       >
@@ -226,6 +230,16 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
             )}
 
             {photos.length > 0 && <PhotoGrid photos={photos} className="mt-4 h-[180px]" />}
+            {photos.length === 0 && !isSpotLoading && (
+              <div className="mt-4 flex h-[180px] flex-col items-center justify-center gap-2 rounded-2xl bg-gray-50 text-gray-400">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="currentColor" strokeWidth="1.5" />
+                  <circle cx="9" cy="10" r="1.6" fill="currentColor" />
+                  <path d="m4 17 5-4.5 3.5 3L16 12l4 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                </svg>
+                <span className="typo-body-m">{t('placeDetail.noPhoto')}</span>
+              </div>
+            )}
           </div>
 
           {spot.tourismContentId && (
@@ -249,12 +263,15 @@ export function PlaceDetailSheet({ spot, onClose }: PlaceDetailSheetProps) {
 
               <div className="grid grid-cols-2 gap-2 p-4">
                 {feedItems.map((item) => (
-                  <img
+                  // 사진을 누르면 그 게시글 상세로 이동한다
+                  <button
                     key={item.postId}
-                    src={item.imageUrl}
-                    alt=""
-                    className="h-[200px] w-full rounded-lg object-cover"
-                  />
+                    type="button"
+                    onClick={() => navigate(`/community/posts/${item.postId}`)}
+                    className="block h-[200px] w-full overflow-hidden rounded-lg"
+                  >
+                    <img src={item.imageUrl} alt="" className="size-full object-cover" />
+                  </button>
                 ))}
               </div>
             </>

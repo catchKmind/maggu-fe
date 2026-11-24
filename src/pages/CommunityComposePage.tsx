@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useAppStore } from '../stores/useAppStore'
 import { createPost } from '../features/community/api/posts'
 import { pickPhotoFromGallery, takePostPhoto } from '../features/community/hooks/usePickPostPhoto'
 import { uploadFile } from '../features/uploads/uploadFile'
@@ -64,6 +65,13 @@ export default function CommunityComposePage() {
   const { t } = useTranslation('community')
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  // 게스트는 글을 쓸 수 없다. 주소로 직접 들어와도 안내만 띄우고 커뮤니티로 돌려보낸다.
+  const isGuest = useAppStore((s) => s.isGuest)
+  useEffect(() => {
+    if (!isGuest) return
+    useAppStore.getState().openGuestNotice()
+    navigate('/community', { replace: true })
+  }, [isGuest, navigate])
   const [content, setContent] = useState('')
   const [photos, setPhotos] = useState<ComposedPhoto[]>([])
   const [location, setLocation] = useState<PostLocation | null>(null)
@@ -140,6 +148,8 @@ export default function CommunityComposePage() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['communityFeed'] })
+      // 내 활동의 글 목록과 개수도 바뀐다
+      queryClient.invalidateQueries({ queryKey: ['myPosts'] })
       navigate('/community')
     },
   })

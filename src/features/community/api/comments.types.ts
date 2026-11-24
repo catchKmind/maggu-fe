@@ -1,3 +1,4 @@
+import type { StickerReactionItem } from './posts.types'
 
 //커뮤니티 내 댓글
 export interface CommentResponse {
@@ -33,4 +34,7 @@ export interface StickerReactionRequest {
 export interface StickerReactionResponse {
   postId: number
   myReactionSticker: string
+  myReactionStickerId: number | null
+  myReactionStickerImageUrl: string | null
+  stickerReactions: StickerReactionItem[]
 }

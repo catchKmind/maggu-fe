@@ -1,8 +1,13 @@
 import { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useSlideSheet } from '../../../shared/hooks/useSlideSheet'
 import { useReportPost } from '../hooks/useReportPost'
-import { useSharePost } from '../hooks/useSharePost'
+import { useDeletePost } from '../hooks/useDeletePost'
+import { useMyAccount } from '../../mypage/hooks/useMyAccount'
+import { ConfirmDialog } from '../../mypage/components/ConfirmDialog'
+import { useShareUrl } from '../hooks/useSharePost'
+import { copyText } from '../../../shared/lib/copyText'
 import type { ReportReason } from '../api/reports.types'
 
 const REPORT_REASONS: { key: ReportReason; labelKey: string }[] = [
@@ -49,45 +54,97 @@ function WarningIcon() {
   )
 }
 
+function TrashIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M4 6h12M8 6V4.5h4V6M6 6l.6 9.5h6.8L14 6M8.5 9v4M11.5 9v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 type MenuStep = 'menu' | 'report'
 
 interface PostMenuProps {
   postId: number
+  /** 글쓴이 닉네임. 내 글이면 신고 대신 삭제 버튼을 보여주는 데 쓴다 */
+  writerNickname?: string
   /** 공유 동작을 바꾸고 싶을 때 (예: 상세 화면의 '링크 복사됨' 표시). 없으면 기본 공유를 쓴다. */
   onShare?: () => void
 }
 
 /** 게시글 더보기(…) 메뉴. 바텀시트로 공유 / 신고를 띄우고, 신고를 누르면 사유를 고른다. */
-export function PostMenu({ postId, onShare }: PostMenuProps) {
+export function PostMenu({ postId, writerNickname, onShare }: PostMenuProps) {
   const { t } = useTranslation('community')
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const { data: account } = useMyAccount()
+  // 닉네임은 중복이 안 되는 값이라(프로필 수정에서 중복 검사) 글쓴이와 내 닉네임이 같으면 내 글로 본다
+  const isMine = Boolean(account?.nickname && writerNickname && account.nickname === writerNickname)
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
+  const deletePostMutation = useDeletePost()
   const [isOpen, setIsOpen] = useState(false)
   const [step, setStep] = useState<MenuStep>('menu')
   const { shouldRender, isVisible } = useSlideSheet(isOpen)
   const reportPost = useReportPost()
-  const sharePost = useSharePost()
+  // 메뉴를 열 때 링크를 미리 받아 둔다 (공유창은 누른 순간에 바로 열어야 해서)
+  const shareUrl = useShareUrl(postId, isOpen)
+  const [toast, setToast] = useState<string | null>(null)
+
+  const showToast = (message: string) => {
+    setToast(message)
+    setTimeout(() => setToast(null), 2000)
+  }
 
   const close = () => {
     setIsOpen(false)
     setStep('menu')
   }
 
-  const defaultShare = async () => {
-    const { url } = await sharePost.mutateAsync(postId)
-    if (navigator.share) {
-      try {
-        await navigator.share({ url })
-      } catch {
-        // 사용자가 공유 취소
-      }
+  const handleShare = async () => {
+    if (onShare) {
+      close()
+      onShare()
       return
     }
-    await navigator.clipboard.writeText(url)
+
+    // 링크가 이미 준비돼 있으면 await 없이 바로 공유창을 연다 (누른 순간이어야 iOS가 허용한다)
+    let url = shareUrl.data?.url
+    const isInGesture = Boolean(url)
+    if (!url) {
+      try {
+        url = (await shareUrl.refetch()).data?.url
+      } catch {
+        // 아래에서 실패로 처리
+      }
+    }
+    close()
+    if (!url) {
+      showToast(t('postDetail.shareFailed'))
+      return
+    }
+
+    if (isInGesture && typeof navigator.share === 'function') {
+      try {
+        await navigator.share({ url })
+        return
+      } catch (error) {
+        // 사용자가 공유창을 닫은 경우는 그대로 끝낸다
+        if (error instanceof DOMException && error.name === 'AbortError') return
+      }
+    }
+
+    // 공유창을 못 쓰는 환경(데스크톱 등)이거나 거절되면 링크를 복사한다
+    showToast(t((await copyText(url)) ? 'postDetail.linkCopied' : 'postDetail.shareFailed'))
   }
 
-  const handleShare = () => {
-    close()
-    if (onShare) onShare()
-    else void defaultShare()
+  const handleDelete = () => {
+    deletePostMutation.mutate(postId, {
+      onSuccess: () => {
+        setIsDeleteConfirmOpen(false)
+        // 삭제한 글의 상세 화면이었다면 목록으로 돌아간다
+        if (pathname.startsWith('/community/posts/')) navigate('/community', { replace: true })
+      },
+    })
   }
 
   const handleReport = (reason: ReportReason) => {
@@ -109,6 +166,15 @@ export function PostMenu({ postId, onShare }: PostMenuProps) {
         <MoreIcon />
       </button>
 
+      {toast && (
+        <div
+          role="status"
+          className="fixed bottom-24 left-1/2 z-[70] -translate-x-1/2 rounded-full bg-gray-800/90 px-4 py-2 typo-body-m whitespace-nowrap text-white"
+        >
+          {toast}
+        </div>
+      )}
+
       {shouldRender && (
         <div className="fixed inset-0 z-50" onClick={(e) => e.stopPropagation()}>
           <button
@@ -121,7 +187,7 @@ export function PostMenu({ postId, onShare }: PostMenuProps) {
           />
 
           <div
-            className={`absolute inset-x-0 bottom-0 mx-auto flex w-full max-w-[375px] flex-col rounded-t-[24px] bg-white pb-[calc(var(--safe-bottom)+16px)] transition-transform duration-300 ease-out ${
+            className={`absolute inset-x-0 bottom-0 mx-auto flex w-full max-w-[430px] flex-col rounded-t-[24px] bg-white pb-[calc(var(--safe-bottom)+16px)] transition-transform duration-300 ease-out ${
               isVisible ? 'translate-y-0' : 'translate-y-full'
             }`}
           >
@@ -136,10 +202,24 @@ export function PostMenu({ postId, onShare }: PostMenuProps) {
                     {t('postDetail.share')}
                     <ShareIcon />
                   </button>
-                  <button type="button" onClick={() => setStep('report')} className={`${ROW_CLASS} text-error`}>
-                    {t('report.label')}
-                    <WarningIcon />
-                  </button>
+                  {isMine ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        close()
+                        setIsDeleteConfirmOpen(true)
+                      }}
+                      className={`${ROW_CLASS} text-error`}
+                    >
+                      {t('postDelete.label')}
+                      <TrashIcon />
+                    </button>
+                  ) : (
+                    <button type="button" onClick={() => setStep('report')} className={`${ROW_CLASS} text-error`}>
+                      {t('report.label')}
+                      <WarningIcon />
+                    </button>
+                  )}
                 </>
               ) : (
                 REPORT_REASONS.map((reason) => (
@@ -157,6 +237,17 @@ export function PostMenu({ postId, onShare }: PostMenuProps) {
           </div>
         </div>
       )}
+
+      <ConfirmDialog
+        isOpen={isDeleteConfirmOpen}
+        title={t('postDelete.title')}
+        description={t('postDelete.description')}
+        cancelLabel={t('postDelete.cancel')}
+        confirmLabel={t('postDelete.confirm')}
+        onCancel={() => setIsDeleteConfirmOpen(false)}
+        onConfirm={handleDelete}
+        isPending={deletePostMutation.isPending}
+      />
     </>
   )
 }

@@ -7,6 +7,7 @@ import type { CommunityPost } from '../types'
 import { PostPhotoGrid } from './PostPhotoGrid'
 import { PostMenu } from './PostMenu'
 import { StickerReactionPicker } from './StickerReactionPicker'
+import { StickerReactionChips } from './StickerReactionChips'
 
 function CommentIcon() {
   return (
@@ -90,7 +91,7 @@ export function PostCard({ post }: PostCardProps) {
             <span className="text-14 leading-[19px] tracking-[-0.48px] text-gray-400">{post.createdAgo}</span>
           </div>
         </div>
-        <PostMenu postId={postId} />
+        <PostMenu postId={postId} writerNickname={post.author.name} />
       </div>
 
       <div onClick={goToDetail} className="mt-[6px] cursor-pointer">
@@ -121,7 +122,8 @@ export function PostCard({ post }: PostCardProps) {
       )}
 
       <div className="mt-[18px] flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <StickerReactionChips postId={postId} reactions={post.stickerReactions} max={3} />
           <StickerReactionPicker postId={postId} />
         </div>
         <div className="mr-[9px] flex items-center gap-2">

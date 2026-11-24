@@ -1,3 +1,5 @@
+import type { StickerReactionItem } from './api/posts.types'
+
 export interface CommunityAuthor {
   id: string
   name: string
@@ -5,7 +7,8 @@ export interface CommunityAuthor {
 }
 
 export type CommunityFeedTab = 'recommended' | 'question'
-export type CommunitySortOrder = 'latest' | 'scrap'
+/** 서버 sort 파라미터 값 그대로 (latest / most_scrapped) */
+export type CommunitySortOrder = 'latest' | 'most_scrapped'
 
 export interface PostLocation {
   lat: number
@@ -22,6 +25,7 @@ export interface CommunityPost {
   createdAgo: string
   content: string
   photos: string[]
+  stickerReactions: StickerReactionItem[]
   participantCount: number
   commentCount: number
   scrapCount: number

@@ -67,6 +67,17 @@
     "send": "게시",
     "share": "공유",
     "linkCopied": "링크가 복사되었어요",
-    "reportComment": "댓글 신고"
+    "reportComment": "댓글 신고",
+    "shareFailed": "공유하지 못했어요. 잠시 후 다시 시도해 주세요",
+    "hiddenComment": "숨겨진 댓글입니다",
+    "hideComment": "숨기기",
+    "unhideComment": "숨김 해제"
+  },
+  "postDelete": {
+    "label": "삭제",
+    "title": "게시글을 삭제할까요?",
+    "description": "삭제한 게시글은 되돌릴 수 없어요.",
+    "cancel": "취소",
+    "confirm": "삭제"
   }
 }

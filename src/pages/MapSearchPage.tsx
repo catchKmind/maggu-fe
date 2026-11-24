@@ -91,7 +91,7 @@ export default function MapSearchPage() {
   const isError = activeTab === 'place' ? isPlaceError : isPostError
 
   return (
-    <div className="flex flex-1 flex-col pt-[var(--safe-top,0px)]">
+    <div className="flex flex-1 flex-col pt-[calc(var(--safe-top,0px)+7px)]">
       <form onSubmit={handleSubmit} className="px-4 pb-[10px]">
         <div className="relative">
           <button
@@ -176,7 +176,15 @@ export default function MapSearchPage() {
             {!isError && activeTab !== 'place' && (
               <div className="grid grid-cols-2 gap-2 px-4 py-7">
                 {posts.map((post) => (
-                  <img key={post.postId} src={post.imageUrl} alt="" className="h-[197px] w-full rounded-lg object-cover" />
+                  // 사진을 누르면 그 게시글 상세로 이동한다
+                  <button
+                    key={post.postId}
+                    type="button"
+                    onClick={() => navigate(`/community/posts/${post.postId}`)}
+                    className="block h-[197px] w-full overflow-hidden rounded-lg"
+                  >
+                    <img src={post.imageUrl} alt="" className="size-full object-cover" />
+                  </button>
                 ))}
               </div>
             )}

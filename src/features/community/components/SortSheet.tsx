@@ -4,7 +4,7 @@ import type { CommunitySortOrder } from '../types'
 
 const SORT_OPTIONS: { key: CommunitySortOrder; labelKey: string }[] = [
   { key: 'latest', labelKey: 'sort.latest' },
-  { key: 'scrap', labelKey: 'sort.scrap' },
+  { key: 'most_scrapped', labelKey: 'sort.scrap' },
 ]
 
 function CheckIcon() {
@@ -40,7 +40,7 @@ export function SortSheet({ isOpen, value, onChange, onClose }: SortSheetProps) 
       />
 
       <div
-        className={`absolute inset-x-0 bottom-0 mx-auto flex w-full max-w-[375px] flex-col rounded-t-[24px] bg-white pb-[calc(var(--safe-bottom)+16px)] transition-transform duration-300 ease-out ${
+        className={`absolute inset-x-0 bottom-0 mx-auto flex w-full max-w-[430px] flex-col rounded-t-[24px] bg-white pb-[calc(var(--safe-bottom)+16px)] transition-transform duration-300 ease-out ${
           isVisible ? 'translate-y-0' : 'translate-y-full'
         }`}
       >

@@ -67,6 +67,17 @@
     "send": "Post",
     "share": "Share",
     "linkCopied": "Link copied",
-    "reportComment": "Report comment"
+    "reportComment": "Report comment",
+    "shareFailed": "Could not share. Please try again.",
+    "hiddenComment": "This comment is hidden",
+    "hideComment": "Hide",
+    "unhideComment": "Unhide"
+  },
+  "postDelete": {
+    "label": "Delete",
+    "title": "Delete this post?",
+    "description": "A deleted post cannot be restored.",
+    "cancel": "Cancel",
+    "confirm": "Delete"
   }
 }

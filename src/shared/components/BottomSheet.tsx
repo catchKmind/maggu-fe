@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useGuestGuard } from '../hooks/useGuestGuard'
 import { useTranslation } from 'react-i18next'
 import { Camera } from '@capacitor/camera'
 import { useSlideSheet } from '../hooks/useSlideSheet'
@@ -58,7 +59,8 @@ export function BottomSheet({
   // chooseFromGallery는 모바일 브라우저/웹뷰에서 파일 입력을 여는데,
   // 이때 OS가 자체적으로 "카메라로 촬영 / 사진 보관함" 액션시트를 띄워주므로
   // 커스텀 선택 UI를 따로 만들 필요가 없음 (만들면 선택창이 두 번 뜨게 됨).
-  const handlePickPhoto = async () => {
+  const guard = useGuestGuard()
+  const handlePickPhoto = guard(async () => {
     try {
       const { results } = await Camera.chooseFromGallery({ quality: 90 })
       const photo = results[0]
@@ -67,7 +69,7 @@ export function BottomSheet({
     } catch {
       // 사용자가 선택을 취소한 경우 - 별도 처리 없음
     }
-  }
+  })
 
   const handleConfirmSticker = (sticker: Blob) => {
     onAdd?.(sticker)
@@ -95,7 +97,7 @@ export function BottomSheet({
         />
 
         <div
-          className={`relative flex h-[70vh] w-full max-w-[375px] flex-col rounded-t-[24px] bg-white transition-transform duration-300 ease-out ${
+          className={`relative flex h-[70vh] w-full max-w-[430px] flex-col rounded-t-[24px] bg-white transition-transform duration-300 ease-out ${
             isVisible ? 'translate-y-0' : 'translate-y-full'
           }`}
         >

@@ -7,7 +7,7 @@ interface BottomActionButtonProps {
 /** 편집 모드 하단 고정 버튼 (Figma: btn - 선택한 스티커/리스트 삭제) */
 export function BottomActionButton({ label, onClick, disabled }: BottomActionButtonProps) {
   return (
-    <div className="fixed inset-x-0 bottom-0 mx-auto w-full max-w-[375px] px-4 pb-[calc(var(--safe-bottom)+34px)]">
+    <div className="fixed inset-x-0 bottom-0 mx-auto w-full max-w-[430px] px-4 pb-[calc(var(--safe-bottom)+34px)]">
       <button
         type="button"
         onClick={onClick}

@@ -8,6 +8,7 @@ import { BottomActionButton } from '../features/mypage/components/BottomActionBu
 import { EmptyState } from '../features/mypage/components/EmptyState'
 import { FolderIcon } from '../features/mypage/components/FolderIcon'
 import { usePlaceFolders } from '../features/myplaces/hooks/usePlaceFolders'
+import { useGuestGuard } from '../shared/hooks/useGuestGuard'
 import chevronIcon from '../assets/mypage/icon_chevron_left.svg'
 import plusIcon from '../assets/mypage/icon_plus.svg'
 import pencilMiniIcon from '../assets/mypage/icon_pencil_mini.svg'
@@ -27,6 +28,7 @@ function FolderIconTile({ icon }: { icon: string }) {
 export default function MyListsPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const guard = useGuestGuard()
   const { data: folders = [], isSuccess } = usePlaceFolders()
 
   const [isEditing, setIsEditing] = useState(false)
@@ -52,7 +54,7 @@ export default function MyListsPage() {
     setIsConfirmOpen(false)
   }
 
-  const goToCreate = () => navigate('/my-page/lists/new')
+  const goToCreate = guard(() => navigate('/my-page/lists/new'))
   const selectedCount = selectedIds.size
 
   return (
