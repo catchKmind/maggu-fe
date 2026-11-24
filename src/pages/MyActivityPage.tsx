@@ -30,7 +30,11 @@ export default function MyActivityPage() {
   const commentsQuery = useMyComments()
   const posts = postsQuery.data?.pages.flatMap((page) => page.posts.content) ?? []
   const comments = commentsQuery.data?.pages.flatMap((page) => page.comments.content) ?? []
-  const counts = postsQuery.data?.pages[0] ?? commentsQuery.data?.pages[0]
+  // 각 탭의 숫자는 그 탭 목록의 응답을 우선 쓴다. (한쪽 응답만 새로 불러온 경우에도 최신 값이 보이도록)
+  const firstPosts = postsQuery.data?.pages[0]
+  const firstComments = commentsQuery.data?.pages[0]
+  const postCount = firstPosts?.postCount ?? firstComments?.postCount
+  const commentCount = firstComments?.commentCount ?? firstPosts?.commentCount
 
   const activeQuery = tab === 'posts' ? postsQuery : commentsQuery
   const loadMoreRef = useLoadMoreOnVisible(
@@ -43,10 +47,10 @@ export default function MyActivityPage() {
       <MyPageHeader title={t('myPage.activity')} />
 
       <SegmentTabs>
-        <SegmentTab label={t('myPage.tabPosts')} count={counts?.postCount} isActive={tab === 'posts'} onClick={() => changeTab('posts')} />
+        <SegmentTab label={t('myPage.tabPosts')} count={postCount} isActive={tab === 'posts'} onClick={() => changeTab('posts')} />
         <SegmentTab
           label={t('myPage.tabComments')}
-          count={counts?.commentCount}
+          count={commentCount}
           isActive={tab === 'comments'}
           onClick={() => changeTab('comments')}
         />

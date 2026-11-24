@@ -25,6 +25,7 @@
     "react-i18next": "^17.0.11",
     "react-router-dom": "^7.18.1",
     "styled-components": "^6.5.3",
+    "supercluster": "^9.1.0",
     "tailwindcss": "^4.3.3",
     "zustand": "^5.0.14"
   },
@@ -34,6 +35,7 @@
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
+    "@types/supercluster": "^7.1.3",
     "@vitejs/plugin-react": "^6.0.3",
     "oxlint": "^1.71.0",
     "typescript": "~6.0.2",

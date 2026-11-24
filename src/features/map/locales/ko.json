@@ -1,6 +1,6 @@
 {
   "placeholder": "지도",
-  "outOfService": "현재 경상도 지역만 서비스하고 있어요.",
+  "outOfService": "현재 대한민국 지역만 서비스하고 있어요.",
   "tags": {
     "hotplace": "지금 인기",
     "cafe": "카페",
@@ -22,7 +22,11 @@
       "38": "쇼핑",
       "39": "음식점"
     },
-    "noPhoto": "등록된 사진이 없어요"
+    "noPhoto": "등록된 사진이 없어요",
+    "feedLoading": "불러오는 중...",
+    "feedEmpty": "아직 게시글이 없어요",
+    "feedError": "게시글을 불러오지 못했어요",
+    "closedDays": "휴무"
   },
   "searchPage": {
     "placeholder": "장소나 관광지를 검색해보세요",

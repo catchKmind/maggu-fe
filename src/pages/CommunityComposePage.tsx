@@ -150,6 +150,11 @@ export default function CommunityComposePage() {
       queryClient.invalidateQueries({ queryKey: ['communityFeed'] })
       // 내 활동의 글 목록과 개수도 바뀐다
       queryClient.invalidateQueries({ queryKey: ['myPosts'] })
+      queryClient.invalidateQueries({ queryKey: ['myComments'] })
+      // 장소 시트의 게시글 목록과 지도 마커에도 새 글이 보이도록
+      queryClient.invalidateQueries({ queryKey: ['contentFeed'] })
+      queryClient.invalidateQueries({ queryKey: ['mapPosts'] })
+      queryClient.invalidateQueries({ queryKey: ['searchMapPosts'] })
       navigate('/community')
     },
   })

@@ -2,21 +2,40 @@ import { useEffect } from 'react'
 import mapboxgl from 'mapbox-gl'
 import { createRoot } from 'react-dom/client'
 import { PostMarker } from '../components/PostMarker'
+import type { MarkerItem } from '../mappers/toMapMarkers'
 import type { PhotoSpot } from '../types'
 
-export function usePostMarkers(map: mapboxgl.Map | null, posts: PhotoSpot[], onSpotClick?: (spot: PhotoSpot) => void) {
+/**
+ * 지도 위 사진 마커를 그린다. 낱장 장소는 누르면 장소 시트를 열고(onSpotClick),
+ * 묶음은 누르면 그 묶음이 쪼개지는 줌으로 확대한다.
+ */
+export function usePostMarkers(map: mapboxgl.Map | null, items: MarkerItem[], onSpotClick?: (spot: PhotoSpot) => void) {
   useEffect(() => {
     if (!map) return
 
-    const markers = posts.map((post) => {
+    const markers = items.map((item) => {
       const el = document.createElement('div')
       const root = createRoot(el)
-      root.render(
-        <PostMarker imageUrl={post.photos[0]} postCount={post.postCount} onClick={() => onSpotClick?.(post)} />,
-      )
+      let lngLat: [number, number]
 
-      const marker = new mapboxgl.Marker({ element: el, anchor: 'center' }).setLngLat([post.lng, post.lat]).addTo(map)
+      if (item.kind === 'spot') {
+        lngLat = [item.spot.lng, item.spot.lat]
+        root.render(
+          <PostMarker imageUrl={item.spot.photos[0]} postCount={item.spot.postCount} onClick={() => onSpotClick?.(item.spot)} />,
+        )
+      } else {
+        lngLat = [item.lng, item.lat]
+        root.render(
+          <PostMarker
+            imageUrl={item.imageUrl}
+            postCount={item.count}
+            badgeCount={item.count}
+            onClick={() => map.easeTo({ center: lngLat, zoom: item.expansionZoom, duration: 400 })}
+          />,
+        )
+      }
 
+      const marker = new mapboxgl.Marker({ element: el, anchor: 'center' }).setLngLat(lngLat).addTo(map)
       return { marker, root }
     })
 
@@ -27,5 +46,5 @@ export function usePostMarkers(map: mapboxgl.Map | null, posts: PhotoSpot[], onS
         queueMicrotask(() => root.unmount())
       })
     }
-  }, [map, posts, onSpotClick])
+  }, [map, items, onSpotClick])
 }

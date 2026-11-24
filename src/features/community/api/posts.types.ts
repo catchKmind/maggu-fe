@@ -106,7 +106,8 @@ export interface SearchPostsParams {
   size?: number
 }
 
-export type FeedSort = 'POPULAR' | 'LATEST'
+/** 서버 feedSort 값 그대로: 스크랩 많은순 / 최신순 */
+export type FeedSort = 'most_scrapped' | 'latest'
 
 export interface CursorPageResponse<T> {
   content: T[]

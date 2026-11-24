@@ -64,7 +64,7 @@ export default function MapSearchPage() {
   const { data: places, isError: isPlaceError } = useSearchMapSpots(
     activeTab === 'place' ? submittedKeyword : null,
   )
-  const feedSort: FeedSort = activeTab === 'popular' ? 'POPULAR' : 'LATEST'
+  const feedSort: FeedSort = activeTab === 'popular' ? 'most_scrapped' : 'latest'
   const { data: postFeed, isError: isPostError } = useSearchMapPosts(
     activeTab === 'place' ? null : submittedKeyword,
     feedSort,

@@ -1,6 +1,6 @@
 {
   "placeholder": "Map area",
-  "outOfService": "We currently only serve the Gyeongsang region.",
+  "outOfService": "We currently only serve South Korea.",
   "tags": {
     "hotplace": "Hot Place",
     "cafe": "Cafe",
@@ -22,7 +22,11 @@
       "38": "Shopping",
       "39": "Restaurant"
     },
-    "noPhoto": "No photos yet"
+    "noPhoto": "No photos yet",
+    "feedLoading": "Loading...",
+    "feedEmpty": "No posts yet",
+    "feedError": "Could not load posts",
+    "closedDays": "Closed"
   },
   "searchPage": {
     "placeholder": "Search for a place or spot",
