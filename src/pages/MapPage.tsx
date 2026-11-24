@@ -4,14 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { MapView } from '../features/map/components/MapView'
 import { Tag } from '../features/map/components/Tag'
 import { SearchButton } from '../features/map/components/SearchButton'
-import { StickerButton } from '../features/map/components/StickerButton'
 import { PlaceDetailSheet } from '../features/map/components/PlaceDetailSheet'
 import type { PhotoSpot } from '../features/map/types'
 import { BottomNavigation } from '../shared/components/BottomNavigation'
-import { BottomSheet } from '../shared/components/BottomSheet'
-import { useMyStickers } from '../features/sticker/hooks/useMyStickers'
-import { useDeleteSticker } from '../features/sticker/hooks/useDeleteSticker'
-import { useCreateSticker } from '../features/sticker/hooks/useCreateSticker'
 import type { MapPostCategory } from '../features/map/api/mapPosts.types'
 
 /** 필터 칩과 API category 값 대응. "카페"는 API에 대응하는 값이 없어 아직 필터로 못 씀 */
@@ -26,12 +21,8 @@ const CATEGORY_TAGS: { labelKey: string; category?: MapPostCategory }[] = [
 export default function MapPage() {
   const { t } = useTranslation('map')
   const navigate = useNavigate()
-  const [isStickerSheetOpen, setIsStickerSheetOpen] = useState(false)
   const [selectedSpot, setSelectedSpot] = useState<PhotoSpot | null>(null)
   const [category, setCategory] = useState<MapPostCategory | undefined>()
-  const { data: myStickers } = useMyStickers(isStickerSheetOpen)
-  const deleteSticker = useDeleteSticker()
-  const createSticker = useCreateSticker()
 
   return (
     <div className="relative flex flex-1 flex-col">
@@ -54,20 +45,10 @@ export default function MapPage() {
             </Tag>
           ))}
         </div>
-        <div className="flex justify-end px-4 py-7">
-          <StickerButton onClick={() => setIsStickerSheetOpen(true)} />
-        </div>
       </div>
       <div className="absolute inset-x-0 bottom-[35px] flex justify-center">
         <BottomNavigation />
       </div>
-      <BottomSheet
-        isOpen={isStickerSheetOpen}
-        onClose={() => setIsStickerSheetOpen(false)}
-        myStickers={myStickers}
-        onAdd={(sticker) => createSticker.mutate(sticker)}
-        onDeleteSticker={(stickerId) => deleteSticker.mutate(stickerId)}
-      />
       <PlaceDetailSheet spot={selectedSpot} onClose={() => setSelectedSpot(null)} />
     </div>
   )

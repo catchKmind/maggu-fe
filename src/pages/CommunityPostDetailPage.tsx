@@ -10,11 +10,12 @@ import { PostMenu } from '../features/community/components/PostMenu'
 import { StickerReactionPicker } from '../features/community/components/StickerReactionPicker'
 import { CommentItem } from '../features/community/components/CommentItem'
 import { usePostDetail } from '../features/community/hooks/usePostDetail'
+import { useHiddenComments } from '../features/community/hooks/useHiddenComments'
+import { useMyAccount } from '../features/mypage/hooks/useMyAccount'
 import { useComments } from '../features/community/hooks/useComments'
 import { useCreateComment } from '../features/community/hooks/useCreateComment'
 import { useToggleCommentLike } from '../features/community/hooks/useToggleCommentLike'
 import { useToggleScrap } from '../features/community/hooks/useToggleScrap'
-import { useSharePost } from '../features/community/hooks/useSharePost'
 import type { CommentResponse } from '../features/community/api/comments.types'
 
 function countComments(comments: CommentResponse[]): number {
@@ -65,30 +66,17 @@ export default function CommunityPostDetailPage() {
   const postId = Number(postIdParam)
 
   const { data: post, isLoading, isError } = usePostDetail(postId)
+  const { data: account } = useMyAccount()
+  const { hiddenIds, toggleHidden } = useHiddenComments(postId)
+  // 내 게시글에서만 댓글을 숨길 수 있다
+  const isMyPost = Boolean(account?.nickname && post && account.nickname === post.writerNickname)
   const { data: comments } = useComments(postId)
   const createComment = useCreateComment(postId)
   const toggleLike = useToggleCommentLike(postId)
   const toggleScrap = useToggleScrap()
-  const sharePost = useSharePost()
 
   const [commentText, setCommentText] = useState('')
   const [replyTarget, setReplyTarget] = useState<CommentResponse | null>(null)
-  const [isLinkCopied, setIsLinkCopied] = useState(false)
-
-  const handleShare = async () => {
-    const result = await sharePost.mutateAsync(postId)
-    if (navigator.share) {
-      try {
-        await navigator.share({ url: result.url })
-      } catch {
-        // 사용자가 공유 취소 - 별도 처리 없음
-      }
-      return
-    }
-    await navigator.clipboard.writeText(result.url)
-    setIsLinkCopied(true)
-    setTimeout(() => setIsLinkCopied(false), 2000)
-  }
 
   const handleSubmitComment = () => {
     const content = commentText.trim()
@@ -120,7 +108,6 @@ export default function CommunityPostDetailPage() {
           <BackIcon />
         </button>
         <span className="typo-body-l-bold text-gray-700">{t('postDetail.pageTitle')}</span>
-        {isLinkCopied && <span className="ml-auto text-13 text-gray-400">{t('postDetail.linkCopied')}</span>}
       </div>
 
       {isLoading && <p className="px-5 py-8 text-center text-14 text-gray-400">{t('feed.loading')}</p>}
@@ -138,7 +125,7 @@ export default function CommunityPostDetailPage() {
                     <span className="text-14 leading-[19px] tracking-[-0.48px] text-gray-400">{formatRelativeTime(post.createdAt)}</span>
                   </div>
                 </div>
-                <PostMenu postId={postId} onShare={handleShare} />
+                <PostMenu postId={postId} writerNickname={post.writerNickname} />
               </div>
 
               <p className="mt-[6px] text-14 leading-[1.4] tracking-[-0.48px] whitespace-pre-line wrap-anywhere text-gray-900">
@@ -187,6 +174,9 @@ export default function CommunityPostDetailPage() {
                 comment={comment}
                 onReply={setReplyTarget}
                 onToggleLike={(commentId) => toggleLike.mutate(commentId)}
+                hiddenIds={hiddenIds}
+                canHide={isMyPost}
+                onToggleHide={toggleHidden}
               />
             ))}
             {comments && comments.length === 0 && (

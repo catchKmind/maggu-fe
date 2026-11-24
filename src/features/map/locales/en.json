@@ -21,7 +21,8 @@
       "32": "Accommodation",
       "38": "Shopping",
       "39": "Restaurant"
-    }
+    },
+    "noPhoto": "No photos yet"
   },
   "searchPage": {
     "placeholder": "Search for a place or spot",

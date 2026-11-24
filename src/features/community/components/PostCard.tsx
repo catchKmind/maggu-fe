@@ -90,7 +90,7 @@ export function PostCard({ post }: PostCardProps) {
             <span className="text-14 leading-[19px] tracking-[-0.48px] text-gray-400">{post.createdAgo}</span>
           </div>
         </div>
-        <PostMenu postId={postId} />
+        <PostMenu postId={postId} writerNickname={post.author.name} />
       </div>
 
       <div onClick={goToDetail} className="mt-[6px] cursor-pointer">
