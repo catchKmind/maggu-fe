@@ -27,7 +27,7 @@ export function PostMarker({ imageUrl, postCount = 1, badgeCount, onClick }: Pos
         onClick={onClick}
         className="size-full overflow-hidden rounded-lg border-2 border-purple-400 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
       >
-        <img src={imageUrl} alt="" className="h-full w-full object-cover" />
+        <img src={imageUrl} alt="" decoding="async" className="h-full w-full object-cover" />
       </button>
       {badgeCount !== undefined && (
         <span className="pointer-events-none absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-purple-500 px-1.5 typo-body-xs font-medium text-white shadow-[0_1px_4px_rgba(0,0,0,0.25)]">

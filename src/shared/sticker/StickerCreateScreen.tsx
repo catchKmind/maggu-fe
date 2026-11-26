@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { createSticker } from './createSticker'
+import { createSticker, preloadStickerModel } from './createSticker'
 
 type CornerPosition = 'tl' | 'tr' | 'bl' | 'br'
 
@@ -42,6 +42,11 @@ export function StickerCreateScreen({ source, onCancel, onConfirm }: StickerCrea
   const [previewUrl, setPreviewUrl] = useState(source)
   const [isPressing, setIsPressing] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
+
+  // 안내 문구를 읽는 동안 누끼 모델을 미리 내려받아 둔다
+  useEffect(() => {
+    preloadStickerModel()
+  }, [])
   const objectUrlRef = useRef<string | null>(null)
   const pressTimerRef = useRef<number | null>(null)
   const pressStartRef = useRef<{ x: number; y: number } | null>(null)
