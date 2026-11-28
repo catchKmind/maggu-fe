@@ -1,7 +1,15 @@
 import { create } from 'zustand'
-import { getAuthToken } from '../shared/lib/authToken'
+import { clearAuthToken, getAuthToken, setAuthToken } from '../shared/lib/authToken'
 
 const GUEST_KEY = 'maggu-guest'
+
+/**
+ * 회원 상태.
+ * - anonymous: 토큰 없음(로그인 전·로그아웃·토큰 만료)
+ * - guest: "게스트로 시작하기"로 들어온 사용자. 둘러보기만 가능하고 쓰기 요청은 막는다
+ * - member: 애플 등 실제 계정으로 로그인한 사용자
+ */
+export type AuthStatus = 'anonymous' | 'guest' | 'member'
 
 function readGuest(): boolean {
   try {
@@ -20,31 +28,40 @@ function writeGuest(isGuest: boolean) {
   }
 }
 
+/** 새로고침 시 저장된 토큰·게스트 표시로 상태를 복원한다 */
+function readInitialStatus(): AuthStatus {
+  if (!getAuthToken()) return 'anonymous'
+  return readGuest() ? 'guest' : 'member'
+}
+
 interface AppState {
-  isLoggedIn: boolean
-  /** 게스트로 시작한 사용자. 둘러보기만 가능하고 글쓰기·댓글·스크랩 같은 쓰기 요청은 막는다 */
-  isGuest: boolean
+  status: AuthStatus
   /** 게스트가 쓰기 기능을 눌렀을 때 띄우는 안내 팝업 */
   isGuestNoticeOpen: boolean
-  setLoggedIn: (v: boolean) => void
-  setGuest: (v: boolean) => void
+  /** 토큰 저장과 상태 전환을 한 번에 처리한다. 로그인 성공 시 이것만 호출하면 된다 */
+  signIn: (accessToken: string, as: Exclude<AuthStatus, 'anonymous'>) => void
+  /** 토큰·게스트 표시를 지우고 anonymous로 되돌린다 (로그아웃·탈퇴·토큰 만료 공통) */
+  signOut: () => void
   openGuestNotice: () => void
   closeGuestNotice: () => void
 }
 
 export const useAppStore = create<AppState>((set) => ({
-  isLoggedIn: !!getAuthToken(),
-  isGuest: !!getAuthToken() && readGuest(),
+  status: readInitialStatus(),
   isGuestNoticeOpen: false,
-  // 로그아웃·토큰 만료로 로그인이 풀리면 게스트 표시도 함께 지운다
-  setLoggedIn: (v) => {
-    if (!v) writeGuest(false)
-    set(v ? { isLoggedIn: true } : { isLoggedIn: false, isGuest: false, isGuestNoticeOpen: false })
+  signIn: (accessToken, as) => {
+    setAuthToken(accessToken)
+    writeGuest(as === 'guest')
+    set({ status: as })
   },
-  setGuest: (v) => {
-    writeGuest(v)
-    set({ isGuest: v })
+  signOut: () => {
+    clearAuthToken()
+    writeGuest(false)
+    set({ status: 'anonymous', isGuestNoticeOpen: false })
   },
   openGuestNotice: () => set({ isGuestNoticeOpen: true }),
   closeGuestNotice: () => set({ isGuestNoticeOpen: false }),
 }))
+
+export const selectIsLoggedIn = (s: AppState) => s.status !== 'anonymous'
+export const selectIsGuest = (s: AppState) => s.status === 'guest'

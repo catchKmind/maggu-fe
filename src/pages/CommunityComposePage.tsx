@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useAppStore } from '../stores/useAppStore'
+import { selectIsGuest, useAppStore } from '../stores/useAppStore'
 import { createPost } from '../features/community/api/posts'
 import { pickPhotoFromGallery, takePostPhoto } from '../features/community/hooks/usePickPostPhoto'
 import { uploadFile } from '../features/uploads/uploadFile'
@@ -66,7 +66,7 @@ export default function CommunityComposePage() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   // 게스트는 글을 쓸 수 없다. 주소로 직접 들어와도 안내만 띄우고 커뮤니티로 돌려보낸다.
-  const isGuest = useAppStore((s) => s.isGuest)
+  const isGuest = useAppStore(selectIsGuest)
   useEffect(() => {
     if (!isGuest) return
     useAppStore.getState().openGuestNotice()

@@ -81,7 +81,7 @@ export default function MyPage() {
         cancelLabel={t('myPage.cancel')}
         confirmLabel={t('myPage.logout')}
         onCancel={() => setDialog(null)}
-        onConfirm={signOut}
+        onConfirm={() => signOut()}
       />
       <ConfirmDialog
         isOpen={dialog === 'withdraw'}

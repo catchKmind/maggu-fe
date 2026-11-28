@@ -1,4 +1,4 @@
-import { getAuthToken, clearAuthToken } from './authToken'
+import { getAuthToken } from './authToken'
 import { isNativeApp } from './platform'
 import { useAppStore } from '../../stores/useAppStore'
 
@@ -33,8 +33,8 @@ export class ApiError extends Error {
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   // 게스트는 둘러보기만 가능하다. 서버로 보내기 전에 쓰기 요청(GET이 아닌 것)을 막고 안내 팝업을 띄운다.
   if ((options?.method ?? 'GET') !== 'GET') {
-    const { isGuest, openGuestNotice } = useAppStore.getState()
-    if (isGuest) {
+    const { status, openGuestNotice } = useAppStore.getState()
+    if (status === 'guest') {
       openGuestNotice()
       throw new ApiError(403, 'GUEST_READ_ONLY')
     }
@@ -50,11 +50,11 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   })
   // 액세스 토큰은 1시간 뒤 만료되는데 재발급 엔드포인트가 아직 없어서, 만료되면 로그아웃시킨다.
   // (토큰만 남아있으면 로그인된 것으로 취급돼 모든 요청이 조용히 401로 실패하기 때문)
-  // 502는 백엔드 서버 자체가 죽어있을 때 뜨는데, 이 상태로 화면만 깨진 채 남아있는 것보다
-  // 로그인 화면으로 보내는 게 나아서 같이 처리한다.
-  if (res.status === 401 || res.status === 502) {
-    clearAuthToken()
-    useAppStore.getState().setLoggedIn(false)
+  // 502·503 같은 서버 오류는 토큰 문제가 아니므로 로그아웃시키지 않는다.
+  // 서버가 잠깐 죽었다고 로그인이 풀리면 복구된 뒤에도 다시 로그인해야 해서, 에러만 던지고 각 화면의 에러 UI에 맡긴다.
+  if (res.status === 401) {
+    // anonymous로 바뀌면 RequireAuth가 현재 주소를 redirect로 달아 로그인 화면으로 보낸다
+    useAppStore.getState().signOut()
   }
   if (!res.ok) throw new ApiError(res.status, await res.text())
   if (res.status === 204) return undefined as T

@@ -1,4 +1,4 @@
-import { useAppStore } from '../../stores/useAppStore'
+import { selectIsGuest, useAppStore } from '../../stores/useAppStore'
 
 /**
  * 게스트(둘러보기 전용)는 쓰기 화면으로 들어가기 전에 안내 팝업을 띄워 막는다.
@@ -6,7 +6,7 @@ import { useAppStore } from '../../stores/useAppStore'
  * (실제 쓰기 요청은 shared/lib/api.ts에서 한 번 더 막는다)
  */
 export function useGuestGuard() {
-  const isGuest = useAppStore((s) => s.isGuest)
+  const isGuest = useAppStore(selectIsGuest)
   const openGuestNotice = useAppStore((s) => s.openGuestNotice)
 
   return <Args extends unknown[]>(action: (...args: Args) => void) =>

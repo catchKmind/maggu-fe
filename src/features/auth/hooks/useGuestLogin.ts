@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query'
-import { setAuthToken } from '../../../shared/lib/authToken'
 import { useAppStore } from '../../../stores/useAppStore'
 import { testLogin } from '../api/auth'
 
@@ -12,10 +11,8 @@ export function useGuestLogin() {
     mutationFn: async () => {
       const id = crypto.randomUUID().slice(0, 8)
       const token = await testLogin({ email: `guest-${id}@maggu.co.kr`, nickname: `게스트${id}` })
-      setAuthToken(token.accessToken)
       // 게스트는 둘러보기만 가능 — 쓰기 요청은 shared/lib/api.ts에서 막는다
-      useAppStore.getState().setGuest(true)
-      useAppStore.getState().setLoggedIn(true)
+      useAppStore.getState().signIn(token.accessToken, 'guest')
       return token
     },
   })

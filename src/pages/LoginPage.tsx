@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppleLogin } from '../features/auth/hooks/useAppleLogin'
 import { useGuestLogin } from '../features/auth/hooks/useGuestLogin'
 import { loadAppleSdk } from '../shared/lib/appleSignIn'
+import { getRedirectTarget } from '../shared/lib/authRedirect'
 import bgImage from '../assets/main/img_bgd.png'
 
 function AppleIcon() {
@@ -46,6 +47,9 @@ interface LoginPageProps {
 export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }: LoginPageProps) {
   const { t } = useTranslation('auth')
   const navigate = useNavigate()
+  const location = useLocation()
+  // 공유 링크 등으로 들어와 로그인 화면에 온 경우, 로그인 후 원래 페이지로 돌려보낸다
+  const redirectTo = getRedirectTarget(location.search)
   const appleLogin = useAppleLogin()
   const guestLogin = useGuestLogin()
 
@@ -61,7 +65,7 @@ export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }:
     appleLogin.mutate(undefined, {
       onSuccess: () => {
         onAppleLogin?.()
-        navigate('/')
+        navigate(redirectTo, { replace: true })
       },
     })
   }
@@ -70,7 +74,7 @@ export default function LoginPage({ onAppleLogin, onGoogleLogin, onGuestLogin }:
     guestLogin.mutate(undefined, {
       onSuccess: () => {
         onGuestLogin?.()
-        navigate('/')
+        navigate(redirectTo, { replace: true })
       },
     })
   }

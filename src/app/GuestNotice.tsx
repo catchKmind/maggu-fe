@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 import { ConfirmDialog } from '../features/mypage/components/ConfirmDialog'
 import { useSignOut } from '../features/mypage/hooks/useSignOut'
 import { useAppStore } from '../stores/useAppStore'
@@ -12,6 +13,7 @@ export function GuestNotice() {
   const isOpen = useAppStore((s) => s.isGuestNoticeOpen)
   const close = useAppStore((s) => s.closeGuestNotice)
   const signOut = useSignOut()
+  const location = useLocation()
 
   return (
     <ConfirmDialog
@@ -23,7 +25,8 @@ export function GuestNotice() {
       onCancel={close}
       onConfirm={() => {
         close()
-        signOut()
+        // 로그인하고 나면 보고 있던 페이지로 돌아오게 한다
+        signOut(`${location.pathname}${location.search}${location.hash}`)
       }}
     />
   )
